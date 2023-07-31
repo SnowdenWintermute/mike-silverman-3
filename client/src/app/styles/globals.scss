@@ -1,0 +1,38 @@
+@import "./base.scss";
+@import "../components/full-screen-canvas.scss";
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/DM_Sans/DMSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/DM_Sans/DMSans-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/DM_Sans/DMSans-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+:root,
+[data-theme="default"] {
+  --color-bg: #162229;
+  --color-primary: #9ba8b8;
+  --color-accent: #080b11;
+  --color-faded: #656b72;
+  --color-highlight: #bcd2e8;
+  --color-danger: #a52026;
+  --color-danger-highlight: #e42933;
+  --color-success: #028a7e;
+  --color-chat-message-private: #ffc0cb;
+  --color-warning: #ffbb00;
+  --font-family: "DM Sans";
+}

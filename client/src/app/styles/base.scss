@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "DM Sans";
+  src: local("DM Sans"),
+    url("../fonts/DM_Sans/DMSans-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "VT323";
+  src: local("VT323"), url("../fonts/VT323/VT323-Regular.ttf") format("ttf");
+  font-style: normal;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+a {
+  color: var(--color-primary);
+}
+
+p,
+span,
+li {
+  color: var(--color-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--color-primary);
+}
+
+.screenreader-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
