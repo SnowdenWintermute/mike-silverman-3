@@ -1,13 +1,17 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { MatterSim } from "../MatterSim";
 
 export type WidthAndHeight = { width: number; height: number };
 
-export default function FullScreenCanvas() {
+type Props = {
+  simulationRef: MutableRefObject<MatterSim>;
+};
+
+export default function FullScreenCanvas({ simulationRef }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef<WidthAndHeight | null>(null);
-  // const gameRef = useRef<TestGame>(new TestGame());
   const windowDimensions = useWindowDimensions();
 
   const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
@@ -28,6 +32,20 @@ export default function FullScreenCanvas() {
       width: windowDimensions.width,
     };
   }, [setCanvasSize, windowDimensions]);
+
+  useEffect(() => {
+    const simulationRefCurrent = simulationRef.current;
+    simulationRef.current.canvasSize = { width: canvasSize.width, height: canvasSize.height };
+    simulationRef.current.intervals.physics = setTimeout(() => {
+      const context = canvasRef.current?.getContext("2d");
+      if (!context || !canvasSizeRef.current) return;
+      simulationRef.current.stepSimulation(context, canvasSizeRef.current);
+    });
+
+    return () => {
+      simulationRefCurrent.cleanup();
+    };
+  }, [canvasRef, canvasSize.height, canvasSize.width]);
 
   return (
     <main>

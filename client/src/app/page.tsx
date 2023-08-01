@@ -1,12 +1,10 @@
 "use client";
-import FullScreenCanvas from "./components/FullScreenCanvas";
-
-export type WidthAndHeight = { width: number; height: number };
+import NameRevealMachine from "./components/NameRevealMachine";
 
 export default function Home() {
   return (
     <main>
-      <FullScreenCanvas />
+      <NameRevealMachine />
     </main>
   );
 }
