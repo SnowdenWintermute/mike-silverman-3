@@ -1,6 +1,14 @@
 import { Vector } from "matter-js";
 
-export default function drawAngleLine(context: CanvasRenderingContext2D, point: Vector, angle: number, width: number, length: number, color: string) {
+export default function drawAngleLine(
+  context: CanvasRenderingContext2D,
+  drawFractions: Vector,
+  point: Vector,
+  angle: number,
+  width: number,
+  length: number,
+  color: string
+) {
   context.beginPath();
   const { x, y } = point;
   context.strokeStyle = color;

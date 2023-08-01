@@ -9,29 +9,30 @@ type Props = {
   simulationRef: MutableRefObject<MatterSim>;
 };
 
-export default function FullScreenCanvas({ simulationRef }: Props) {
+export default function ResponsiveCanvas({ simulationRef }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef<WidthAndHeight | null>(null);
   const windowDimensions = useWindowDimensions();
 
   const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
-    width: 1920,
-    height: 1080,
+    width: 1,
+    height: 1,
   });
 
   useEffect(() => {
-    if (!windowDimensions) return;
+    if (!canvasRef.current) return;
+    console.log(canvasRef.current);
     // even though we don't use this value for anything, the fact that we set state forces a react refresh which actually makes the
     // canvas resize, so its needed for now
     setCanvasSize({
-      height: windowDimensions.height,
-      width: windowDimensions.width,
+      height: canvasRef.current.clientHeight,
+      width: canvasRef.current.clientWidth,
     });
     canvasSizeRef.current = {
-      height: windowDimensions.height,
-      width: windowDimensions.width,
+      height: canvasRef.current.clientHeight,
+      width: canvasRef.current.clientWidth,
     };
-  }, [setCanvasSize, windowDimensions]);
+  }, [setCanvasSize, canvasRef, windowDimensions]);
 
   useEffect(() => {
     const simulationRefCurrent = simulationRef.current;
@@ -48,15 +49,13 @@ export default function FullScreenCanvas({ simulationRef }: Props) {
   }, [canvasRef, canvasSize.height, canvasSize.width]);
 
   return (
-    <main>
-      <canvas
-        height={canvasSizeRef.current?.height}
-        width={canvasSizeRef.current?.width}
-        id="canvas"
-        className="canvas__full-screen"
-        ref={canvasRef}
-        onContextMenu={(e) => e.preventDefault()}
-      />
-    </main>
+    <canvas
+      height={canvasSizeRef.current?.height}
+      width={canvasSizeRef.current?.width}
+      id="canvas"
+      className="canvas__full-screen"
+      ref={canvasRef}
+      onContextMenu={(e) => e.preventDefault()}
+    />
   );
 }

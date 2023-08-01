@@ -1,11 +1,8 @@
 import Matter from "matter-js";
+import { EntityShape } from "./MatterSimEntities";
 
 export class Entity {
-  id: number;
-  body: Matter.Body;
-  constructor(id: number, body: Matter.Body, isStatic: boolean) {
-    this.id = id;
-    this.body = body;
+  constructor(public id: number, public body: Matter.Body, public shape: EntityShape, isStatic: boolean) {
     this.body.isSensor = isStatic;
   }
 }

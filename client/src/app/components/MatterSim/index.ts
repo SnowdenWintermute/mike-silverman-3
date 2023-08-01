@@ -3,6 +3,7 @@ import { MouseState } from "./MouseState";
 import { WidthAndHeight } from "../FullScreenCanvas";
 import { EntityShape, EntityType, MatterSimEntities, ShapeCreationData } from "./MatterSimEntities";
 import { Entity } from "./Entity";
+import { baseCanvasDimensions } from "./consts";
 
 export class MatterSim {
   physicsEngine: Matter.Engine = Matter.Engine.create();
@@ -10,7 +11,7 @@ export class MatterSim {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
   } = { physics: undefined, render: undefined };
-  canvasSize = { height: 1920, width: 1080 };
+  canvasSize = { height: baseCanvasDimensions.width, width: baseCanvasDimensions.height };
   mouseState = new MouseState();
   entities = new MatterSimEntities();
   renderRate = 20;
@@ -33,7 +34,7 @@ export class MatterSim {
     body.label = `${type}-${id}`;
     if (options?.static) body.isStatic = true;
     Matter.Composite.add(this.physicsEngine.world, body);
-    const newEntity = new Entity(id, body, !!options?.static);
+    const newEntity = new Entity(id, body, shape, !!options?.static);
 
     this.entities[type][id] = newEntity;
     return this.entities[type][id];
