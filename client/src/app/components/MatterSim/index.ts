@@ -1,9 +1,9 @@
 import Matter, { Vector } from "matter-js";
 import { MouseState } from "./MouseState";
-import { WidthAndHeight } from "../FullScreenCanvas";
 import { EntityShape, EntityType, MatterSimEntities, ShapeCreationData } from "./MatterSimEntities";
 import { Entity } from "./Entity";
-import { baseCanvasDimensions } from "./consts";
+import { baseWorldSize } from "./consts";
+import { WidthAndHeight } from "../ResposiveCanvas";
 
 export class MatterSim {
   physicsEngine: Matter.Engine = Matter.Engine.create();
@@ -11,14 +11,16 @@ export class MatterSim {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
   } = { physics: undefined, render: undefined };
-  canvasSize = { height: baseCanvasDimensions.width, width: baseCanvasDimensions.height };
+  worldSize = { height: baseWorldSize.width, width: baseWorldSize.height };
   mouseState = new MouseState();
   entities = new MatterSimEntities();
   renderRate = 20;
+  isInitialized = false;
 
   constructor(
     public updatePhysics: (simulation: MatterSim) => void,
-    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim) => void
+    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim) => void,
+    public shouldReinitializeOnCanvasResize = false
   ) {}
 
   createRegisteredEntity(position: Vector, type: EntityType, creationData: ShapeCreationData, options: { static?: boolean }) {
@@ -32,12 +34,17 @@ export class MatterSim {
     if (!body) return;
 
     body.label = `${type}-${id}`;
-    if (options?.static) body.isStatic = true;
     Matter.Composite.add(this.physicsEngine.world, body);
     const newEntity = new Entity(id, body, shape, !!options?.static);
 
     this.entities[type][id] = newEntity;
     return this.entities[type][id];
+  }
+
+  removeAllEntities() {
+    this.entities[EntityType.STATIC] = {};
+    this.entities[EntityType.MOBILE] = {};
+    Matter.Composite.clear(this.physicsEngine.world, false, true);
   }
 
   cleanup() {

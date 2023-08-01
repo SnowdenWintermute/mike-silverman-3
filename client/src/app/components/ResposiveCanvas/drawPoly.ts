@@ -4,8 +4,9 @@ export default function drawPoly(context: CanvasRenderingContext2D, drawFraction
   context.fillStyle = color;
   context.beginPath();
   vertices.forEach((vertex, i) => {
-    if (i === 0) context.moveTo(vertex.x, vertex.y);
-    else context.lineTo(vertex.x, vertex.y);
+    // console.log(vertex.x, vertex.y);
+    if (i === 0) context.moveTo(vertex.x * drawFractions.x, vertex.y * drawFractions.y);
+    else context.lineTo(vertex.x * drawFractions.x, vertex.y * drawFractions.y);
   });
   context.closePath();
   context.fill();

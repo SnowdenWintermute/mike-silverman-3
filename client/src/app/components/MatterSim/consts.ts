@@ -1,1 +1,1 @@
-export const baseCanvasDimensions = { width: 1920, height: 1080 };
+export const baseWorldSize = { width: 1920, height: 1080 };

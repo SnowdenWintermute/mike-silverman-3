@@ -21,13 +21,14 @@ export default function ResponsiveCanvas({ simulationRef }: Props) {
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    console.log(canvasRef.current);
+    // console.log(canvasRef.current);
     // even though we don't use this value for anything, the fact that we set state forces a react refresh which actually makes the
     // canvas resize, so its needed for now
     setCanvasSize({
       height: canvasRef.current.clientHeight,
       width: canvasRef.current.clientWidth,
     });
+
     canvasSizeRef.current = {
       height: canvasRef.current.clientHeight,
       width: canvasRef.current.clientWidth,
@@ -36,7 +37,7 @@ export default function ResponsiveCanvas({ simulationRef }: Props) {
 
   useEffect(() => {
     const simulationRefCurrent = simulationRef.current;
-    simulationRef.current.canvasSize = { width: canvasSize.width, height: canvasSize.height };
+    // simulationRef.current.canvasSize = { width: canvasSize.width, height: canvasSize.height };
     simulationRef.current.intervals.physics = setTimeout(() => {
       const context = canvasRef.current?.getContext("2d");
       if (!context || !canvasSizeRef.current) return;
