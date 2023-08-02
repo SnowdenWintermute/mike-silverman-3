@@ -11,7 +11,6 @@ export class MatterSim {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
   } = { physics: undefined, render: undefined };
-  worldSize = { height: baseWorldSize.width, width: baseWorldSize.height };
   mouseState = new MouseState();
   entities = new MatterSimEntities();
   renderRate = 20;
@@ -20,10 +19,11 @@ export class MatterSim {
   constructor(
     public updatePhysics: (simulation: MatterSim) => void,
     public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim) => void,
-    public shouldReinitializeOnCanvasResize = false
+    public shouldReinitializeOnCanvasResize = false,
+    public worldSize = { height: baseWorldSize.width, width: baseWorldSize.height }
   ) {}
 
-  createRegisteredEntity(position: Vector, type: EntityType, creationData: ShapeCreationData, options: { static?: boolean }) {
+  createRegisteredEntity(position: Vector, type: EntityType, creationData: ShapeCreationData, color: string, options: { static?: boolean }) {
     const { shape } = creationData;
     this.entities.lastIdAssigned += 1;
     const id = this.entities.lastIdAssigned;
@@ -35,7 +35,7 @@ export class MatterSim {
 
     body.label = `${type}-${id}`;
     Matter.Composite.add(this.physicsEngine.world, body);
-    const newEntity = new Entity(id, body, shape, !!options?.static);
+    const newEntity = new Entity(id, body, shape, color, !!options?.static);
 
     this.entities[type][id] = newEntity;
     return this.entities[type][id];
