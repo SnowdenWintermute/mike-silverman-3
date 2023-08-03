@@ -1,5 +1,6 @@
 import { cosineInterpolate, linearInterpolate } from "./interpolate";
 import linearCongruentialGeneratorPRNG from "./linearCongruentialGeneratorPRNG";
+import { PerlinAttributes } from "./types";
 
 export function perlin(xStart: number, xEnd: number, useLerp = false, amplitude: number = 100, wavelength: number = 100) {
   const result: number[] = [];
@@ -44,7 +45,8 @@ function combinePerlinOctaves(octaves: number[][]) {
   return result;
 }
 
-export function perlin1D(numberOfPoints: number, useLerp: boolean, amplitude: number = 100, wavelength: number = 100, numberOfOctaves = 4, divisor = 2) {
+export function perlin1D(attributes: PerlinAttributes, useLerp: boolean, divisor = 2) {
+  const { amplitude, numberOfPoints, wavelength, numberOfOctaves } = attributes;
   const octaves = perlinOctaves(useLerp, amplitude, wavelength, numberOfOctaves, numberOfPoints, divisor);
   return combinePerlinOctaves(octaves);
 }

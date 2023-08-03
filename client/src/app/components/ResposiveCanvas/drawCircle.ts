@@ -1,6 +1,6 @@
 import { Vector } from "matter-js";
 
-export default function drawCircle(context: CanvasRenderingContext2D, drawFractions: Vector, center: Vector, radius: number, color: string, fill: boolean) {
+export default function drawCircle(context: CanvasRenderingContext2D, drawFractions: Vector, center: Vector, radius: number, color: string, fill = true) {
   const { x, y } = center;
   context.beginPath();
   context.strokeStyle = context.fillStyle = color;

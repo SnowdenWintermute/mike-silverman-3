@@ -2,8 +2,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { MatterSim } from "../MatterSim";
-
-export type WidthAndHeight = { width: number; height: number };
+import { WidthAndHeight } from "@/app/types";
 
 type Props = {
   simulationRef: MutableRefObject<MatterSim>;

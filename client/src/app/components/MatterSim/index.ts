@@ -3,7 +3,7 @@ import { MouseState } from "./MouseState";
 import { EntityShape, EntityType, MatterSimEntities, ShapeCreationData } from "./MatterSimEntities";
 import { Entity } from "./Entity";
 import { baseWorldSize } from "./consts";
-import { WidthAndHeight } from "../ResposiveCanvas";
+import { WidthAndHeight } from "@/app/types";
 
 export class MatterSim {
   physicsEngine: Matter.Engine = Matter.Engine.create();
