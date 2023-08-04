@@ -26,3 +26,13 @@ export function getPointInArc(center: Vector, angle: number, radius: number): Ve
   const y = center.y + Math.sin(angle) * radius;
   return { x, y };
 }
+
+export function getRectDiagonal(length: number, width: number) {
+  return Math.sqrt(length ** 2 + width ** 2);
+}
+
+export function distBetweenTwoPoints(pointA: Vector, pointB: Vector): number {
+  const dx = pointB.x - pointA.x;
+  const dy = pointB.y - pointA.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}

@@ -19,6 +19,6 @@ const perlinsA = perlin1D(perlinAttributesA, true);
 const perlinsB = perlin1D(perlinAttributesB, true);
 
 export default function drawMountains(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
-  drawRandomMountain(context, canvasSize, perlinAttributesA, perlinsA, "grey", -60);
-  drawRandomMountain(context, canvasSize, perlinAttributesB, perlinsB, "#071c08", 50);
+  drawRandomMountain(context, canvasSize, perlinAttributesA, perlinsA, "#071c08", -60);
+  drawRandomMountain(context, canvasSize, perlinAttributesB, perlinsB, "#274c28", 50);
 }
