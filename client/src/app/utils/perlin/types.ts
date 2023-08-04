@@ -3,4 +3,5 @@ export type PerlinAttributes = {
   numberOfPoints: number;
   wavelength: number;
   numberOfOctaves: number;
+  useLerp?: boolean;
 };

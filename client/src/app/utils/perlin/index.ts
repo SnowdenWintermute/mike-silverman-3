@@ -45,8 +45,8 @@ function combinePerlinOctaves(octaves: number[][]) {
   return result;
 }
 
-export function perlin1D(attributes: PerlinAttributes, useLerp: boolean, divisor = 2) {
-  const { amplitude, numberOfPoints, wavelength, numberOfOctaves } = attributes;
-  const octaves = perlinOctaves(useLerp, amplitude, wavelength, numberOfOctaves, numberOfPoints, divisor);
+export function perlin1D(attributes: PerlinAttributes, divisor = 2) {
+  const { amplitude, numberOfPoints, wavelength, numberOfOctaves, useLerp } = attributes;
+  const octaves = perlinOctaves(!!useLerp, amplitude, wavelength, numberOfOctaves, numberOfPoints, divisor);
   return combinePerlinOctaves(octaves);
 }

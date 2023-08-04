@@ -1,24 +1,37 @@
 import { WidthAndHeight } from "@/app/types";
 import { MatterSim } from "../../MatterSim";
 import { baseWorldSize } from "../../MatterSim/consts";
-import drawCircle from "../../ResposiveCanvas/drawCircle";
 import drawMountains from "./drawMountains";
 import drawDebug from "./drawDebug";
-import drawStars from "./drawStars";
+import createCelestialBodies from "./createCelestialBodies";
+import drawCelestialDisc from "./drawCelestialDisc";
+import drawSky from "./drawSky";
+import createRandomMountan from "./drawMountains/createRandomMountain";
+import createMountains from "./createMountains";
 
-let rotation = 0;
+const highnoon = Math.PI / 2;
+const sunset = Math.PI;
+const midnight = -Math.PI / 2;
+const sunrise = 0;
+let rotation = sunrise;
+
+const sunStartAngle = Math.PI;
+const moonStartAngle = 0;
+const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
+const mountains = createMountains(baseWorldSize);
+
 export default function render(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, sim: MatterSim) {
   const canvasDrawFractions = {
     x: canvasSize.width / baseWorldSize.width,
     y: canvasSize.height / baseWorldSize.height,
   };
   context.clearRect(0, 0, canvasSize.width, canvasSize.height);
+  // rotation += 0.0035;
   rotation += 0.0005;
   rotation = rotation % (Math.PI * 2);
-  drawStars(context, canvasDrawFractions, rotation);
-
-  drawMountains(context, canvasSize);
-  // drawCircle(context, canvasDrawFractions, { x: 1600, y: 80 }, 40, "yellow", true);
+  // drawSky(context, canvasSize, rotation);
+  drawCelestialDisc(context, canvasDrawFractions, rotation, celestialBodies);
+  drawMountains(context, canvasDrawFractions, mountains);
 
   // drawDebug(context, canvasDrawFractions, canvasSize, sim);
 }

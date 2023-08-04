@@ -21,10 +21,21 @@ export function randomColorArray(arrayLength: number, colorOptions: ColorOptions
   return colors;
 }
 
+export function normalizeRadians(radians: number): number {
+  const PI_2 = 2 * Math.PI;
+  return radians - PI_2 * Math.floor(radians / PI_2) - Math.PI;
+}
+
 export function getPointInArc(center: Vector, angle: number, radius: number): Vector {
   const x = center.x + Math.cos(angle) * radius;
   const y = center.y + Math.sin(angle) * radius;
   return { x, y };
+}
+
+export function getAngleFromCenter(center: Vector, point: Vector): number {
+  const deltaX = point.x - center.x;
+  const deltaY = point.y - center.y;
+  return Math.atan2(deltaY, deltaX);
 }
 
 export function getRectDiagonal(length: number, width: number) {
@@ -35,4 +46,10 @@ export function distBetweenTwoPoints(pointA: Vector, pointB: Vector): number {
   const dx = pointB.x - pointA.x;
   const dy = pointB.y - pointA.y;
   return Math.sqrt(dx * dx + dy * dy);
+}
+
+export function getPointOnLineAtX(pointA: Vector, pointB: Vector, xCoordinate: number): Vector {
+  const slope = (pointB.y - pointA.y) / (pointB.x - pointA.x);
+  const yCoordinate = pointA.y + slope * (xCoordinate - pointA.x);
+  return { x: xCoordinate, y: yCoordinate };
 }

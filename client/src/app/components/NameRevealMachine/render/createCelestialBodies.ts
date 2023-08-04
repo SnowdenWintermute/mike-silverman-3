@@ -2,7 +2,7 @@ import { WidthAndHeight } from "@/app/types";
 import { getPointInArc, getRectDiagonal, randBetween } from "@/app/utils";
 import { Vector } from "matter-js";
 
-export class Star {
+export class CelestialBody {
   luminosity = 1;
   constructor(public position: Vector, public radius: number, public color: string) {}
 }
@@ -10,9 +10,15 @@ export class Star {
 const starColors = [`#afc9ff`, `#c7d8ff`, `#fff4f3`, `#ffe5cf`, `#ffd9b2`, `#ffc78e`, `#ffa651`];
 
 let generated = false;
-const stars: Star[] = [];
+const stars: CelestialBody[] = [];
 
-export default function createRandomStars(worldSize: WidthAndHeight, numberOfStars: number, spread: number = 100) {
+export default function createCelestialBodies(
+  worldSize: WidthAndHeight,
+  numberOfStars: number,
+  spread: number = 100,
+  sunStartAngle: number,
+  moonStartAngle: number
+) {
   if (generated) return stars;
   const center = { x: worldSize.width / 2, y: worldSize.height * 2 };
 
@@ -30,14 +36,14 @@ export default function createRandomStars(worldSize: WidthAndHeight, numberOfSta
     const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
     let color = "white";
     if (shouldBeColoredStar) color = starColors[Math.round(randBetween(0, starColors.length - 1))];
-    stars.push(new Star(position, radius, color));
+    stars.push(new CelestialBody(position, radius, color));
     currAngle += angleIncrement;
   }
 
-  const sunPosition = getPointInArc(center, Math.PI * -1 + 0.7, skyRadius - worldSize.height / 4);
-  stars.push(new Star(sunPosition, 100, "yellow"));
-  const moonPosition = getPointInArc(center, Math.PI * 2 + 0.7, skyRadius - worldSize.height / 4);
-  stars.push(new Star(moonPosition, 40, "aliceblue"));
+  const sunPosition = getPointInArc(center, sunStartAngle, skyRadius - worldSize.height / 4);
+  stars.push(new CelestialBody(sunPosition, 100, "yellow"));
+  const moonPosition = getPointInArc(center, moonStartAngle, skyRadius - worldSize.height / 4);
+  stars.push(new CelestialBody(moonPosition, 40, "aliceblue"));
   generated = true;
   return stars;
 }

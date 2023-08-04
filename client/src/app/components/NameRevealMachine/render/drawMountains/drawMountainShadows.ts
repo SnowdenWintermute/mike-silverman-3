@@ -11,7 +11,7 @@ const perlinAttributesA = {
   numberOfOctaves: 3,
 };
 
-const perlins = perlin1D(perlinAttributesA, true);
+const perlins = perlin1D(perlinAttributesA);
 export default function drawMountainShadows(
   context: CanvasRenderingContext2D,
   canvasSize: WidthAndHeight,
@@ -36,21 +36,12 @@ export default function drawMountainShadows(
   let j = y;
   for (let i = 0; i < perlins.length; i += 1) {
     j += distBetweenPerlinPoints;
+    // const proposedX = x + perlins[i]/4
+
     currLinePosition = { x: x + perlins[i] / 4, y: j };
     context.lineTo(currLinePosition.x, currLinePosition.y);
   }
 
-  const distFloorToPrevValley = distBetweenTwoPoints(currLinePosition, prevValley);
-  distBetweenPerlinPoints = distFloorToPrevValley / perlins.length;
-  const xDistStartToPrevPeak = x - currLinePosition.x;
-  const xDistBetweenPerlinPoints = xDistStartToPrevPeak / perlins.length;
-  j = currLinePosition.y;
-  let k = currLinePosition.x;
-  for (let i = 0; i < perlins.length; i += 1) {
-    j -= distBetweenPerlinPoints;
-    k -= xDistBetweenPerlinPoints;
-    context.lineTo(k, j);
-  }
   // context.lineTo(x, canvasSize.height);
 
   context.lineTo(prevValley.x, prevValley.y);

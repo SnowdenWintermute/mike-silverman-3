@@ -1,24 +1,8 @@
-import { perlin1D } from "@/app/utils/perlin";
-import drawRandomMountain from "./drawRandomMountain";
-import { WidthAndHeight } from "@/app/types";
+import { Vector } from "matter-js";
+import { Mountain } from "./createRandomMountain";
+import drawMountain from "./drawMountain";
 
-const perlinAttributesA = {
-  amplitude: 50,
-  numberOfPoints: 30,
-  wavelength: 3,
-  numberOfOctaves: 3,
-};
-const perlinAttributesB = {
-  amplitude: 80,
-  numberOfPoints: 20,
-  wavelength: 1,
-  numberOfOctaves: 4,
-};
-
-const perlinsA = perlin1D(perlinAttributesA, true);
-const perlinsB = perlin1D(perlinAttributesB, true);
-
-export default function drawMountains(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
-  drawRandomMountain(context, canvasSize, perlinAttributesA, perlinsA, "#071c08", -60);
-  drawRandomMountain(context, canvasSize, perlinAttributesB, perlinsB, "#274c28", 50);
+export default function drawMountains(context: CanvasRenderingContext2D, drawFractions: Vector, mountains: { [mountain: string]: Mountain }) {
+  drawMountain(context, drawFractions, Object.values(mountains)[0], "#071c08");
+  drawMountain(context, drawFractions, Object.values(mountains)[1], "#274c28");
 }
