@@ -1,4 +1,6 @@
 .name-reveal-machine {
-  height: 400px;
+  width: 100%;
+  max-width: calc(100vh * 16 / 9); /* Maintain the 16:9 aspect ratio */
+  max-height: 100vh;
   border-bottom: 1px solid var(--color-primary);
 }

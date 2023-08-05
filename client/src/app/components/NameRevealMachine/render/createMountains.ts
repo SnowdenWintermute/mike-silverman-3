@@ -9,15 +9,16 @@ export default function createMountains(worldSize: WidthAndHeight) {
     numberOfOctaves: 3,
   };
   const mountainFGRidgelineAttributes = {
-    amplitude: 80,
-    numberOfPoints: 20,
-    wavelength: 1,
+    amplitude: 280,
+    numberOfPoints: 40,
+    wavelength: 3,
     numberOfOctaves: 4,
+    useLerp: false,
   };
 
-  const mountainBGBaselineY = (worldSize.height / 2) * mountainBGRidgelineAttributes.amplitude + -60;
+  const mountainBGBaselineY = worldSize.height / 2 + mountainBGRidgelineAttributes.amplitude - 60;
   const mountainBG = createRandomMountain(mountainBGRidgelineAttributes, mountainBGBaselineY, worldSize.width);
-  const mountainFGBaselineY = (worldSize.height / 2) * mountainFGRidgelineAttributes.amplitude + 50;
+  const mountainFGBaselineY = worldSize.height / 2 + mountainFGRidgelineAttributes.amplitude + 150;
   const mountainFG = createRandomMountain(mountainFGRidgelineAttributes, mountainFGBaselineY, worldSize.width);
   return { mountainBG, mountainFG };
 }
