@@ -9,24 +9,33 @@ import drawSky from "./drawSky";
 import createMountains from "./createMountains";
 import createSineWaveMountain, { SineWaveMountain } from "./drawMountains/createSineWaveMountain";
 import drawSineWaveMountain from "./drawMountains/drawSineWaveMountain";
+import { getAngleFromCenter, randBetween } from "@/app/utils";
 
 let rotationSpeed = 0.0025;
+// let rotationSpeed = 0.0125;
 
-const sunStartAngle = Math.PI + 0.5;
-const moonStartAngle = 0;
+const celestialDiscStartAngle = 0.96;
+const sunStartAngle = Math.PI + celestialDiscStartAngle;
+const moonStartAngle = 0 + celestialDiscStartAngle;
 const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
 const sun = celestialBodies[celestialBodies.length - 2];
+const moon = celestialBodies[celestialBodies.length - 1];
 const mountains = createMountains(baseWorldSize);
 const sineMountains: SineWaveMountain[] = [];
-const numMountains = 4;
+const numMountains = 2;
 const spaceBetweenMountains = baseWorldSize.width / numMountains;
-console.log(spaceBetweenMountains);
-// for (let i = 0; i < numMountains; i += 1) {
-const mountain = createSineWaveMountain({ width: baseWorldSize.width / 2, height: baseWorldSize.height / 2 }, 100, baseWorldSize.height / 3);
-sineMountains.push(mountain);
-const mountain2 = createSineWaveMountain({ width: baseWorldSize.width / 2, height: baseWorldSize.height / 2 }, 530, -100);
-sineMountains.push(mountain2);
-// }
+
+for (let i = -spaceBetweenMountains; i < numMountains; i += 1) {
+  const mountain = createSineWaveMountain(
+    { width: baseWorldSize.width / 2, height: baseWorldSize.height / 2 },
+    // spaceBetweenMountains * i - spaceBetweenMountains / 2,
+    spaceBetweenMountains * i,
+    baseWorldSize.height / 2 + randBetween(0, baseWorldSize.height / 5)
+  );
+  sineMountains.push(mountain);
+}
+
+sineMountains.sort((a, b) => (a.yOffset > b.yOffset ? 1 : -1));
 
 export default function render(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, sim: MatterSim) {
   const canvasDrawFractions = {
@@ -34,15 +43,13 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
     y: canvasSize.height / baseWorldSize.height,
   };
   context.clearRect(0, 0, canvasSize.width, canvasSize.height);
-  // rotation += 0.0035;
-  // drawSky(context, canvasSize, rotation);
+  const sunAngle = getAngleFromCenter(sun.position, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
+  drawSky(context, baseWorldSize, sunAngle);
   drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies);
   drawMountains(context, canvasDrawFractions, mountains);
-  // sineMountains.forEach((sineWaveMountain) => {
-  //   drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun);
-  // });
-  drawSineWaveMountain(context, canvasDrawFractions, sineMountains[1], sun);
-  drawSineWaveMountain(context, canvasDrawFractions, sineMountains[0], sun);
+  sineMountains.forEach((sineWaveMountain) => {
+    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon);
+  });
 
-  // drawDebug(context, canvasDrawFractions, canvasSize, sim);
+  drawDebug(context, canvasDrawFractions, canvasSize, sim, sunAngle);
 }

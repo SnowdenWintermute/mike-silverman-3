@@ -21,8 +21,8 @@ export default function drawMountain(context: CanvasRenderingContext2D, drawFrac
   context.fillRect(0, 0, baseWorldSize.width * drawFractions.x, baseWorldSize.height * drawFractions.y);
   context.restore();
 
-  peaksWithRelativePoints.forEach((item) => {
-    drawCircle(context, drawFractions, item.position, 30, "cyan", false);
-    // drawMountainShadows(context, canvasSize, item, perlins);
-  });
+  // peaksWithRelativePoints.forEach((item) => {
+  //   drawCircle(context, drawFractions, item.position, 30, "cyan", false);
+  //   // drawMountainShadows(context, canvasSize, item, perlins);
+  // });
 }

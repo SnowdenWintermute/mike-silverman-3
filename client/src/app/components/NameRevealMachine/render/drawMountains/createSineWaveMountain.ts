@@ -10,6 +10,7 @@ export type SineWaveMountain = {
   shadowDelimitingPath: Vector[];
   pathLowestPoint: Vector;
   bottomMid: Vector;
+  yOffset: number;
 };
 
 export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffset: number, yOffset: number) {
@@ -31,12 +32,13 @@ export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffs
   let peak = { x: 0, y: dimensions.height + yOffset };
   const perlins = perlin1D(perlinAttributesA);
 
-  for (let x = xOffset; x <= dimensions.width + xOffset; x += spaceBetweenPoints) {
+  for (let x = 0; x <= dimensions.width; x += spaceBetweenPoints) {
     const newPoint = { x, y: yOffsetFinal + Math.sin(x * wavelength + frequency) * amplitude };
     const currPointIndex = points.length - 1;
     const normalizedPerlin = perlins[currPointIndex] - perlinAttributesA.amplitude / 2;
     newPoint.y += normalizedPerlin;
-    if (newPoint.y > yOffset + dimensions.height) break;
+    newPoint.x += xOffset;
+    if (newPoint.y > yOffset + dimensions.height) continue;
     if (newPoint.y < peak.y) peak = newPoint;
     points.push(newPoint);
   }
@@ -70,5 +72,5 @@ export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffs
   shadowDelimitingPath[shadowDelimitingPath.length - 1].y = dimensions.height + yOffset;
   shadowDelimitingPath[shadowDelimitingPath.length - 1].x = shadowDelimitingPath[shadowDelimitingPath.length - 2].x;
 
-  return { ridgeline: points, peak, center, shadowDelimitingPath, pathLowestPoint, bottomMid: { x: peak.x, y: peak.y + distancePeakToFloor } };
+  return { ridgeline: points, peak, center, shadowDelimitingPath, pathLowestPoint, bottomMid: { x: peak.x, y: peak.y + distancePeakToFloor }, yOffset };
 }
