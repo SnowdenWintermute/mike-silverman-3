@@ -6,8 +6,10 @@ import drawDebug from "./drawDebug";
 import createCelestialBodies from "./createCelestialBodies";
 import drawCelestialDisc from "./drawCelestialDisc";
 import drawSky from "./drawSky";
-import createRandomMountan from "./drawMountains/createRandomMountain";
 import createMountains from "./createMountains";
+import { generateSineWave } from "@/app/utils";
+import createSineWaveMountain from "./drawMountains/createSineWaveMountain";
+import strokePathAlongPoints from "../../ResposiveCanvas/strokePathAlongPoints";
 
 const highnoon = Math.PI / 2;
 const sunset = Math.PI;
@@ -19,6 +21,8 @@ const sunStartAngle = Math.PI;
 const moonStartAngle = 0;
 const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
 const mountains = createMountains(baseWorldSize);
+const sinWave = generateSineWave(150, 3, 0, 20);
+const sineWaveMountain = createSineWaveMountain(baseWorldSize);
 
 export default function render(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, sim: MatterSim) {
   const canvasDrawFractions = {
@@ -32,6 +36,8 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
   // drawSky(context, canvasSize, rotation);
   drawCelestialDisc(context, canvasDrawFractions, rotation, celestialBodies);
   drawMountains(context, canvasDrawFractions, mountains);
+
+  strokePathAlongPoints(context, canvasDrawFractions, sineWaveMountain, "white");
 
   // drawDebug(context, canvasDrawFractions, canvasSize, sim);
 }

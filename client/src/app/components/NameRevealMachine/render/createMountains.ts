@@ -9,9 +9,9 @@ export default function createMountains(worldSize: WidthAndHeight) {
     numberOfOctaves: 3,
   };
   const mountainFGRidgelineAttributes = {
-    amplitude: 280,
-    numberOfPoints: 40,
-    wavelength: 3,
+    amplitude: 540,
+    numberOfPoints: 960,
+    wavelength: 960,
     numberOfOctaves: 4,
     useLerp: false,
   };

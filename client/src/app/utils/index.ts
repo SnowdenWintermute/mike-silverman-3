@@ -53,3 +53,16 @@ export function getPointOnLineAtX(pointA: Vector, pointB: Vector, xCoordinate: n
   const yCoordinate = pointA.y + slope * (xCoordinate - pointA.x);
   return { x: xCoordinate, y: yCoordinate };
 }
+
+export function generateSineWave(amplitude: number, frequency: number, phase: number, numPoints: number) {
+  const yValues = [];
+  const increment = (2 * Math.PI * frequency) / numPoints;
+
+  for (let i = 0; i < numPoints; i++) {
+    const x = i * increment;
+    const y = amplitude * Math.sin(x + phase);
+    yValues.push(y);
+  }
+
+  return yValues;
+}
