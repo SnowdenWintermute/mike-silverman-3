@@ -54,15 +54,11 @@ export function getPointOnLineAtX(pointA: Vector, pointB: Vector, xCoordinate: n
   return { x: xCoordinate, y: yCoordinate };
 }
 
-export function generateSineWave(amplitude: number, frequency: number, phase: number, numPoints: number) {
-  const yValues = [];
-  const increment = (2 * Math.PI * frequency) / numPoints;
+export function getRightTriangleThirdPointCoordinates(topPoint: Vector, bottomPoint: Vector, angle: number): Vector {
+  const distanceAB = Math.sqrt((bottomPoint.x - topPoint.x) ** 2 + (bottomPoint.y - topPoint.y) ** 2);
+  const lengthAC = distanceAB * Math.sin(-Math.PI / 2);
+  const xC = topPoint.x - lengthAC * Math.cos(angle);
+  const yC = bottomPoint.y; // Same y-coordinate as point B
 
-  for (let i = 0; i < numPoints; i++) {
-    const x = i * increment;
-    const y = amplitude * Math.sin(x + phase);
-    yValues.push(y);
-  }
-
-  return yValues;
+  return { x: xC, y: yC };
 }
