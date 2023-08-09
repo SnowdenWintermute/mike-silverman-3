@@ -1,5 +1,6 @@
 import { WidthAndHeight } from "@/app/types";
 import { getPointInArc, getRectDiagonal, randBetween } from "@/app/utils";
+import { rgba } from "@/app/utils/colors";
 import { Vector } from "matter-js";
 
 export class CelestialBody {
@@ -8,6 +9,11 @@ export class CelestialBody {
 }
 
 const starColors = [`#afc9ff`, `#c7d8ff`, `#fff4f3`, `#ffe5cf`, `#ffd9b2`, `#ffc78e`, `#ffa651`];
+export const SUN_COLORS = {
+  RED: { red: 255, green: 0, blue: 0 },
+  ORANGE: { red: 255, green: 167, blue: 0 },
+  WHITE: { red: 255, green: 255, blue: 220 },
+};
 
 let generated = false;
 const stars: CelestialBody[] = [];
@@ -41,7 +47,7 @@ export default function createCelestialBodies(
   }
 
   const sunPosition = getPointInArc(center, sunStartAngle, skyRadius - worldSize.height / 4);
-  stars.push(new CelestialBody(sunPosition, 100, "yellow"));
+  stars.push(new CelestialBody(sunPosition, 100, rgba(SUN_COLORS.WHITE.red, SUN_COLORS.WHITE.green, SUN_COLORS.WHITE.blue)));
   const moonPosition = getPointInArc(center, moonStartAngle, skyRadius - worldSize.height / 4);
   stars.push(new CelestialBody(moonPosition, 40, "aliceblue"));
   generated = true;

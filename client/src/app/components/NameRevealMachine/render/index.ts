@@ -22,7 +22,7 @@ const sun = celestialBodies[celestialBodies.length - 2];
 const moon = celestialBodies[celestialBodies.length - 1];
 const mountains = createMountains(baseWorldSize);
 const sineMountains: SineWaveMountain[] = [];
-const numMountains = 2;
+const numMountains = 40;
 const spaceBetweenMountains = baseWorldSize.width / numMountains;
 
 for (let i = -spaceBetweenMountains; i < numMountains; i += 1) {
@@ -45,7 +45,7 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
   context.clearRect(0, 0, canvasSize.width, canvasSize.height);
   const sunAngle = getAngleFromCenter(sun.position, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
   drawSky(context, baseWorldSize, sunAngle);
-  drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies);
+  drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies, sunAngle);
   drawMountains(context, canvasDrawFractions, mountains);
   sineMountains.forEach((sineWaveMountain) => {
     drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon);

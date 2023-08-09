@@ -53,7 +53,6 @@ export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffs
   const center = { x: ridgelineCenter.x, y: yOffsetFinal + distCenterYToFloor / 2 };
 
   // create path down from peak
-
   const distancePeakToFloor = dimensions.height + yOffset - peak.y;
   const numberOfShadowDelimiterPathPoints = numPoints / 2;
   const randomAngleWithinBounds = randBetween(1.4, 1.6);
@@ -62,10 +61,11 @@ export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffs
   const distBetweenSDPPoints = pathLength / numberOfShadowDelimiterPathPoints;
   const shadowDelimitingPath: Vector[] = [];
   for (let i = 0; i <= numberOfShadowDelimiterPathPoints; i += 1) {
-    if (i === 0) continue;
     const point = getPointInArc(peak, randomAngleWithinBounds, i * distBetweenSDPPoints);
     const perlin = perlins[i * 2];
-    point.x += perlin / 4;
+    // make line more squiggly as it gets closer to the bottom
+    const indexPercentOfTotalIndices = (i - 0) / (numberOfShadowDelimiterPathPoints - 1 - 0);
+    point.x += perlin * indexPercentOfTotalIndices;
     if (i === numberOfShadowDelimiterPathPoints) point.y = pathLowestPoint.y;
     shadowDelimitingPath.push(point);
   }

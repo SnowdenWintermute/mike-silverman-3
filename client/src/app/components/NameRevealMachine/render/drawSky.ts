@@ -1,28 +1,22 @@
 import { WidthAndHeight } from "@/app/types";
-
-const highnoon = Math.PI / 2;
-const sunset = Math.PI;
-const midnight = -Math.PI / 2;
-const sunrise = 0;
+import { CELESTIAL_ANGLES } from "./consts";
 
 const minLightness = 2;
 const maxLightness = 50;
 export default function drawSky(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, sunAngle: number) {
+  const { SUNRISE, SUNSET, HIGH_NOON } = CELESTIAL_ANGLES;
   const h = 200;
   const s = 60;
   let l = minLightness;
 
-  if (sunAngle > sunrise && sunAngle < highnoon) {
-    //
-    const percentAngle = (sunAngle - sunrise) / (highnoon - sunrise);
+  if (sunAngle > SUNRISE && sunAngle < HIGH_NOON) {
+    const percentAngle = (sunAngle - SUNRISE) / (HIGH_NOON - SUNRISE);
     l = maxLightness * percentAngle;
-  } else if (sunAngle > highnoon && sunAngle < sunset) {
-    const percentAngle = (sunAngle - highnoon) / (sunset - highnoon);
+  } else if (sunAngle > HIGH_NOON && sunAngle < SUNSET) {
+    const percentAngle = (sunAngle - HIGH_NOON) / (SUNSET - HIGH_NOON);
     l = maxLightness - maxLightness * percentAngle;
-    //
   }
   l = Math.max(l, minLightness);
-  // console.log(l);
 
   context.fillStyle = `hsl(${h}, ${s}%, ${l}%)`;
   context.fillRect(0, 0, canvasSize.width, canvasSize.height);
