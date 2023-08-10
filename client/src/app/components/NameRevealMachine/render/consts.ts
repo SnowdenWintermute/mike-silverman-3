@@ -17,17 +17,16 @@ export const STAR_COLORS = [`#afc9ff`, `#c7d8ff`, `#fff4f3`, `#ffe5cf`, `#ffd9b2
 export const SUN_COLORS = {
   RED: { red: 230, green: 30, blue: 0 },
   ORANGE: { red: 255, green: 167, blue: 0 },
-  // YELLOW: { red: 255, green: 200, blue: 0 },
   WHITE: { red: 255, green: 255, blue: 220 },
 };
 
 export const MOUNTAIN_MATERIAL: HSLColor = {
-  hue: 232,
-  saturation: 14,
+  hue: 203,
+  saturation: 100,
   lightness: 50,
 };
 // export const MOUNTAIN_MATERIAL: HSLColor = {
-//   hue: 0,
-//   saturation: 0,
-//   lightness: 100,
+//   hue: 232,
+//   saturation: 14,
+//   lightness: 50,
 // };

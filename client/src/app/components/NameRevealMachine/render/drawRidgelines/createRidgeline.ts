@@ -11,11 +11,11 @@ export class PeakWithRelativePoints {
   constructor(public position: Vector) {}
 }
 
-export class Mountain {
+export class Ridgeline {
   constructor(public ridgelinePoints: Vector[], public peaksWithRelativePoints: PeakWithRelativePoints[], public ridgelinePerlins: number[]) {}
 }
 
-export default function createRandomMountan(ridgelinePerlinAttributes: PerlinAttributes, baselineY: number, width: number) {
+export default function createRidgeline(ridgelinePerlinAttributes: PerlinAttributes, baselineY: number, width: number) {
   const ridgelinePerlins = perlin1D(ridgelinePerlinAttributes);
   const peaksWithRelativePoints: PeakWithRelativePoints[] = [];
   const ridgelinePoints: Vector[] = [];
@@ -55,5 +55,5 @@ export default function createRandomMountan(ridgelinePerlinAttributes: PerlinAtt
     j += distBetweenPoints;
   }
 
-  return new Mountain(ridgelinePoints, peaksWithRelativePoints, ridgelinePerlins);
+  return new Ridgeline(ridgelinePoints, peaksWithRelativePoints, ridgelinePerlins);
 }

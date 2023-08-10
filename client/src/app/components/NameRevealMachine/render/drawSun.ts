@@ -1,5 +1,5 @@
 import { Vector } from "matter-js";
-import { CelestialBody, } from "./createCelestialBodies";
+import { CelestialBody } from "./createCelestialBodies";
 import { RGBColor, rgba } from "@/app/utils/colors";
 
 export default function drawSun(context: CanvasRenderingContext2D, drawFractions: Vector, sun: CelestialBody, sunColor: RGBColor) {

@@ -1,10 +1,8 @@
 import { Vector } from "matter-js";
-import drawMountainShadows from "./drawMountainShadows";
-import { Mountain, PeakWithRelativePoints } from "./createRandomMountain";
 import { baseWorldSize } from "@/app/components/MatterSim/consts";
-import drawCircle from "@/app/components/ResposiveCanvas/drawCircle";
+import { Ridgeline } from "./createRidgeline";
 
-export default function drawMountain(context: CanvasRenderingContext2D, drawFractions: Vector, mountain: Mountain, fillColor: string) {
+export default function drawRidgeline(context: CanvasRenderingContext2D, drawFractions: Vector, mountain: Ridgeline, fillColor: string) {
   const { peaksWithRelativePoints, ridgelinePoints, ridgelinePerlins } = mountain;
   context.moveTo(ridgelinePoints[0].x, ridgelinePoints[0].y);
   context.beginPath();
@@ -20,9 +18,4 @@ export default function drawMountain(context: CanvasRenderingContext2D, drawFrac
   context.fillStyle = fillColor;
   context.fillRect(0, 0, baseWorldSize.width * drawFractions.x, baseWorldSize.height * drawFractions.y);
   context.restore();
-
-  // peaksWithRelativePoints.forEach((item) => {
-  //   drawCircle(context, drawFractions, item.position, 30, "cyan", false);
-  //   // drawMountainShadows(context, canvasSize, item, perlins);
-  // });
 }

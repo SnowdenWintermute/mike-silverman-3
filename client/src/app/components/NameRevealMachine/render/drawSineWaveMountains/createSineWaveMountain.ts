@@ -13,18 +13,18 @@ export type SineWaveMountain = {
   yOffset: number;
 };
 
-export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffset: number, yOffset: number) {
+export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffset: number, yOffset: number, jaggedness = 50, resolution = 100) {
   const points: Vector[] = [];
   const yOffsetFinal = dimensions.height / 2 + yOffset;
   const amplitude = dimensions.height / 2;
   const numCycles = 1;
   const wavelength = (2 * Math.PI) / (dimensions.width / numCycles);
-  const numPoints = 100;
+  const numPoints = resolution;
   const spaceBetweenPoints = dimensions.width / numPoints;
   const frequency = Math.PI / 2;
 
   const perlinAttributesA = {
-    amplitude: 50,
+    amplitude: jaggedness,
     numberOfPoints: numPoints,
     wavelength: 3,
     numberOfOctaves: 3,

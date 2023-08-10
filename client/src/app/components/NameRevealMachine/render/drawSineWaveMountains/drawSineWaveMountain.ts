@@ -4,8 +4,8 @@ import { Vector } from "matter-js";
 import { SineWaveMountain } from "./createSineWaveMountain";
 import { CelestialBody } from "../createCelestialBodies";
 import calculateSineWaveMountainLighting from "./calculateSineWaveMountainLighting";
-import { HSLColor, RGBColor, blendColors, hsl, hslToRgb, rgbToHsl, rgba } from "@/app/utils/colors";
-import { CELESTIAL_ANGLES, MOUNTAIN_MATERIAL } from "../consts";
+import { HSLColor, RGBColor, hsl, rgba } from "@/app/utils/colors";
+import { CELESTIAL_ANGLES } from "../consts";
 import { baseWorldSize } from "@/app/components/MatterSim/consts";
 
 export default function drawSineWaveMountain(
@@ -19,8 +19,7 @@ export default function drawSineWaveMountain(
   sunAngle: number
 ) {
   const { SUNRISE, MORNING_HORIZON, EARLY_MORNING, LATE_MORNING, SUNSET, EVENING_HORIZON, EARLY_EVENING, LATE_EVENING } = CELESTIAL_ANGLES;
-  // const adjustedColor = rgbToHsl(blendColors(hslToRgb(MOUNTAIN_MATERIAL), sunColor));
-  const baseColoredLightTransparency = 0.1;
+  const baseColoredLightTransparency = 0.05;
 
   const { peak, ridgeline } = sineWaveMountain;
   const sunAngleToMountainCenter = getAngleFromCenter(sineWaveMountain.center, sun.position);
@@ -32,8 +31,8 @@ export default function drawSineWaveMountain(
   pathAlongPoints(context, drawFractions, sineWaveMountain.ridgeline);
   const minLightness = 4;
   const percentTowardForeground = percentBetweenTwoNumbers(sineWaveMountain.yOffset, 0, baseWorldSize.height);
-  const sunMaxLightness = 50 * percentTowardForeground;
-  const moonMaxLightness = 30 * percentTowardForeground;
+  const sunMaxLightness = 50 * percentTowardForeground*1.2;
+  const moonMaxLightness = 40 * percentTowardForeground*1.2;
   let rightSideLightness = minLightness;
   let leftSideLightness = minLightness;
   if (sunIsUp) {
@@ -69,17 +68,15 @@ export default function drawSineWaveMountain(
   if (sunAngle >= SUNRISE && sunAngle < EARLY_MORNING) {
     const percentAngle = percentBetweenTwoNumbers(sunAngle, SUNRISE, EARLY_MORNING);
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency * percentAngle);
-  } else if (sunAngle >= EARLY_MORNING && sunAngle < LATE_MORNING) {
+  } else if (sunAngle >= EARLY_MORNING && sunAngle < LATE_MORNING) 
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency);
-  } else if (sunAngle >= LATE_MORNING && sunAngle < EARLY_EVENING) {
+   else if (sunAngle >= LATE_MORNING && sunAngle < EARLY_EVENING) 
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency);
-  }
-  if (sunAngle >= EARLY_EVENING && sunAngle < LATE_EVENING) {
-    const percentAngle = percentBetweenTwoNumbers(sunAngle, EARLY_EVENING, LATE_EVENING);
+   if (sunAngle >= EARLY_EVENING && sunAngle < LATE_EVENING) 
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency);
-  } else if (sunAngle >= LATE_EVENING && sunAngle < SUNSET) {
+   else if (sunAngle >= LATE_EVENING && sunAngle < SUNSET) {
     const percentAngle = percentBetweenTwoNumbers(sunAngle, LATE_EVENING, SUNSET);
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency * (1 - percentAngle));
-  }
+  }else if (sunAngle >= SUNSET*-1 && sunAngle < SUNRISE) context.fillStyle= rgba(255,255,255,0)
   context.fill();
 }

@@ -7,3 +7,4 @@ export function cosineInterpolate(a: number, b: number, x: number) {
 export function linearInterpolate(pa: number, pb: number, px: number) {
   return pa * (1 - px) + pb * px;
 }
+
