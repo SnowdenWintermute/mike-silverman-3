@@ -4,6 +4,7 @@ import drawCircle from "../../ResposiveCanvas/drawCircle";
 import { CelestialBody } from "./createCelestialBodies";
 import { CELESTIAL_ANGLES } from "./consts";
 import drawSun from "./drawSun";
+import { percentBetweenTwoNumbers } from "@/app/utils";
 
 export default function drawCelestialDisc(
   context: CanvasRenderingContext2D,
@@ -16,10 +17,10 @@ export default function drawCelestialDisc(
   let opacity = 1;
 
   if (sunAngle > SUNRISE && sunAngle < HIGH_NOON) {
-    const percentAngle = (sunAngle - SUNRISE) / (HIGH_NOON - SUNRISE);
+    const percentAngle = percentBetweenTwoNumbers(sunAngle, SUNRISE, HIGH_NOON);
     opacity = 1 - percentAngle * 2;
   } else if (sunAngle > HIGH_NOON && sunAngle < SUNSET) {
-    const percentAngle = (sunAngle - HIGH_NOON) / (SUNSET - HIGH_NOON);
+    const percentAngle = percentBetweenTwoNumbers(sunAngle, HIGH_NOON, SUNSET);
     opacity = percentAngle;
   }
 
@@ -30,7 +31,8 @@ export default function drawCelestialDisc(
     const rotatedPosition = Vector.rotateAbout(body.position, rotation, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
     bodies[i].position = rotatedPosition;
 
-    if (i === bodies.length - 2) drawSun(context, drawFractions, body, opacity, sunAngle);
+    // if (i === bodies.length - 2) drawSun(context, drawFractions, body, opacity, sunAngle);
+    if (i === bodies.length - 2) return;
     else drawCircle(context, drawFractions, body.position, body.radius, body.color, true);
   });
   context.globalAlpha = 1;

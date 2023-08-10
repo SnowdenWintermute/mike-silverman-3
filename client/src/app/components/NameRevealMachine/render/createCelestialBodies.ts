@@ -12,6 +12,7 @@ const starColors = [`#afc9ff`, `#c7d8ff`, `#fff4f3`, `#ffe5cf`, `#ffd9b2`, `#ffc
 export const SUN_COLORS = {
   RED: { red: 255, green: 0, blue: 0 },
   ORANGE: { red: 255, green: 167, blue: 0 },
+  // YELLOW: { red: 255, green: 200, blue: 0 },
   WHITE: { red: 255, green: 255, blue: 220 },
 };
 

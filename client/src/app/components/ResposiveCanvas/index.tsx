@@ -51,34 +51,34 @@ export default function ResponsiveCanvas({ simulationRef }: Props) {
     };
   }, [canvasRef, canvasSize.height, canvasSize.width]);
 
-  // function startRecording() {
-  //   if (!canvasRef.current) return;
-  //   setShowButton(false);
-  //   const stream = canvasRef.current.captureStream(); // grab our canvas MediaStream
-  //   const rec = new MediaRecorder(stream); // init the recorder
-  //   // every time the recorder has new data, we will store it in our array
-  //   rec.ondataavailable = (e) => chunks.push(e.data);
-  //   // only when the recorder stops, we construct a complete Blob from all the chunks
-  //   rec.onstop = (e) => exportVid(new Blob(chunks, { type: "video/webm" }));
+  function startRecording() {
+    if (!canvasRef.current) return;
+    setShowButton(false);
+    const stream = canvasRef.current.captureStream(); // grab our canvas MediaStream
+    const rec = new MediaRecorder(stream); // init the recorder
+    // every time the recorder has new data, we will store it in our array
+    rec.ondataavailable = (e) => chunks.push(e.data);
+    // only when the recorder stops, we construct a complete Blob from all the chunks
+    rec.onstop = (e) => exportVid(new Blob(chunks, { type: "video/mpeg" }));
 
-  //   rec.start();
-  //   setTimeout(() => {
-  //     rec.stop();
-  //     setShowButton(true);
-  //   }, 30000); // stop recording in 3s
-  // }
+    rec.start();
+    setTimeout(() => {
+      rec.stop();
+      setShowButton(true);
+    }, 25000); // stop recording in 3s
+  }
 
-  // function exportVid(blob: Blob) {
-  //   const vid = document.createElement("video");
-  //   vid.src = URL.createObjectURL(blob);
-  //   vid.controls = true;
-  //   document.body.appendChild(vid);
-  //   const a = document.createElement("a");
-  //   a.download = "myvid.webm";
-  //   a.href = vid.src;
-  //   a.textContent = "download the video";
-  //   document.body.appendChild(a);
-  // }
+  function exportVid(blob: Blob) {
+    const vid = document.createElement("video");
+    vid.src = URL.createObjectURL(blob);
+    vid.controls = true;
+    document.body.appendChild(vid);
+    const a = document.createElement("a");
+    a.download = "myvid.mpeg";
+    a.href = vid.src;
+    a.textContent = "download the video";
+    document.body.appendChild(a);
+  }
 
   return (
     <div>

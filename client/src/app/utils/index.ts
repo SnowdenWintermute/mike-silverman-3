@@ -62,3 +62,11 @@ export function getRightTriangleThirdPointCoordinates(topPoint: Vector, bottomPo
 
   return { x: xC, y: yC };
 }
+
+export function percentBetweenTwoNumbers(number: number, low: number, high: number) {
+  return (number - low) / (high - low);
+}
+
+export function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}

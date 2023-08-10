@@ -10,11 +10,18 @@ import createMountains from "./createMountains";
 import createSineWaveMountain, { SineWaveMountain } from "./drawMountains/createSineWaveMountain";
 import drawSineWaveMountain from "./drawMountains/drawSineWaveMountain";
 import { getAngleFromCenter, randBetween } from "@/app/utils";
+import drawSun from "./drawSun";
+import determineSunColor from "./determineSunColor";
+import drawSkyGlow from "./drawSkyGlow";
+import { MOUNTAIN_MATERIAL } from "./consts";
 
-let rotationSpeed = 0.0025;
+// let rotationSpeed = 0.0005;
+// let rotationSpeed = 0.0025;
+let rotationSpeed = 0.0045;
 // let rotationSpeed = 0.0125;
 
 const celestialDiscStartAngle = 0.96;
+// const celestialDiscStartAngle = 0;
 const sunStartAngle = Math.PI + celestialDiscStartAngle;
 const moonStartAngle = 0 + celestialDiscStartAngle;
 const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
@@ -46,9 +53,12 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
   const sunAngle = getAngleFromCenter(sun.position, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
   drawSky(context, baseWorldSize, sunAngle);
   drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies, sunAngle);
+  const sunColor = determineSunColor(sunAngle);
+  drawSun(context, canvasDrawFractions, sun, sunColor);
+  drawSkyGlow(context, canvasDrawFractions, sunAngle, sunColor);
   drawMountains(context, canvasDrawFractions, mountains);
   sineMountains.forEach((sineWaveMountain) => {
-    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon);
+    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon, MOUNTAIN_MATERIAL, sunColor);
   });
 
   drawDebug(context, canvasDrawFractions, canvasSize, sim, sunAngle);

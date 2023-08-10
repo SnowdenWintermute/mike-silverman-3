@@ -1,18 +1,31 @@
-interface HSLColor {
+import { lerp } from ".";
+
+export interface HSLColor {
   hue: number;
   saturation: number;
   lightness: number;
 }
 
-interface RGBColor {
+export interface RGBColor {
   red: number;
   green: number;
   blue: number;
 }
 
-export function rgba(red: number, green: number, blue: number, alpha?: number) {
-  if (typeof alpha !== "number") alpha = 1;
+export function rgba(red: number, green: number, blue: number, alpha?: 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+export function hsl(hue: number, saturation: number, lightness: number, alpha?: 1) {
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
+
+export function lerpColor(color1: RGBColor, color2: RGBColor, percentage: number) {
+  return {
+    red: lerp(color1.red, color2.red, percentage),
+    green: lerp(color1.green, color2.green, percentage),
+    blue: lerp(color1.blue, color2.blue, percentage),
+  };
 }
 
 export function hslToRgb(hsl: HSLColor): RGBColor {

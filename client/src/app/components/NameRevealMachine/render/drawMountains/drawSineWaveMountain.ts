@@ -1,17 +1,19 @@
-import drawCircle from "@/app/components/ResposiveCanvas/drawCircle";
 import pathAlongPoints from "@/app/components/ResposiveCanvas/pathAlongPoints";
-import { getAngleFromCenter, getPointInArc } from "@/app/utils";
+import { getAngleFromCenter } from "@/app/utils";
 import { Vector } from "matter-js";
 import { SineWaveMountain } from "./createSineWaveMountain";
 import { CelestialBody } from "../createCelestialBodies";
 import calculateSineWaveMountainLighting from "./calculateSineWaveMountainLighting";
+import { HSLColor, RGBColor, hsl } from "@/app/utils/colors";
 
 export default function drawSineWaveMountain(
   context: CanvasRenderingContext2D,
   drawFractions: Vector,
   sineWaveMountain: SineWaveMountain,
   sun: CelestialBody,
-  moon: CelestialBody
+  moon: CelestialBody,
+  materialColor: HSLColor,
+  sunColor: RGBColor
 ) {
   const { peak, ridgeline } = sineWaveMountain;
   const sunAngleToMountainCenter = getAngleFromCenter(sineWaveMountain.center, sun.position);
@@ -33,7 +35,7 @@ export default function drawSineWaveMountain(
     rightSideLightness = right;
     leftSideLightness = left;
   }
-  context.fillStyle = `hsl(232, 14%, ${rightSideLightness}%)`;
+  context.fillStyle = hsl(materialColor.hue, materialColor.saturation, rightSideLightness);
   context.fill();
 
   context.moveTo(sineWaveMountain.shadowDelimitingPath[0].x * drawFractions.x, sineWaveMountain.shadowDelimitingPath[0].y * drawFractions.y);
@@ -49,6 +51,6 @@ export default function drawSineWaveMountain(
     if (peakReached) return;
     context.lineTo(point.x * drawFractions.x, point.y * drawFractions.y);
   });
-  context.fillStyle = `hsl(232, 14%, ${leftSideLightness}%)`;
+  context.fillStyle = hsl(materialColor.hue, materialColor.saturation, leftSideLightness);
   context.fill();
 }
