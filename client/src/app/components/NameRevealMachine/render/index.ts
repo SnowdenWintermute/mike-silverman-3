@@ -20,8 +20,8 @@ import { MOUNTAIN_MATERIAL } from "./consts";
 let rotationSpeed = 0.0045;
 // let rotationSpeed = 0.0125;
 
-const celestialDiscStartAngle = 0.96;
-// const celestialDiscStartAngle = 0;
+// const celestialDiscStartAngle = 0.96;
+const celestialDiscStartAngle = 0;
 const sunStartAngle = Math.PI + celestialDiscStartAngle;
 const moonStartAngle = 0 + celestialDiscStartAngle;
 const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
@@ -37,7 +37,9 @@ for (let i = -spaceBetweenMountains; i < numMountains; i += 1) {
     { width: baseWorldSize.width / 2, height: baseWorldSize.height / 2 },
     // spaceBetweenMountains * i - spaceBetweenMountains / 2,
     spaceBetweenMountains * i,
-    baseWorldSize.height / 2 + randBetween(0, baseWorldSize.height / 5)
+    baseWorldSize.height / 3 + randBetween(0, baseWorldSize.height / 2)
+    // baseWorldSize.height / 2
+    // 0
   );
   sineMountains.push(mountain);
 }
@@ -58,7 +60,7 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
   drawSkyGlow(context, canvasDrawFractions, sunAngle, sunColor);
   drawMountains(context, canvasDrawFractions, mountains);
   sineMountains.forEach((sineWaveMountain) => {
-    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon, MOUNTAIN_MATERIAL, sunColor);
+    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon, MOUNTAIN_MATERIAL, sunColor, sunAngle);
   });
 
   drawDebug(context, canvasDrawFractions, canvasSize, sim, sunAngle);

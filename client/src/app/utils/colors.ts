@@ -12,11 +12,11 @@ export interface RGBColor {
   blue: number;
 }
 
-export function rgba(red: number, green: number, blue: number, alpha?: 1) {
+export function rgba(red: number, green: number, blue: number, alpha = 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
-export function hsl(hue: number, saturation: number, lightness: number, alpha?: 1) {
+export function hsl(hue: number, saturation: number, lightness: number, alpha = 1) {
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
@@ -67,6 +67,21 @@ export function hslToRgb(hsl: HSLColor): RGBColor {
     red: Math.round(red * 255),
     green: Math.round(green * 255),
     blue: Math.round(blue * 255),
+  };
+}
+
+export function rgbToHsl({ red, green, blue }: RGBColor) {
+  red /= 255;
+  green /= 255;
+  blue /= 255;
+  const l = Math.max(red, green, blue);
+  const s = l - Math.min(red, green, blue);
+  const h = s ? (l === red ? (green - blue) / s : l === green ? 2 + (blue - red) / s : 4 + (red - green) / s) : 0;
+  return {
+    hue: 60 * h < 0 ? 60 * h + 360 : 60 * h,
+
+    saturation: 100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+    lightness: (100 * (2 * l - s)) / 2,
   };
 }
 

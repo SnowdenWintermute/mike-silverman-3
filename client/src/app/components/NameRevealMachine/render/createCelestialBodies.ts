@@ -2,19 +2,12 @@ import { WidthAndHeight } from "@/app/types";
 import { getPointInArc, getRectDiagonal, randBetween } from "@/app/utils";
 import { rgba } from "@/app/utils/colors";
 import { Vector } from "matter-js";
+import { STAR_COLORS, SUN_COLORS } from "./consts";
 
 export class CelestialBody {
   luminosity = 1;
   constructor(public position: Vector, public radius: number, public color: string) {}
 }
-
-const starColors = [`#afc9ff`, `#c7d8ff`, `#fff4f3`, `#ffe5cf`, `#ffd9b2`, `#ffc78e`, `#ffa651`];
-export const SUN_COLORS = {
-  RED: { red: 255, green: 0, blue: 0 },
-  ORANGE: { red: 255, green: 167, blue: 0 },
-  // YELLOW: { red: 255, green: 200, blue: 0 },
-  WHITE: { red: 255, green: 255, blue: 220 },
-};
 
 let generated = false;
 const stars: CelestialBody[] = [];
@@ -42,7 +35,7 @@ export default function createCelestialBodies(
     const colorStarChanceOneIn = 5;
     const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
     let color = "white";
-    if (shouldBeColoredStar) color = starColors[Math.round(randBetween(0, starColors.length - 1))];
+    if (shouldBeColoredStar) color = STAR_COLORS[Math.round(randBetween(0, STAR_COLORS.length - 1))];
     stars.push(new CelestialBody(position, radius, color));
     currAngle += angleIncrement;
   }

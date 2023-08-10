@@ -3,7 +3,6 @@ import { baseWorldSize } from "../../MatterSim/consts";
 import drawCircle from "../../ResposiveCanvas/drawCircle";
 import { CelestialBody } from "./createCelestialBodies";
 import { CELESTIAL_ANGLES } from "./consts";
-import drawSun from "./drawSun";
 import { percentBetweenTwoNumbers } from "@/app/utils";
 
 export default function drawCelestialDisc(
