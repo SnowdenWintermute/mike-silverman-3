@@ -40,15 +40,15 @@ export default function render(context: CanvasRenderingContext2D, canvasSize: Wi
   const sunAngle = getAngleFromCenter(sun.position, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
   const moonAngle = getAngleFromCenter(moon.position, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
   drawSky(context, baseWorldSize, sunAngle);
-  drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies, sunAngle);
+  // drawCelestialDisc(context, canvasDrawFractions, rotationSpeed, celestialBodies, sunAngle);
   drawShootingStars(context, canvasDrawFractions, renderRate, sunAngle);
   const sunColor = determineSunColor(sunAngle);
-  drawSun(context, canvasDrawFractions, sun, sunColor);
-  drawSkyGlow(context, canvasDrawFractions, sunAngle, sunColor);
-  drawRidgelines(context, canvasDrawFractions, ridgelines, sunAngle, moonAngle, sunColor);
-  sineMountains.forEach((sineWaveMountain) => {
-    drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon, MOUNTAIN_MATERIAL, sunColor, sunAngle);
-  });
+  // drawSun(context, canvasDrawFractions, sun, sunColor);
+  // drawSkyGlow(context, canvasDrawFractions, sunAngle, sunColor);
+  // drawRidgelines(context, canvasDrawFractions, ridgelines, sunAngle, moonAngle, sunColor);
+  // sineMountains.forEach((sineWaveMountain) => {
+  //   drawSineWaveMountain(context, canvasDrawFractions, sineWaveMountain, sun, moon, MOUNTAIN_MATERIAL, sunColor, sunAngle);
+  // });
 
   // drawDebug(context, canvasDrawFractions, canvasSize, sim, sunAngle);
 }
