@@ -26,7 +26,7 @@ export const MOUNTAIN_MATERIAL: HSLColor = {
   lightness: 50,
 };
 // export const MOUNTAIN_MATERIAL: HSLColor = {
-//   hue: 232,
-//   saturation: 14,
+//   hue: 180,
+//   saturation: 50,
 //   lightness: 50,
 // };

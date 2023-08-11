@@ -12,7 +12,7 @@ export default function createSineWaveMountains(numMountains: number) {
       { width: randBetween(baseWorldSize.width / 1.5, baseWorldSize.width / 2.5), height: randBetween(baseWorldSize.height / 1.5, baseWorldSize.height / 2.5) },
       // spaceBetweenMountains * i - spaceBetweenMountains / 2,
       spaceBetweenMountains * i,
-      baseWorldSize.height / 3 + randBetween(0, baseWorldSize.height / 2),
+      baseWorldSize.height / 2.7 + randBetween(0, baseWorldSize.height / 2),
       // baseWorldSize.height/3
       randBetween(30, 75)
     );
