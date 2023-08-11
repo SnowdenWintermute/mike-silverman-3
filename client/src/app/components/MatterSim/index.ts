@@ -18,7 +18,7 @@ export class MatterSim {
 
   constructor(
     public updatePhysics: (simulation: MatterSim) => void,
-    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim) => void,
+    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim, renderRate: number) => void,
     public shouldReinitializeOnCanvasResize = false,
     public worldSize = { height: baseWorldSize.width, width: baseWorldSize.height }
   ) {}
@@ -56,7 +56,7 @@ export class MatterSim {
     this.intervals.physics = setTimeout(() => {
       this.updatePhysics(this);
       Matter.Engine.update(this.physicsEngine, this.renderRate);
-      this.render(context, canvasSize, this);
+      this.render(context, canvasSize, this, this.renderRate);
       this.stepSimulation(context, canvasSize);
     }, this.renderRate);
   }
