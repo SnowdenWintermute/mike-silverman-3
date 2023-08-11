@@ -4,6 +4,10 @@ export function randBetween(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
+export function randIntBetween(min: number, max: number) {
+  return Math.floor(Math.random() * max + min);
+}
+
 type ColorOptions = { randomRed: boolean; randomBlue: boolean; randomGreen: boolean };
 
 export function randomColor(options?: ColorOptions) {

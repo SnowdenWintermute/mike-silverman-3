@@ -1,4 +1,4 @@
-import { HSLColor } from "@/app/utils/colors";
+import { HSLColor, rgba } from "@/app/utils/colors";
 
 export const CELESTIAL_ANGLES = {
   HIGH_NOON: Math.PI / 2,
@@ -19,6 +19,8 @@ export const SUN_COLORS = {
   ORANGE: { red: 255, green: 167, blue: 0 },
   WHITE: { red: 255, green: 255, blue: 220 },
 };
+
+export const SHOOTING_STAR_COLOR = rgba(255, 202, 142, 0.07);
 
 export const MOUNTAIN_MATERIAL: HSLColor = {
   hue: 203,

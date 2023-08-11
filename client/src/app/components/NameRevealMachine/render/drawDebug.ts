@@ -10,4 +10,6 @@ export default function drawDebug(context: CanvasRenderingContext2D, drawFractio
   // context.fillText(`${drawFractions.x.toFixed(1)}, ${drawFractions.y.toFixed(1)}`, 10, 30);
   // context.fillText(`${sim.worldSize.width.toFixed(1)}, ${sim.worldSize.height.toFixed(1)}`, 10, 50);
   context.fillText(`${sunAngle.toFixed(1)}`, 10, 50);
+  context.fillStyle = "white";
+  context.fillText(`${sunAngle.toFixed(1)}`, 11, 51);
 }
