@@ -17,7 +17,7 @@ export default function drawShootingStars(context: CanvasRenderingContext2D, dra
   } else if (sunAngle >= EVENING_HORIZON && sunAngle < SUNSET) {
     chanceToSpawn = 0.1;
     maxNumberOfStars = 4;
-  } else if (sunAngle <= SUNSET && sunAngle < MIDNIGHT) {
+  } else if (sunAngle <= SUNSET && sunAngle < MIDNIGHT - 0.5) {
     chanceToSpawn = 0.5;
     maxNumberOfStars = 100;
   } else if (sunAngle >= MIDNIGHT && sunAngle < SUNRISE) {

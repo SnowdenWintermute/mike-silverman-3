@@ -6,11 +6,12 @@ import { WidthAndHeight } from "@/app/types";
 
 type Props = {
   simulationRef: MutableRefObject<MatterSim>;
+  styles?: string;
 };
 
 const chunks: BlobPart[] = []; // here we will store our recorded media chunks (Blobs)
 
-export default function ResponsiveCanvas({ simulationRef }: Props) {
+export default function ResponsiveCanvas({ simulationRef, styles }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef<WidthAndHeight | null>(null);
   const windowDimensions = useWindowDimensions();
@@ -81,18 +82,18 @@ export default function ResponsiveCanvas({ simulationRef }: Props) {
   }
 
   return (
-    <div>
-      <canvas
-        height={canvasSizeRef.current?.height}
-        width={canvasSizeRef.current?.width}
-        id="canvas"
-        className="canvas__full-screen"
-        ref={canvasRef}
-        onContextMenu={(e) => e.preventDefault()}
-      />
-      {
-        // showButton && <button onClick={() => startRecording()}>record</button>
-      }
-    </div>
+    <canvas
+      height={canvasSizeRef.current?.height}
+      width={canvasSizeRef.current?.width}
+      id="canvas"
+      className={`canvas__full-screen ${styles || ""}`}
+      ref={canvasRef}
+      onContextMenu={(e) => e.preventDefault()}
+    />
+    // {
+    // <div>
+    // showButton && <button onClick={() => startRecording()}>record</button>
+    // </div>
+    // }
   );
 }

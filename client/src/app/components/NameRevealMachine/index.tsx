@@ -8,8 +8,8 @@ const NameRevealMachine = () => {
   const simulationRef = useRef<MatterSim>(new MatterSim(updatePhysics, render, true));
 
   return (
-    <section className="name-reveal-machine">
-      <ResponsiveCanvas simulationRef={simulationRef} />
+    <section className="mountain-range-scene">
+      <ResponsiveCanvas simulationRef={simulationRef} styles="mountain-range-scene-canvas" />
     </section>
   );
 };
