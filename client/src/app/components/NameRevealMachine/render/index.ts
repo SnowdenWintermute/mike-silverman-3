@@ -22,7 +22,7 @@ let rotationSpeed = 0.0025;
 // let rotationSpeed = 0.0125;
 
 // const celestialDiscStartAngle = 0.55;
-const celestialDiscStartAngle = 1;
+const celestialDiscStartAngle = 0.8;
 // const celestialDiscStartAngle = -Math.PI / 2 + 0.4;
 // const celestialDiscStartAngle = Math.PI;
 const sunStartAngle = Math.PI + celestialDiscStartAngle;

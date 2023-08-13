@@ -1,5 +1,5 @@
 import { WidthAndHeight } from "@/app/types";
-import { getPointInArc, getRectDiagonal, randBetween } from "@/app/utils";
+import { getPointInArc, getRectDiagonal, normalizeRadians, randBetween } from "@/app/utils";
 import { rgba } from "@/app/utils/colors";
 import { Vector } from "matter-js";
 import { STAR_COLORS, SUN_COLORS } from "./consts";
@@ -54,12 +54,13 @@ export default function createCelestialBodies(
   const perlins = perlin1D(perlinAttributes);
   const milkyWaySpread = 350;
 
-  currAngle = celestialDiscStartAngle - Math.PI / 3;
+  currAngle = normalizeRadians(celestialDiscStartAngle - Math.PI - Math.PI / 2 + 0.4);
   for (let i = 0; i < milkyWayNumber * 2; i += 1) {
-    // const radiusOffset = (i / milkyWayNumber) * (spread - spread / 3) + spread / 3;
     const radiusOffset = ((i % milkyWayNumber) / milkyWayNumber) * (spread * 1.5) - spread * 0.4;
     const position = getPointInArc(center, currAngle, skyRadius - radiusOffset);
-    position.x += perlins[i % milkyWayNumber] + Math.random() * milkyWaySpread - milkyWaySpread / 2;
+    const newPosition = getPointInArc(position, currAngle + Math.PI / 2, perlins[i % milkyWayNumber] + randBetween(-milkyWaySpread / 2, milkyWaySpread / 2));
+    position.x = newPosition.x;
+    position.y = newPosition.y;
     const radius = Math.random() * 1.5;
     const colorStarChanceOneIn = 5;
     const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
@@ -71,7 +72,9 @@ export default function createCelestialBodies(
   for (let i = 0; i < milkyWayNumber; i += 1) {
     const radiusOffset = (i / milkyWayNumber) * (spread + spread / 4) - spread / 4;
     const position = getPointInArc(center, currAngle, skyRadius - radiusOffset);
-    position.x += perlins[i] + (Math.random() * milkyWaySpread) / 3 - milkyWaySpread / 6;
+    const newPosition = getPointInArc(position, currAngle + Math.PI / 2, perlins[i % milkyWayNumber] + randBetween(-milkyWaySpread / 5, milkyWaySpread / 5));
+    position.x = newPosition.x;
+    position.y = newPosition.y;
     const radius = Math.random() * 2.1;
     const colorStarChanceOneIn = 5;
     const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
