@@ -21,11 +21,13 @@ let rotationSpeed = 0.0025;
 // let rotationSpeed = 0.0045;
 // let rotationSpeed = 0.0125;
 
-// const celestialDiscStartAngle = 0.96;
-const celestialDiscStartAngle = Math.PI / 2;
+// const celestialDiscStartAngle = 0.55;
+const celestialDiscStartAngle = 1;
+// const celestialDiscStartAngle = -Math.PI / 2 + 0.4;
+// const celestialDiscStartAngle = Math.PI;
 const sunStartAngle = Math.PI + celestialDiscStartAngle;
 const moonStartAngle = 0 + celestialDiscStartAngle;
-const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle);
+const celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle, celestialDiscStartAngle);
 const sun = celestialBodies[celestialBodies.length - 2];
 const moon = celestialBodies[celestialBodies.length - 1];
 const ridgelines = createRidgelines(baseWorldSize);

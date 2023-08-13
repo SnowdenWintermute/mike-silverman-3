@@ -3,6 +3,7 @@ import { getPointInArc, getRectDiagonal, randBetween } from "@/app/utils";
 import { rgba } from "@/app/utils/colors";
 import { Vector } from "matter-js";
 import { STAR_COLORS, SUN_COLORS } from "./consts";
+import { perlin1D } from "@/app/utils/perlin";
 
 export class CelestialBody {
   luminosity = 1;
@@ -17,7 +18,8 @@ export default function createCelestialBodies(
   numberOfStars: number,
   spread: number = 100,
   sunStartAngle: number,
-  moonStartAngle: number
+  moonStartAngle: number,
+  celestialDiscStartAngle: number
 ) {
   if (generated) return stars;
   const center = { x: worldSize.width / 2, y: worldSize.height * 2 };
@@ -38,6 +40,44 @@ export default function createCelestialBodies(
     if (shouldBeColoredStar) color = STAR_COLORS[Math.round(randBetween(0, STAR_COLORS.length - 1))];
     stars.push(new CelestialBody(position, radius, color));
     currAngle += angleIncrement;
+  }
+
+  const milkyWayNumber = 500;
+  const numPerlins = milkyWayNumber;
+  const perlinAttributes = {
+    amplitude: 300,
+    numberOfPoints: numPerlins,
+    wavelength: 120,
+    numberOfOctaves: 4,
+  };
+
+  const perlins = perlin1D(perlinAttributes);
+  const milkyWaySpread = 350;
+
+  currAngle = celestialDiscStartAngle - Math.PI / 3;
+  for (let i = 0; i < milkyWayNumber * 2; i += 1) {
+    // const radiusOffset = (i / milkyWayNumber) * (spread - spread / 3) + spread / 3;
+    const radiusOffset = ((i % milkyWayNumber) / milkyWayNumber) * (spread * 1.5) - spread * 0.4;
+    const position = getPointInArc(center, currAngle, skyRadius - radiusOffset);
+    position.x += perlins[i % milkyWayNumber] + Math.random() * milkyWaySpread - milkyWaySpread / 2;
+    const radius = Math.random() * 1.5;
+    const colorStarChanceOneIn = 5;
+    const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
+    let color = "lightblue";
+    if (shouldBeColoredStar) color = STAR_COLORS[Math.round(randBetween(0, STAR_COLORS.length - 1))];
+    stars.push(new CelestialBody(position, radius, color));
+  }
+
+  for (let i = 0; i < milkyWayNumber; i += 1) {
+    const radiusOffset = (i / milkyWayNumber) * (spread + spread / 4) - spread / 4;
+    const position = getPointInArc(center, currAngle, skyRadius - radiusOffset);
+    position.x += perlins[i] + (Math.random() * milkyWaySpread) / 3 - milkyWaySpread / 6;
+    const radius = Math.random() * 2.1;
+    const colorStarChanceOneIn = 5;
+    const shouldBeColoredStar = randBetween(0, colorStarChanceOneIn) < 1;
+    let color = "white";
+    if (shouldBeColoredStar) color = STAR_COLORS[Math.round(randBetween(0, STAR_COLORS.length - 1))];
+    stars.push(new CelestialBody(position, radius, color));
   }
 
   const sunPosition = getPointInArc(center, sunStartAngle, skyRadius - worldSize.height / 4);
