@@ -1,4 +1,6 @@
 import { HSLColor, rgba } from "@/app/utils/colors";
+export const baseRotationSpeed = 0.0025;
+// export const baseRotationSpeed = 0.0125;
 
 export const CELESTIAL_ANGLES = {
   HIGH_NOON: Math.PI / 2,

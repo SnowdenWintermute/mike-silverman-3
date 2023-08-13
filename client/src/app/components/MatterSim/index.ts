@@ -4,6 +4,7 @@ import { EntityShape, EntityType, MatterSimEntities, ShapeCreationData } from ".
 import { Entity } from "./Entity";
 import { baseWorldSize } from "./consts";
 import { WidthAndHeight } from "@/app/types";
+import { MountainDayNightSim } from "../MountainDayNightSim";
 
 export class MatterSim {
   physicsEngine: Matter.Engine = Matter.Engine.create();
@@ -18,7 +19,7 @@ export class MatterSim {
 
   constructor(
     public updatePhysics: (simulation: MatterSim) => void,
-    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim, renderRate: number) => void,
+    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MatterSim | MountainDayNightSim, renderRate: number) => void,
     public shouldReinitializeOnCanvasResize = false,
     public worldSize = { height: baseWorldSize.width, width: baseWorldSize.height }
   ) {}

@@ -1,6 +1,6 @@
 import { RGBColor, rgba } from "@/app/utils/colors";
-import { CELESTIAL_ANGLES } from "./consts";
 import { percentBetweenTwoNumbers } from "@/app/utils";
+import { CELESTIAL_ANGLES } from "../consts";
 import { baseWorldSize } from "../../MatterSim/consts";
 import { Vector } from "matter-js";
 

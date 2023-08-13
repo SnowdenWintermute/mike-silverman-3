@@ -2,7 +2,7 @@ import { WidthAndHeight } from "@/app/types";
 import { getPointInArc, getRectDiagonal, normalizeRadians, randBetween } from "@/app/utils";
 import { rgba } from "@/app/utils/colors";
 import { Vector } from "matter-js";
-import { STAR_COLORS, SUN_COLORS } from "./consts";
+import { STAR_COLORS, SUN_COLORS } from "../consts";
 import { perlin1D } from "@/app/utils/perlin";
 
 export class CelestialBody {

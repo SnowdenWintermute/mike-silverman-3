@@ -1,0 +1,23 @@
+.intro-page {
+  height: 200vh;
+  width: 100vw;
+  color: white;
+}
+
+.intro-page__parallax-space-creator {
+  height: 100vh;
+  width: 100vw;
+}
+
+.intro-page__content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  padding-top: 10rem;
+}
+
+.intro-page__title {
+  font-size: 3rem;
+}

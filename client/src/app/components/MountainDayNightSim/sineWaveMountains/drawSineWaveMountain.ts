@@ -2,11 +2,11 @@ import pathAlongPoints from "@/app/components/ResposiveCanvas/pathAlongPoints";
 import { getAngleFromCenter, percentBetweenTwoNumbers } from "@/app/utils";
 import { Vector } from "matter-js";
 import { SineWaveMountain } from "./createSineWaveMountain";
-import { CelestialBody } from "../createCelestialBodies";
 import calculateSineWaveMountainLighting from "./calculateSineWaveMountainLighting";
 import { HSLColor, RGBColor, hsl, rgba } from "@/app/utils/colors";
 import { CELESTIAL_ANGLES } from "../consts";
 import { baseWorldSize } from "@/app/components/MatterSim/consts";
+import { CelestialBody } from "../celestialBodies/createCelestialBodies";
 
 export default function drawSineWaveMountain(
   context: CanvasRenderingContext2D,

@@ -1,6 +1,5 @@
-import { rgba } from "@/app/utils/colors";
 import { ShootingStar } from "./ShootingStar";
-import { getPointInArc, randomColor } from "@/app/utils";
+import { getPointInArc } from "@/app/utils";
 import { Vector } from "matter-js";
 
 const maxTailLength = 40;

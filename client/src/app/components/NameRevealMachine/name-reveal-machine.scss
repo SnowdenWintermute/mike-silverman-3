@@ -1,18 +1,25 @@
-.mountain-range-scene {
-  width: 100%;
-  max-width: calc(100vh * 16 / 9); /* Maintain the 16:9 aspect ratio */
-  max-height: 100vh;
-}
 // .mountain-range-scene {
-//   // width: 100%;
-//   // max-width: calc(100vh * 16 / 9); /* Maintain the 16:9 aspect ratio */
-//   // max-height: 100vh;
-//   overflow: hidden;
-//   display: flex;
-//   justify-content: center;
+//   width: 100%;
+//   max-width: calc(100vh * 16 / 9); /* Maintain the 16:9 aspect ratio */
+//   max-height: 100vh;
 // }
+.mountain-range-scene {
+  // width: 100%;
+  // max-width: calc(100vh * 16 / 9); /* Maintain the 16:9 aspect ratio */
+  // max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+}
 
-// .mountain-range-scene-canvas {
-//   height: 100vh;
-//   width: calc(100vh * 16 / 9);
-// }
+.mountain-range-scene-canvas {
+  height: 100vh;
+  width: calc(100vh * 16 / 9);
+}
+.mountain-range-scene__skyblock-gradient {
+  height: calc(100vh / 3);
+  width: 100vw;
+  position: fixed;
+  left: 0px;
+}

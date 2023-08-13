@@ -1,5 +1,4 @@
-import { getPointInArc, randomColor } from "@/app/utils";
-import { rgba } from "@/app/utils/colors";
+import { getPointInArc } from "@/app/utils";
 import { Vector } from "matter-js";
 import { SHOOTING_STAR_COLOR } from "../consts";
 
@@ -26,12 +25,13 @@ export class ShootingStar {
     if (typeof acceleration === "number") this.acceleration = acceleration;
   }
 
-  update(tailLengthAdjustment: number, renderRate: number) {
-    this.currentTailLength += tailLengthAdjustment;
-    this.speed += this.acceleration;
-    this.acceleration *= deceleration;
-    this.age += renderRate;
-    const distanceToTravel = this.speed * renderRate;
+  update(tailLengthAdjustment: number, renderRate: number, rotationSpeed: number, baseRotationSpeed: number) {
+    const percentOfRotationSpeed = rotationSpeed / baseRotationSpeed;
+    this.currentTailLength += tailLengthAdjustment * percentOfRotationSpeed;
+    this.speed += this.acceleration * percentOfRotationSpeed;
+    this.acceleration *= deceleration * percentOfRotationSpeed;
+    this.age += renderRate * percentOfRotationSpeed;
+    const distanceToTravel = this.speed * renderRate * percentOfRotationSpeed;
     this.position = getPointInArc(this.position, this.angle, distanceToTravel);
   }
 }

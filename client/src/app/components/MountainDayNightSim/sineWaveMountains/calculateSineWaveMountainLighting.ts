@@ -21,3 +21,4 @@ export default function calculateSineWaveMountainLighting(maxLightness: number, 
   }
   return { left: leftSideLightness, right: rightSideLightness };
 }
+

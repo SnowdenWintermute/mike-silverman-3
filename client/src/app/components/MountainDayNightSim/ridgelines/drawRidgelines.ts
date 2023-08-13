@@ -1,9 +1,9 @@
 import { Vector } from "matter-js";
 import { Ridgeline } from "./createRidgeline";
-import drawRidgeline from "./drawRidgeline";
 import { percentBetweenTwoNumbers } from "@/app/utils";
 import { MOUNTAIN_MATERIAL, CELESTIAL_ANGLES } from "../consts";
 import { RGBColor, hsl, rgba } from "@/app/utils/colors";
+import drawRidgeline from "./drawRidgeline";
 
 export default function drawRidgelines(
   context: CanvasRenderingContext2D,

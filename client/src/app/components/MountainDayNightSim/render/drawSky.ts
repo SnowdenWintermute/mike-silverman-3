@@ -1,5 +1,5 @@
 import { WidthAndHeight } from "@/app/types";
-import { CELESTIAL_ANGLES } from "./consts";
+import { CELESTIAL_ANGLES } from "../consts";
 
 const minLightness = 2;
 const maxLightness = 50;
@@ -17,7 +17,8 @@ export default function drawSky(context: CanvasRenderingContext2D, canvasSize: W
     l = maxLightness - maxLightness * percentAngle;
   }
   l = Math.max(l, minLightness);
-
+  const color = `hsl(${h}, ${s}%, ${l}%)`;
   context.fillStyle = `hsl(${h}, ${s}%, ${l}%)`;
   context.fillRect(0, 0, canvasSize.width, canvasSize.height);
+  return { h, s, l };
 }

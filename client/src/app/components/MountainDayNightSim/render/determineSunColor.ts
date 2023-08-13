@@ -1,6 +1,6 @@
 import { percentBetweenTwoNumbers } from "@/app/utils";
 import { lerpColor } from "@/app/utils/colors";
-import { CELESTIAL_ANGLES, SUN_COLORS } from "./consts";
+import { CELESTIAL_ANGLES, SUN_COLORS } from "../consts";
 
 export default function determineSunColor(sunAngle: number) {
   const { HIGH_NOON, MORNING_HORIZON, EARLY_MORNING, LATE_MORNING, EVENING_HORIZON, EARLY_EVENING, LATE_EVENING } = CELESTIAL_ANGLES;
