@@ -1,9 +1,11 @@
 @import "./base.scss";
 @import "./common.scss";
+@import "./scrollbar.scss";
+@import "../main.scss";
 @import "../components/ResposiveCanvas/responsive-canvas.scss";
 @import "../components/NameRevealMachine/name-reveal-machine.scss";
 @import "../components/IntroPage/intro-page.scss";
-@import "../components/ProjectsPage/projects-page.scss";
+@import "../projects/projects-page.scss";
 @import "../components/HoverZoomViewer/hover-zoom-viewer.scss";
 
 @font-face {
@@ -37,7 +39,7 @@
   --color-danger: #a52026;
   --color-danger-highlight: #e42933;
   --color-success: #028a7e;
-  --color-chat-message-private: #ffc0cb;
+  --color-alternate-accent: #ffc0cb;
   --color-warning: #ffbb00;
   --font-family: "DM Sans";
 }

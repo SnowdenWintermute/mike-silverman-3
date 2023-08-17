@@ -14,6 +14,15 @@ const NameRevealMachine = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const percentScrolled = (scrollY / windowHeight) * windowHeight;
 
+  useEffect(() => {
+    const percentScrolled = 1 - window.scrollY / window.innerHeight;
+    setScrollY(window.scrollY);
+    setWindowHeight(window.innerHeight);
+    const rotationSpeedBasedOnPercentScrolled = baseRotationSpeed * percentScrolled;
+    simulationRef.current.rotationSpeed = rotationSpeedBasedOnPercentScrolled;
+    simulationRef.current.scrollPercent = percentScrolled;
+  }, []);
+
   const handleScroll = () => {
     const percentScrolled = 1 - window.scrollY / window.innerHeight;
     setScrollY(window.scrollY);

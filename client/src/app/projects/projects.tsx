@@ -5,21 +5,34 @@ export type Project = {
   github: string;
   logo: string;
   image: string;
-  description: string;
+  description: string | JSX.Element[];
   dateStarted: number;
   dateRetired: number;
   linesOfCode: number;
+};
+
+export const nullProject = {
+  title: "Projects by Mike",
+  tagline: "Select a project to learn more",
+  url: "",
+  github: "",
+  logo: "",
+  image: "",
+  description: "ayylmao",
+  dateStarted: 0,
+  dateRetired: 0,
+  linesOfCode: 0,
 };
 
 export const projects = {
   battleSchool: {
     title: "battleschool.io",
     tagline: "A competitive multiplayer game",
-    url: "https://battleschool.io",
+    url: "https://battleschool.io/battle-room",
     github: "https://github.com/snowdenwintermute/lucella",
     logo: "/project-logos/battle-school.png",
     image: "/project-images/battle-school-pc.png",
-    description: "ayylmao",
+    description: [<p>ayylmao</p>, <p>test</p>],
     dateStarted: 0,
     dateRetired: 0,
     linesOfCode: 0,
