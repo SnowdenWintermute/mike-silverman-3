@@ -35,7 +35,6 @@ function ProjectsPage() {
             ))}
           </ul>
         </div>
-
         <div className="projects-page__right-box">{projectDetails}</div>
       </div>
     </section>

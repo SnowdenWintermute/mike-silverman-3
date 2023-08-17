@@ -3,10 +3,11 @@ import throttledHandlerCreator from "../../utils/throttledEventHandleCreator";
 
 type Props = {
   image: string;
+  handleClick: () => void;
   alt?: string;
 };
 
-const HoverOffsetZoomViewer = ({ image, alt }: Props) => {
+const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
   const [style, setStyle] = useState({});
   const [hoveringImg, setHoveringImg] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -63,6 +64,7 @@ const HoverOffsetZoomViewer = ({ image, alt }: Props) => {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchMove}
+      onClick={handleClick}
     >
       <img ref={imgRef} className="zoomable-image" src={image} alt={alt} style={style} />
     </div>

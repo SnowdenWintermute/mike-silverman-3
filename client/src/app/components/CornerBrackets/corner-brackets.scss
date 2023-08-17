@@ -1,0 +1,30 @@
+.corner-bracket-box {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.bracket-line {
+  position: absolute;
+  z-index: 3;
+}
+.horizontal {
+  height: 2px;
+  width: 40px;
+}
+.vertical {
+  height: 40px;
+  width: 2px;
+}
+.top-left {
+  top: 0px;
+  left: 0px;
+}
+.top-right {
+  top: 0px;
+  right: 0px;
+}
+.bottom-right {
+  bottom: 0px;
+  right: 0px;
+}

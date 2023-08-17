@@ -3,6 +3,7 @@ import { Project } from "./projects";
 import FullScreenImageViewer from "./FullScreenImageViewer";
 import GitHubIcon from "../../app/img/ui/github-icon.svg";
 import WebLinkIcon from "../../app/img/ui/internet-icon.svg";
+import HoverOffsetZoomViewer from "../components/HoverZoomViewer";
 
 export const ProjectDetailsContent = ({ project }: { project: Project }) => {
   const [viewingFullscreenImage, setViewingFullscreenImage] = useState(false);
@@ -25,21 +26,14 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
       </div>
       {project.image && (
         <div className="project-details__image-container">
-          <img
-            src={project.image}
-            alt=""
-            aria-hidden={true}
-            onClick={() => setViewingFullscreenImage(true)}
-          />
+          <HoverOffsetZoomViewer image={project.image} handleClick={() => setViewingFullscreenImage(true)} />
+          {
+            // <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
+          }
         </div>
       )}
-      {project.description && project.description}
-      {viewingFullscreenImage && (
-        <FullScreenImageViewer
-          image={project.image}
-          closeViewer={() => setViewingFullscreenImage(false)}
-        />
-      )}
+      <div className="project-details__description">{project.description && project.description}</div>
+      {viewingFullscreenImage && <FullScreenImageViewer image={project.image} closeViewer={() => setViewingFullscreenImage(false)} />}
     </>
   );
 };
