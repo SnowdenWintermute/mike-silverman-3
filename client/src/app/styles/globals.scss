@@ -1,7 +1,10 @@
 @import "./base.scss";
+@import "./common.scss";
 @import "../components/ResposiveCanvas/responsive-canvas.scss";
 @import "../components/NameRevealMachine/name-reveal-machine.scss";
 @import "../components/IntroPage/intro-page.scss";
+@import "../components/ProjectsPage/projects-page.scss";
+@import "../components/HoverZoomViewer/hover-zoom-viewer.scss";
 
 @font-face {
   font-family: "DM Sans";
@@ -37,4 +40,8 @@
   --color-chat-message-private: #ffc0cb;
   --color-warning: #ffbb00;
   --font-family: "DM Sans";
+}
+
+* {
+  color: var(--color-primary);
 }

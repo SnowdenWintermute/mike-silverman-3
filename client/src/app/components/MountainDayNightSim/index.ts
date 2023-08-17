@@ -4,6 +4,7 @@ import createRidgelines from "./ridgelines/createRidgelines";
 import createSineWaveMountains from "./sineWaveMountains/createSineWaveMountains";
 import createCelestialBodies, { CelestialBody } from "./celestialBodies/createCelestialBodies";
 import { ShootingStar } from "./shootingStars/ShootingStar";
+import { defaultRenderRate } from "./consts";
 
 // const celestialDiscStartAngle = 0.55;
 // const celestialDiscStartAngle = -Math.PI / 2 + 0.4;
@@ -24,7 +25,8 @@ export class MountainDayNightSim {
   sineMountains = createSineWaveMountains(30);
   shootingStars: { [key: string]: ShootingStar } = {};
   deadShootingStars: { [key: string]: ShootingStar } = {};
-  renderRate = 20;
+  renderRate = defaultRenderRate;
+  scrollPercent = 0;
   intervals: {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
@@ -50,8 +52,8 @@ export class MountainDayNightSim {
 
   stepSimulation(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
     this.intervals.physics = setTimeout(() => {
-      this.updatePhysics(this);
-      this.render(context, canvasSize, this, this.renderRate);
+      if (this.scrollPercent > 0.1) this.updatePhysics(this);
+      if (this.scrollPercent > 0.1) this.render(context, canvasSize, this, this.renderRate);
       this.stepSimulation(context, canvasSize);
     }, this.renderRate);
   }

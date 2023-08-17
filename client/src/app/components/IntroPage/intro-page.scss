@@ -13,11 +13,27 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   // align-items: center;
+  // background: blue;
   padding-top: 10rem;
 }
 
 .intro-page__title {
   font-size: 3rem;
+  // text-align: center;
+}
+.intro-page__sub-title {
+  // text-align: center;
+}
+.intro-page__sub-title--big {
+  font-size: 3rem;
+}
+
+.emojis {
+  transition: 0.5s;
+}
+.emojis-fall {
+  transform: rotateX(90deg);
 }

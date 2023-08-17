@@ -11,15 +11,18 @@
   display: flex;
   justify-content: center;
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
 .mountain-range-scene-canvas {
   height: 100vh;
   width: calc(100vh * 16 / 9);
 }
-.mountain-range-scene__skyblock-gradient {
-  height: calc(100vh / 3);
-  width: 100vw;
-  position: fixed;
-  left: 0px;
-}
+// .mountain-range-scene__skyblock-gradient {
+//   height: calc(100vh / 3);
+//   width: 100vw;
+//   position: fixed;
+//   left: 0px;
+// }

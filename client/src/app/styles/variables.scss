@@ -1,0 +1,55 @@
+$goldenRatioFraction: 0.618;
+$goldenRatio: 1.618;
+
+$goldenRems: (
+  // 6px
+  0: 0.375rem,
+  // 10px
+  1: 0.625rem,
+  // 15px
+  2: 1rem,
+  // 20px
+  3: 1.25rem,
+  // 25px
+  4: 1.563rem,
+  // 41px
+  5: 2.563rem,
+  // 66px
+  6: 4.125rem,
+  // 105
+  7: 6.688rem,
+  // 173
+  8: 10.813rem,
+  // 280
+  9: 17.5rem,
+  // 453
+  10: 28.313rem,
+  // 733
+  11: 45.813rem,
+  // 1186
+  12: 74.188rem
+);
+
+@function goldenRem($name) {
+  @return map-get($goldenRems, $name);
+}
+
+$fontSizes: (
+  0: 0.8rem,
+  // 14px
+  1: 0.875rem,
+  // 16px
+  2: 1rem,
+  // 20px
+  3: 1.25rem,
+  // 25px
+  4: 1.5625rem,
+  // 36
+  5: 2.25rem,
+  // 41
+  6: 2.53rem,
+);
+
+@function fontSize($fontSize-name) {
+  @return map-get($fontSizes, $fontSize-name);
+}

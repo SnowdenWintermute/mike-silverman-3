@@ -1,0 +1,17 @@
+.offset-zoomer {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.zoomable-image {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-position: center;
+  transition: 0.3s;
+  pointer-events: none;
+  display: block;
+}

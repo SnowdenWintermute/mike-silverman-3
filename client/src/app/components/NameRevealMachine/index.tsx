@@ -4,7 +4,7 @@ import { MountainDayNightSim } from "../MountainDayNightSim";
 import { baseWorldSize } from "../MatterSim/consts";
 import updateMountainDayNightPhysics from "../MountainDayNightSim/updatePhysics";
 import renderMountainDayNightScene from "../MountainDayNightSim/render";
-import { baseRotationSpeed } from "../MountainDayNightSim/consts";
+import { baseRotationSpeed, defaultRenderRate } from "../MountainDayNightSim/consts";
 
 const NameRevealMachine = () => {
   const simulationRef = useRef<MountainDayNightSim>(
@@ -20,6 +20,7 @@ const NameRevealMachine = () => {
     setWindowHeight(window.innerHeight);
     const rotationSpeedBasedOnPercentScrolled = baseRotationSpeed * percentScrolled;
     simulationRef.current.rotationSpeed = rotationSpeedBasedOnPercentScrolled;
+    simulationRef.current.scrollPercent = percentScrolled;
   };
 
   useEffect(() => {

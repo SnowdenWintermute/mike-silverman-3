@@ -27,4 +27,9 @@ export default function renderMountainDayNightScene(context: CanvasRenderingCont
   sim.sineMountains.forEach((sineWaveMountain) => {
     drawSineWaveMountain(context, drawFractions, sineWaveMountain, sim.sun, sim.moon, MOUNTAIN_MATERIAL, sunColor, sim.sunAngle);
   });
+
+  // context.fillStyle = "black";
+  // context.fillText(`${sim.scrollPercent}`, 9, 9);
+  // context.fillStyle = "white";
+  // context.fillText(`${sim.scrollPercent}`, 10, 10);
 }
