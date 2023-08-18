@@ -27,20 +27,24 @@ export const nullProject = {
 export const projects = {
   battleSchool: {
     title: "battleschool.io",
-    tagline: "A competitive multiplayer game",
+    tagline: "Real-time multiplayer game",
     url: "https://battleschool.io/battle-room",
     github: "https://github.com/snowdenwintermute/lucella",
     logo: "/project-logos/battle-school.png",
     image: "/project-images/battle-school-pc.png",
     description: [
+      <p>
+        A real time strategy game with a chat lobby and ranked matchmaking, this is the project that I have spent the most time on by far. It has been through
+        two full rewrites, the most recent of which included changing the database from MongoDB to Postgres.
+      </p>,
       <h4>Front End Features</h4>,
       <ul>
-        <li>Custom accessible modal, context menu, text input with error display, toast notification, radio group and select components</li>
         <li>Instant-appearing game input response in latencies of up to 1000ms (client prediction)</li>
-        <li>Ability to post XSS sanitized links in chat</li>
         <li>Scalable theming (4 themes and counting)</li>
+        <li>Custom accessible modal, context menu, text input with error display, toast notification, radio group and select components</li>
+        <li>All elements tab indexed for accessibility</li>
+        <li>Ability to post XSS sanitized links in chat</li>
         <li>Responsive design, including game canvas</li>
-        <li> All elements tab indexed for accessibility</li>
       </ul>,
       <h4>Back End Features</h4>,
       <ul>
@@ -71,12 +75,43 @@ export const projects = {
   },
   mcguffsilverman: {
     title: "mcguffsilverman.com",
-    tagline: "A bespoke Ecommerce site",
+    tagline: "Bespoke Ecommerce site",
     url: "https://mcguffsilverman.com",
     github: "https://github.com/SnowdenWintermute/ellen-silverman-v3",
     logo: "/project-logos/mcguffsilverman.png",
     image: "/project-images/mcguffsilverman-pc.png",
-    description: "ayylmao",
+    description: [
+      <p>
+        The third iteration of one of my first ever projects, a website to sell my mom's artwork.{" "}
+        <a href="https://ecommerce.mike-silverman.com/the-professor">Check out the animated storybook</a>
+      </p>,
+      <h4>Shop Features</h4>,
+      <ul>
+        <li>Over 700 paintings categorized and sortable by various metrics</li>
+        <li>Credit card payment accepted via Stripe</li>
+        <li>Save shipping addresses to your account</li>
+        <li>Recieve email notification when order is shipped</li>
+        <li>Add and remove items to a cart which persists in local storage</li>
+        <li>View your order history and status</li>
+        <li>Create an account with email or Google account</li>
+      </ul>,
+      <h4>Administrator Features</h4>,
+      <ul>
+        <li>Upload new item images in bulk with multi-image uploader as well as their associated info via .csv</li>
+        <li>Images automatically resized on the server to create thumbnails</li>
+        <li>Recieve email notification when an item is purchased</li>
+        <li>Categorize orders and add tracking info</li>
+        <li>Edit items and see the number of times they were viewed</li>
+      </ul>,
+      <h4>Frontend Features</h4>,
+      <ul>
+        <li>Custom image fader homepage</li>
+        <li>Gallery thumbnails are cached on first load</li>
+        <li>
+          <a href="https://ecommerce.mike-silverman.com/the-professor">Animated storybook</a>
+        </li>
+      </ul>,
+    ],
     dateStarted: 0,
     dateRetired: 0,
     linesOfCode: 0,
@@ -100,21 +135,28 @@ export const projects = {
     github: "https://github.com/SnowdenWintermute/customWeatherApp",
     logo: "/project-logos/weather-of-the-future.png",
     image: "/project-images/weather-of-the-future-pc.png",
-    description: "ayylmao",
-    dateStarted: 0,
-    dateRetired: 0,
-    linesOfCode: 0,
+    description: [
+      <p>
+        Notable for the fact that it uses no frameworks or libraries, this single page app fetches and displays data from the OpenWeatherMap API. It is by
+        building such an application that I came to understand why front end frameworks were created.
+      </p>,
+    ],
+    dateStarted: new Date("Oct 2, 2018"),
+    dateRetired: new Date("Nov 11, 2018"),
+    linesOfCode: 342 + 58 + 71 + 30 + 50 + 50,
   },
   rainSim: {
     title: "Rain Simulation",
-    tagline: "Featuring UI elements built in canvas",
+    tagline: "UI elements built in canvas",
     url: "https://snowdenwintermute.github.io/rainSim/",
     github: "https://github.com/SnowdenWintermute/rainSim",
     logo: "/project-logos/rain-sim.png",
     image: "/project-images/rain-sim-pc.png",
-    description: "ayylmao",
-    dateStarted: 0,
-    dateRetired: 0,
-    linesOfCode: 0,
+    description: [
+      <p>The start of my love of the Canvas API. I wanted to make a rain simulation but ended up spending most of the time on creating the slider input.</p>,
+    ],
+    dateStarted: new Date("Sep 4, 2018"),
+    dateRetired: new Date("Sep 17, 2018"),
+    linesOfCode: 29 + 198 + 19 + 112 + 116 + 215 + 12,
   },
 };
