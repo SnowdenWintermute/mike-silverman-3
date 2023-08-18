@@ -8,6 +8,10 @@
 @import "../components/CornerBrackets/corner-brackets.scss";
 @import "../projects/projects-page.scss";
 @import "../components/HoverZoomViewer/hover-zoom-viewer.scss";
+@import "../layouts/nav.scss";
+@import "../components/FullScreenImageViewer/full-screen-image-viewer.scss";
+@import "../projects/project-details.scss";
+@import "../projects/project-list-item.scss";
 
 @font-face {
   font-family: "DM Sans";
@@ -33,6 +37,7 @@
 :root,
 [data-theme="default"] {
   --color-bg: #162229;
+  // --color-bg: #fff;
   --color-primary: #9ba8b8;
   --color-accent: #080b11;
   --color-faded: #656b72;

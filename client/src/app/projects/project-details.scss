@@ -1,0 +1,105 @@
+.project-details__title-bar {
+  width: 100%;
+  height: goldenRem(6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-primary);
+}
+
+.project-details__content {
+  border-right: 1px solid var(--color-primary);
+  border-left: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
+  padding: goldenRem(4);
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.project-details__description {
+  p {
+    margin-bottom: goldenRem(2);
+  }
+  ul {
+    list-style-position: inside;
+    margin-bottom: goldenRem(2);
+  }
+}
+
+.project-details__tagline-with-project-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: goldenRem(2);
+  @media only screen and (max-width: goldenRem(10)) {
+    flex-direction: column;
+  }
+}
+
+.project-details__tagline {
+  font-size: fontSize(3);
+  @media only screen and (max-width: goldenRem(10)) {
+    margin-bottom: goldenRem(1);
+  }
+}
+
+.project-link {
+  margin-right: goldenRem(1);
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.project-link-icon {
+  height: goldenRem(4);
+  width: goldenRem(4);
+  fill: var(--color-primary);
+  cursor: pointer;
+  &:hover {
+    fill: var(--color-alternate-accent);
+  }
+}
+
+.project-details__image-container {
+  img {
+    max-width: 100%;
+    display: block;
+    cursor: pointer;
+  }
+  border: 1px solid var(--color-primary);
+  margin-bottom: goldenRem(2);
+}
+
+.project-details__technology-icons-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.web-tech-icon__container {
+  position: relative;
+  margin-bottom: goldenRem(1);
+  margin-right: goldenRem(2);
+}
+
+.web-tech-icon {
+  height: goldenRem(5);
+}
+
+.web-tech-icon--monochrome {
+  fill: var(--color-primary);
+}
+.project-details__technologies-name {
+  margin-bottom: goldenRem(1);
+}
+// .web-tech-icon__name {
+//   position: absolute;
+//   z-index: 2;
+//   padding: goldenRem(1);
+//   min-width: goldenRem(7);
+//   text-align: center;
+//   left: 50%;
+//   top: calc(-100% - goldenRem(1));
+//   transform: translateX(-50%);
+//   background: var(--color-bg);
+//   border: 1px solid var(--color-primary);
+// }

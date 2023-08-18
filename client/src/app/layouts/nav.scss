@@ -1,0 +1,26 @@
+@import "../styles/variables.scss";
+nav {
+  height: goldenRem(6);
+  display: flex;
+  align-items: center;
+  ul {
+    // padding: goldenRem(2);
+    padding-left: goldenRem(4);
+    font-size: fontSize(3);
+    display: flex;
+    list-style: none;
+    li {
+      margin-right: goldenRem(4);
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.nav-link-current-page {
+  text-decoration: underline;
+}

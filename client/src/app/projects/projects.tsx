@@ -1,3 +1,5 @@
+import { WebTechNames } from "./WebTechnologyIcon";
+
 export type Project = {
   title: string;
   tagline: string;
@@ -5,13 +7,14 @@ export type Project = {
   github: string;
   logo: string;
   image: string;
-  description: string | JSX.Element[];
+  technologies: WebTechNames[];
+  description: string | JSX.Element[] | JSX.Element;
   dateStarted: number;
   dateRetired: number;
   linesOfCode: number;
 };
 
-export const nullProject = {
+export const nullProject: Project = {
   title: "Projects by Mike",
   tagline: "Select a project to learn more",
   url: "",
@@ -19,12 +22,13 @@ export const nullProject = {
   logo: "",
   image: "",
   description: "ayylmao",
+  technologies: [],
   dateStarted: 0,
   dateRetired: 0,
   linesOfCode: 0,
 };
 
-export const projects = {
+export const projects: { [key: string]: Project } = {
   battleSchool: {
     title: "battleschool.io",
     tagline: "Real-time multiplayer game",
@@ -32,6 +36,20 @@ export const projects = {
     github: "https://github.com/snowdenwintermute/lucella",
     logo: "/project-logos/battle-school.png",
     image: "/project-images/battle-school-pc.png",
+    technologies: [
+      WebTechNames.typescript,
+      WebTechNames.nextJs,
+      WebTechNames.redux,
+      WebTechNames.sass,
+      WebTechNames.nodeJs,
+      WebTechNames.postgres,
+      WebTechNames.redis,
+      WebTechNames.socketIo,
+      WebTechNames.protobuf,
+      WebTechNames.docker,
+      WebTechNames.cypress,
+      WebTechNames.jest,
+    ],
     description: [
       <p>
         A real time strategy game with a chat lobby and ranked matchmaking, this is the project that I have spent the most time on by far. It has been through
@@ -80,6 +98,7 @@ export const projects = {
     github: "https://github.com/SnowdenWintermute/ellen-silverman-v3",
     logo: "/project-logos/mcguffsilverman.png",
     image: "/project-images/mcguffsilverman-pc.png",
+    technologies: [],
     description: [
       <p>
         The third iteration of one of my first ever projects, a website to sell my mom's artwork.{" "}
@@ -123,10 +142,16 @@ export const projects = {
     github: "https://github.com/SnowdenWintermute/React-RPG",
     logo: "/project-logos/react-rpg.png",
     image: "/project-images/react-rpg-pc.png",
-    description: "ayylmao",
-    dateStarted: 0,
-    dateRetired: 0,
-    linesOfCode: 0,
+    description: [
+      <p>
+        One of my earliest projects - a game where players try to reach the bottom floor of the dungeon while fighting deadly monsters, learning powerful
+        abilities and collecting randomly generated equipment.
+      </p>,
+    ],
+    technologies: [],
+    dateStarted: +new Date("Sep 3, 2018"),
+    dateRetired: +new Date("July 17, 2018"),
+    linesOfCode: 1873 + 5 + 8 + 1121 + 69 + 16 + 65 + 18 + 35 + 182 + 59 + 91 + 15 + 112 + 126 + 62 + 18 + 170 + 309 + 39 + 38 + 34,
   },
   weatherOfTheFuture: {
     title: "Weather of the Future",
@@ -141,8 +166,9 @@ export const projects = {
         building such an application that I came to understand why front end frameworks were created.
       </p>,
     ],
-    dateStarted: new Date("Oct 2, 2018"),
-    dateRetired: new Date("Nov 11, 2018"),
+    technologies: [WebTechNames.html],
+    dateStarted: +new Date("Oct 2, 2018"),
+    dateRetired: +new Date("Nov 11, 2018"),
     linesOfCode: 342 + 58 + 71 + 30 + 50 + 50,
   },
   rainSim: {
@@ -155,8 +181,9 @@ export const projects = {
     description: [
       <p>The start of my love of the Canvas API. I wanted to make a rain simulation but ended up spending most of the time on creating the slider input.</p>,
     ],
-    dateStarted: new Date("Sep 4, 2018"),
-    dateRetired: new Date("Sep 17, 2018"),
+    technologies: [],
+    dateStarted: +new Date("Sep 4, 2018"),
+    dateRetired: +new Date("Sep 17, 2018"),
     linesOfCode: 29 + 198 + 19 + 112 + 116 + 215 + 12,
   },
 };

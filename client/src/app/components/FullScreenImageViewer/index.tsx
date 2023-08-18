@@ -13,10 +13,11 @@ const FullScreenImageViewer = ({ image, closeViewer }: Props) => {
   }, []);
 
   return (
-    <div className="full-screen-image-viewer">
+    <div className="full-screen-image-viewer" onClick={closeViewer}>
       <img src={image} alt="a full screen image" onClick={closeViewer} />
     </div>
   );
 };
 
 export default FullScreenImageViewer;
+

@@ -33,7 +33,7 @@ const ProjectListItem = ({ project, setActiveProject, isActive }: Props) => {
   const { logo, title, tagline, url, github } = project;
 
   return (
-    <li className={`project-list-li ${isActive ? "project-list-li--expanded" : ""}`}>
+    <li className={`project-list-li ${isActive ? "project-list-li--expanded" : "project-list-li--collapsed"}`}>
       <div
         onClick={handleClick}
         onMouseOver={handleMouseOver}

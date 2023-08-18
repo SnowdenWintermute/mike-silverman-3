@@ -55,3 +55,5 @@ $fontSizes: (
 @function fontSize($fontSize-name) {
   @return map-get($fontSizes, $fontSize-name);
 }
+
+$navHeight: goldenRem(6);

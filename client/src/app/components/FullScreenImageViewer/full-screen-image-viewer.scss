@@ -1,0 +1,17 @@
+.full-screen-image-viewer {
+  position: fixed;
+  z-index: 11;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

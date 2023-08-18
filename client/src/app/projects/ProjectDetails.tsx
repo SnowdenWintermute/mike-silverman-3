@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Project } from "./projects";
-import FullScreenImageViewer from "./FullScreenImageViewer";
 import GitHubIcon from "../../app/img/ui/github-icon.svg";
 import WebLinkIcon from "../../app/img/ui/internet-icon.svg";
 import HoverOffsetZoomViewer from "../components/HoverZoomViewer";
+import FullScreenImageViewer from "../components/FullScreenImageViewer";
+import WebTechnologyIcon from "./WebTechnologyIcon";
 
 export const ProjectDetailsContent = ({ project }: { project: Project }) => {
   const [viewingFullscreenImage, setViewingFullscreenImage] = useState(false);
+  const [displayedTechnologyName, setDisplayedTechnologyName] = useState("Technologies Used");
   return (
     <>
       <div className="project-details__tagline-with-project-links">
@@ -30,6 +32,19 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
           {
             // <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
           }
+        </div>
+      )}
+      <h3 className="project-details__technologies-name">{displayedTechnologyName}</h3>
+      {project.technologies && (
+        <div className="project-details__technology-icons-container">
+          {project.technologies.map((technology) => (
+            <WebTechnologyIcon
+              name={technology}
+              styles="web-tech-icon"
+              monochromeStyles="web-tech-icon--monochrome"
+              setDisplayedTechnologyName={setDisplayedTechnologyName}
+            />
+          ))}
         </div>
       )}
       <div className="project-details__description">{project.description && project.description}</div>
