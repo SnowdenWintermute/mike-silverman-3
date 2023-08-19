@@ -41,6 +41,8 @@ export const projects: { [key: string]: Project } = {
       WebTechNames.nextJs,
       WebTechNames.redux,
       WebTechNames.sass,
+      // WebTechNames.canvas,
+      WebTechNames.matterJs,
       WebTechNames.nodeJs,
       WebTechNames.postgres,
       WebTechNames.redis,

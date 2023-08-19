@@ -42,6 +42,7 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
               name={technology}
               styles="web-tech-icon"
               monochromeStyles="web-tech-icon--monochrome"
+              colorStyles="web-tech-icon--color"
               setDisplayedTechnologyName={setDisplayedTechnologyName}
             />
           ))}

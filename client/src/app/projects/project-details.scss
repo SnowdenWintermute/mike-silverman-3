@@ -83,10 +83,19 @@
 
 .web-tech-icon {
   height: goldenRem(5);
+  transition: 0.3s;
 }
 
 .web-tech-icon--monochrome {
   fill: var(--color-primary);
+  position: absolute;
+  &:hover {
+    opacity: 0;
+  }
+}
+
+.web-tech-icon--color {
+  // opacity: 0;
 }
 .project-details__technologies-name {
   margin-bottom: goldenRem(1);
