@@ -16,13 +16,13 @@ export type Project = {
 
 export const nullProject: Project = {
   title: "Projects by Mike",
-  tagline: "Select a project to learn more",
+  tagline: "Select a project using the left sidebar",
   url: "",
   github: "",
   logo: "",
   image: "",
-  description: "ayylmao",
-  technologies: [],
+  description: [<p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>],
+  technologies: [...Object.values(WebTechNames).map((key) => key)],
   dateStarted: 0,
   dateRetired: 0,
   linesOfCode: 0,
@@ -41,7 +41,7 @@ export const projects: { [key: string]: Project } = {
       WebTechNames.nextJs,
       WebTechNames.redux,
       WebTechNames.sass,
-      // WebTechNames.canvas,
+      WebTechNames.canvas,
       WebTechNames.matterJs,
       WebTechNames.nodeJs,
       WebTechNames.postgres,
@@ -100,7 +100,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/ellen-silverman-v3",
     logo: "/project-logos/mcguffsilverman.png",
     image: "/project-images/mcguffsilverman-pc.png",
-    technologies: [],
+    technologies: [WebTechNames.react, WebTechNames.materialUi, WebTechNames.javascript, WebTechNames.css, WebTechNames.nodeJs, WebTechNames.mongoDb],
     description: [
       <p>
         The third iteration of one of my first ever projects, a website to sell my mom's artwork.{" "}
@@ -150,7 +150,7 @@ export const projects: { [key: string]: Project } = {
         abilities and collecting randomly generated equipment.
       </p>,
     ],
-    technologies: [],
+    technologies: [WebTechNames.react, WebTechNames.css, WebTechNames.javascript],
     dateStarted: +new Date("Sep 3, 2018"),
     dateRetired: +new Date("July 17, 2018"),
     linesOfCode: 1873 + 5 + 8 + 1121 + 69 + 16 + 65 + 18 + 35 + 182 + 59 + 91 + 15 + 112 + 126 + 62 + 18 + 170 + 309 + 39 + 38 + 34,
@@ -168,8 +168,8 @@ export const projects: { [key: string]: Project } = {
         building such an application that I came to understand why front end frameworks were created.
       </p>,
     ],
-    technologies: [WebTechNames.html],
-    dateStarted: +new Date("Oct 2, 2018"),
+    technologies: [WebTechNames.html, WebTechNames.css, WebTechNames.javascript],
+    dateStarted: +new Date("Oc1600t 2, 2018"),
     dateRetired: +new Date("Nov 11, 2018"),
     linesOfCode: 342 + 58 + 71 + 30 + 50 + 50,
   },
@@ -183,7 +183,7 @@ export const projects: { [key: string]: Project } = {
     description: [
       <p>The start of my love of the Canvas API. I wanted to make a rain simulation but ended up spending most of the time on creating the slider input.</p>,
     ],
-    technologies: [],
+    technologies: [WebTechNames.canvas, WebTechNames.html, WebTechNames.css, WebTechNames.javascript],
     dateStarted: +new Date("Sep 4, 2018"),
     dateRetired: +new Date("Sep 17, 2018"),
     linesOfCode: 29 + 198 + 19 + 112 + 116 + 215 + 12,

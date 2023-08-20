@@ -58,6 +58,7 @@ const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
   return (
     <div
       className="offset-zoomer"
+      aria-hidden={true}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
@@ -66,7 +67,7 @@ const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
       onTouchMove={handleTouchMove}
       onClick={handleClick}
     >
-      <img ref={imgRef} className="zoomable-image" src={image} alt={alt} style={style} />
+      <img ref={imgRef} className="zoomable-image" src={image} alt={alt} style={style} aria-hidden={true} />
     </div>
   );
 };

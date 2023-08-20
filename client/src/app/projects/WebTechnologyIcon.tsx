@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { setTooltipContents } from "../redux/slices/ui-slice";
 import CanvasIcon from "../img/web-tech-logos/canvas-monochrome.svg";
 import CanvasIconColor from "../img/web-tech-logos/canvas-color.svg";
 import CSSIcon from "../img/web-tech-logos/css-monochrome.svg";
@@ -17,6 +18,8 @@ import MaterialUIIcon from "../img/web-tech-logos/material-ui-monochrome.svg";
 import MaterialUIIconColor from "../img/web-tech-logos/material-ui-color.svg";
 import MatterJsIcon from "../img/web-tech-logos/matter-js-monochrome.svg";
 import MatterJsIconColor from "../img/web-tech-logos/matter-js-color.svg";
+import MongoDBIcon from "../img/web-tech-logos/mongo-db-monochrome.svg";
+import MongoDBIconColor from "../img/web-tech-logos/mongo-db-color.svg";
 import NextJsIcon from "../img/web-tech-logos/next-js-monochrome.svg";
 import NextJsIconColor from "../img/web-tech-logos/next-js-color.svg";
 import NGINXIcon from "../img/web-tech-logos/nginx-monochrome.svg";
@@ -39,6 +42,7 @@ import SocketIOIcon from "../img/web-tech-logos/socket-io-monochrome.svg";
 import SocketIOIconColor from "../img/web-tech-logos/socket-io-color.svg";
 import TypeScriptIcon from "../img/web-tech-logos/ts-monochrome.svg";
 import TypeScriptIconColor from "../img/web-tech-logos/ts-color.svg";
+import { useAppDispatch } from "../redux/hooks";
 
 export enum WebTechNames {
   canvas = "Canvas",
@@ -50,6 +54,7 @@ export enum WebTechNames {
   javascript = "JavaScript",
   materialUi = "Material UI",
   matterJs = "Matter.js",
+  mongoDb = "Mongo.DB",
   nextJs = "Next.js",
   nginx = "NGINX",
   nodeJs = "Node.js",
@@ -76,17 +81,23 @@ const WebTechnologyIcon = ({
   colorStyles?: string;
   setDisplayedTechnologyName?: (name: string) => void;
 }) => {
+  const iconContainerRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
   const [hovering, setHovering] = useState(false);
   const [colorIconStyle, setColorIconStyle] = useState(colorStyles);
 
   const handleMouseOver = () => {
-    // setColorIconStyle("");
+    setHovering(true);
+
+    if (!iconContainerRef.current) return;
+    const clientRect = iconContainerRef.current.getBoundingClientRect();
+    dispatch(setTooltipContents({ contents: name, position: { x: clientRect.x + clientRect.width / 2, y: clientRect.y } }));
     if (setDisplayedTechnologyName) setDisplayedTechnologyName(name);
   };
+
   const handleMouseLeave = () => {
-    // setTimeout(() => {
-    //   setColorIconStyle(colorStyles);
-    // }, 300);
+    setHovering(false);
+    dispatch(setTooltipContents(null));
     if (setDisplayedTechnologyName) setDisplayedTechnologyName("Technologies Used");
   };
 
@@ -100,6 +111,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.javascript]: <JavaScriptIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.materialUi]: <MaterialUIIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.matterJs]: <MatterJsIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.mongoDb]: <MongoDBIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.nextJs]: <NextJsIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.nginx]: <NGINXIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.nodeJs]: <NodeJsIcon className={`${styles}  ${monochromeStyles}`} />,
@@ -113,31 +125,32 @@ const WebTechnologyIcon = ({
     [WebTechNames.typescript]: <TypeScriptIcon className={`${styles}  ${monochromeStyles}`} />,
   };
   const colorIconsByName = {
-    [WebTechNames.canvas]: <CanvasIconColor className={`${styles}  ${colorIconStyle}`} />,
-    [WebTechNames.css]: <CSSIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.cypress]: <CypressIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.docker]: <DockerIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.html]: <HTMLIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.jest]: <JestIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.javascript]: <JavaScriptIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.materialUi]: <MaterialUIIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.matterJs]: <MatterJsIconColor className={`${styles}  ${colorIconStyle}`} />,
-    [WebTechNames.nextJs]: <NextJsIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.nginx]: <NGINXIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.nodeJs]: <NodeJsIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.postgres]: <PostgresIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.protobuf]: <ProtobufIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.react]: <ReactIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.redis]: <RedisIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.redux]: <ReduxIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.sass]: <SCSSIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.socketIo]: <SocketIOIconColor className={`${styles} ${colorIconStyle}`} />,
-    [WebTechNames.typescript]: <TypeScriptIconColor className={`${styles} ${colorIconStyle}`} />,
+    [WebTechNames.canvas]: <CanvasIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.css]: <CSSIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.cypress]: <CypressIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.docker]: <DockerIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.html]: <HTMLIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.jest]: <JestIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.javascript]: <JavaScriptIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.materialUi]: <MaterialUIIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.matterJs]: <MatterJsIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.mongoDb]: <MongoDBIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.nextJs]: <NextJsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.nginx]: <NGINXIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.nodeJs]: <NodeJsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.postgres]: <PostgresIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.protobuf]: <ProtobufIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.react]: <ReactIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.redis]: <RedisIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.redux]: <ReduxIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.sass]: <SCSSIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.socketIo]: <SocketIOIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.typescript]: <TypeScriptIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
   };
   return (
-    <div className="web-tech-icon__container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
-      {iconsByName[name]}
+    <div ref={iconContainerRef} className="web-tech-icon__container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
       {colorIconsByName[name]}
+      {iconsByName[name]}
     </div>
   );
 };

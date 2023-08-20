@@ -15,30 +15,31 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
         <p className="project-details__tagline">{project.tagline}</p>
         <span className="project-links">
           {project.github && (
-            <a href={project.github} className="project-link">
+            <a href={project.github} className="project-link" key="git-link">
               <GitHubIcon className="project-link-icon" />
             </a>
           )}
           {project.url && (
-            <a href={project.url} className="project-link">
+            <a href={project.url} className="project-link" key="web-link">
               <WebLinkIcon className="project-link-icon" />
             </a>
           )}
         </span>
       </div>
       {project.image && (
-        <div className="project-details__image-container">
+        <div className="project-details__image-container" key="project-image">
           <HoverOffsetZoomViewer image={project.image} handleClick={() => setViewingFullscreenImage(true)} />
           {
             // <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
           }
         </div>
       )}
-      <h3 className="project-details__technologies-name">{displayedTechnologyName}</h3>
+      <h3 className="project-details__technologies-name">Built with</h3>
       {project.technologies && (
-        <div className="project-details__technology-icons-container">
+        <div className="project-details__technology-icons-container" key="project-details-container">
           {project.technologies.map((technology) => (
             <WebTechnologyIcon
+              key={technology}
               name={technology}
               styles="web-tech-icon"
               monochromeStyles="web-tech-icon--monochrome"
