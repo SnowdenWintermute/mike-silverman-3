@@ -5,6 +5,7 @@ import WebLinkIcon from "../../app/img/ui/internet-icon.svg";
 import HoverOffsetZoomViewer from "../components/HoverZoomViewer";
 import FullScreenImageViewer from "../components/FullScreenImageViewer";
 import WebTechnologyIcon from "./WebTechnologyIcon";
+import Link from "next/link";
 
 export const ProjectDetailsContent = ({ project }: { project: Project }) => {
   const [viewingFullscreenImage, setViewingFullscreenImage] = useState(false);
@@ -15,14 +16,14 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
         <p className="project-details__tagline">{project.tagline}</p>
         <span className="project-links">
           {project.github && (
-            <a href={project.github} className="project-link" key="git-link">
+            <Link href={project.github} className="project-link" key="git-link">
               <GitHubIcon className="project-link-icon" />
-            </a>
+            </Link>
           )}
           {project.url && (
-            <a href={project.url} className="project-link" key="web-link">
+            <Link href={project.url} className="project-link" key="web-link">
               <WebLinkIcon className="project-link-icon" />
-            </a>
+            </Link>
           )}
         </span>
       </div>
@@ -60,9 +61,9 @@ const ProjectDetails = ({ project }: { project: Project }) => {
     <>
       <div className="project-details__title-bar">
         <h2 className="page-title">
-          <a href={project.url} className="page-title__url">
+          <Link href={project.url} className="page-title__url">
             {project.title}
-          </a>
+          </Link>
         </h2>
       </div>
       <div className="project-details__content">

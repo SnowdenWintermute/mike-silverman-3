@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode } from "react";
 import { useAppSelector } from "../redux/hooks";
 import Tooltip from "../components/common";

@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import { setTooltipContents } from "../redux/slices/ui-slice";
 import CanvasIcon from "../img/web-tech-logos/canvas-monochrome.svg";

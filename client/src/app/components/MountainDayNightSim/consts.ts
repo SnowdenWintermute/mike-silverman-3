@@ -1,5 +1,5 @@
 import { HSLColor, rgba } from "@/app/utils/colors";
-export const baseRotationSpeed = 0.0025;
+export const baseRotationSpeed = 0.0015;
 export const defaultRenderRate = 20;
 // export const baseRotationSpeed = 0.0125;
 

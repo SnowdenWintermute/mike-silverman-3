@@ -5,6 +5,7 @@ import { Entity } from "./Entity";
 import { baseWorldSize } from "./consts";
 import { WidthAndHeight } from "@/app/types";
 import { MountainDayNightSim } from "../MountainDayNightSim";
+import { defaultRenderRate } from "../MountainDayNightSim/consts";
 
 export class MatterSim {
   physicsEngine: Matter.Engine = Matter.Engine.create();
@@ -14,7 +15,7 @@ export class MatterSim {
   } = { physics: undefined, render: undefined };
   mouseState = new MouseState();
   entities = new MatterSimEntities();
-  renderRate = 20;
+  renderRate = defaultRenderRate;
   isInitialized = false;
 
   constructor(

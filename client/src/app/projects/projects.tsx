@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WebTechNames } from "./WebTechnologyIcon";
 
 export type Project = {
@@ -73,7 +74,7 @@ export const projects: { [key: string]: Project } = {
           Bespoke authentication using a hybrid of JWT and sessions, including single use password recovery emails and auth-required soft account deletion
         </li>
         <li>
-          Custom sliding window counters rate limiter <a href="https://www.youtube.com/watch?v=l_9NY7Ssdeg">(my video explanation)</a>
+          Custom sliding window counters rate limiter <Link href="https://www.youtube.com/watch?v=l_9NY7Ssdeg">(my video explanation)</Link>
         </li>
         <li>Global error message standardization</li>
       </ul>,
@@ -104,7 +105,7 @@ export const projects: { [key: string]: Project } = {
     description: [
       <p>
         The third iteration of one of my first ever projects, a website to sell my mom's artwork.{" "}
-        <a href="https://ecommerce.mike-silverman.com/the-professor">Check out the animated storybook</a>
+        <Link href="https://ecommerce.mike-silverman.com/the-professor">Check out the animated storybook</Link>
       </p>,
       <h4>Shop Features</h4>,
       <ul>
@@ -129,7 +130,7 @@ export const projects: { [key: string]: Project } = {
         <li>Custom image fader homepage</li>
         <li>Gallery thumbnails are cached on first load</li>
         <li>
-          <a href="https://ecommerce.mike-silverman.com/the-professor">Animated storybook</a>
+          <Link href="https://ecommerce.mike-silverman.com/the-professor">Animated storybook</Link>
         </li>
       </ul>,
     ],

@@ -1,3 +1,4 @@
+"use client";
 // all code copied from react-scrollbar-size package
 
 import { useEffect, useRef, useState } from "react";

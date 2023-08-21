@@ -1,3 +1,4 @@
+"use client";
 import { WidthAndHeight } from "@/app/types";
 import { baseWorldSize } from "../MatterSim/consts";
 import createRidgelines from "./ridgelines/createRidgelines";
@@ -27,13 +28,15 @@ export class MountainDayNightSim {
   deadShootingStars: { [key: string]: ShootingStar } = {};
   renderRate = defaultRenderRate;
   scrollPercent = 0;
+  timeRenderStarted = 0;
+  timeElapsed = 0;
   intervals: {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
   } = { physics: undefined, render: undefined };
   constructor(
     public updatePhysics: (simulation: MountainDayNightSim) => void,
-    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MountainDayNightSim, renderRate: number) => void,
+    public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MountainDayNightSim) => void,
     public shouldReinitializeOnCanvasResize = false,
     public worldSize = { height: baseWorldSize.width, width: baseWorldSize.height },
     public rotationSpeed: number
@@ -52,8 +55,13 @@ export class MountainDayNightSim {
 
   stepSimulation(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
     this.intervals.physics = setTimeout(() => {
-      if (this.scrollPercent > 0.1) this.updatePhysics(this);
-      if (this.scrollPercent > 0.1) this.render(context, canvasSize, this, this.renderRate);
+      if (this.scrollPercent > 0.1) {
+        this.timeRenderStarted = +Date.now();
+        this.updatePhysics(this);
+        this.render(context, canvasSize, this);
+        this.timeElapsed = +Date.now() - this.timeRenderStarted;
+      }
+
       this.stepSimulation(context, canvasSize);
     }, this.renderRate);
   }

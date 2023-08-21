@@ -8,8 +8,8 @@ export default function spawnShootingStars(shootingStars: { [key: string]: Shoot
   const spawnHeightRange = { min: -350, max: -100 };
   const sizeRange = { min: 1, max: 5 };
   const durationRange = { min: 100, max: 400 };
-  const speedRange = { min: 0.3, max: 0.8 };
-  const accelerationRange = { min: 0.01, max: 0.05 };
+  const speedRange = { min: 0.05, max: 0.2 };
+  const accelerationRange = { min: 0.005, max: 0.03 };
   const angleRange = { min: 1.8, max: 2.2 };
   if (shouldSpawnStar) {
     const position = { x: Math.random() * (baseWorldSize.width + baseWorldSize.width / 2), y: Math.random() * spawnHeightRange.min + spawnHeightRange.max };

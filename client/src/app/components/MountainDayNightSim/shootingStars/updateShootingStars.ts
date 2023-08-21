@@ -2,7 +2,7 @@ import { MountainDayNightSim } from "..";
 import { CELESTIAL_ANGLES, baseRotationSpeed } from "../consts";
 import spawnShootingStars from "./spawnShootingStars";
 
-export default function updateShootingStars(sim: MountainDayNightSim) {
+export default function updateShootingStars(sim: MountainDayNightSim, speedModifier: number) {
   const { sunAngle, renderRate } = sim;
   const { LATE_EVENING, EVENING_HORIZON, SUNSET, MIDNIGHT, SUNRISE, LATE_MORNING } = CELESTIAL_ANGLES;
   let chanceToSpawn = 0;
@@ -25,14 +25,19 @@ export default function updateShootingStars(sim: MountainDayNightSim) {
   spawnShootingStars(sim.shootingStars, chanceToSpawn, maxNumberOfStars);
 
   Object.entries(sim.deadShootingStars).forEach(([key, shootingStar]) => {
-    shootingStar.update(shootingStar.dissipationSpeed * -1, renderRate, sim.rotationSpeed, baseRotationSpeed);
+    shootingStar.update(
+      shootingStar.dissipationSpeed * speedModifier * -1,
+      renderRate * speedModifier,
+      sim.rotationSpeed * speedModifier,
+      baseRotationSpeed * speedModifier
+    );
     if (shootingStar.currentTailLength <= 0) {
       delete sim.deadShootingStars[key];
     }
   });
 
   Object.entries(sim.shootingStars).forEach(([key, shootingStar]) => {
-    shootingStar.update(0.5, renderRate, sim.rotationSpeed, baseRotationSpeed);
+    shootingStar.update(0.5 * speedModifier, renderRate * speedModifier, sim.rotationSpeed * speedModifier, baseRotationSpeed * speedModifier);
     if (shootingStar.age >= shootingStar.duration) {
       sim.deadShootingStars[key] = shootingStar;
       delete sim.shootingStars[key];

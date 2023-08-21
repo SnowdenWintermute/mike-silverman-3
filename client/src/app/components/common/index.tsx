@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Vector } from "matter-js";
 
