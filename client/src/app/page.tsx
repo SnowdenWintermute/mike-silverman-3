@@ -1,7 +1,10 @@
 "use client";
-import IntroPage from "./components/IntroPage";
 import dynamic from "next/dynamic";
-const NameRevealMachine = dynamic(() => import("./components/NameRevealMachine"), { ssr: false });
+const IntroPage = dynamic(() => import("./components/IntroPage"));
+const NameRevealMachine = dynamic(() => import("./components/NameRevealMachine"), {
+  ssr: false,
+  loading: () => <div className="mountain-range-scene-section" />,
+});
 
 export default function Home() {
   return (

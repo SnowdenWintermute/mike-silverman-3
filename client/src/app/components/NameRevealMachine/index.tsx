@@ -48,9 +48,11 @@ export default function NameRevealMachine() {
 
   useEffect(() => {
     setWelcomeOpacityClass("opacity-1");
-    setTimeout(() => {
+    welcomeOpacityClassTimeoutRef.current = setTimeout(() => {
       setWelcomeOpacityClass("opacity-0");
-    }, 7000);
+    }, 5000);
+
+    return () => clearTimeout(welcomeOpacityClassTimeoutRef.current);
   }, []);
 
   return (

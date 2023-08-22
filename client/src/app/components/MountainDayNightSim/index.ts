@@ -16,7 +16,8 @@ import { normalizeRadians } from "@/app/utils";
 // let rotationSpeed = 0.0045;
 // let rotationSpeed = 0.0125;
 export class MountainDayNightSim {
-  celestialDiscStartAngle = 0.8;
+  // celestialDiscStartAngle = 0.8;
+  celestialDiscStartAngle = Math.PI + Math.PI / 2;
   celestialBodies: CelestialBody[];
   sun: CelestialBody;
   sunAngle: number = 0;
@@ -53,15 +54,15 @@ export class MountainDayNightSim {
   }
 
   reRoll(context: CanvasRenderingContext2D | null, canvasSize: WidthAndHeight | null) {
-    const sunStartAngle = Math.PI + this.celestialDiscStartAngle + this.totalRotation;
-    const moonStartAngle = this.celestialDiscStartAngle + this.totalRotation;
+    const sunStartAngle = (Math.PI + this.celestialDiscStartAngle + this.totalRotation) % (Math.PI * 2);
+    const moonStartAngle = (this.celestialDiscStartAngle + this.totalRotation) % (Math.PI * 2);
     this.celestialBodies = createCelestialBodies(
       baseWorldSize,
       1000,
       baseWorldSize.height * 0.75,
       sunStartAngle,
       moonStartAngle,
-      this.celestialDiscStartAngle + this.totalRotation
+      (this.celestialDiscStartAngle + this.totalRotation) % (Math.PI * 2)
     );
     this.sun = this.celestialBodies[this.celestialBodies.length - 2];
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];

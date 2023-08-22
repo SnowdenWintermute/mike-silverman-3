@@ -8,7 +8,6 @@ import Pause from "../../img/ui/play-controls/pause.svg";
 import FastForward from "../../img/ui/play-controls/fast-forward.svg";
 import Die from "../../img/ui/play-controls/die.svg";
 import Reset from "../../img/ui/play-controls/reset.svg";
-import { useAppDispatch } from "@/app/redux/hooks";
 import TooltippedComponent from "../common/TooltippedComponent";
 import { WidthAndHeight } from "@/app/types";
 
@@ -19,22 +18,37 @@ type Props = {
 };
 
 export default function PlayControls({ simulationRef, contextRef, canvasSizeRef }: Props) {
-  const dispatch = useAppDispatch();
+  if (typeof window === "undefined") return;
   const [shouldPause, setShouldPause] = useState(false);
-  const [hideControlsClass, setHideControlsClass] = useState("");
+  const [percentScrolled, setPercentScrolled] = useState(1);
+  const [hideControlsClass, setHideControlsClass] = useState("play-controls--hidden");
   const hideControlsTimeout = useRef<NodeJS.Timeout>();
 
-  const hideControls = () => {
+  const hideControls = (delay: number) => {
     clearTimeout(hideControlsTimeout.current);
     hideControlsTimeout.current = setTimeout(() => {
       setHideControlsClass("play-controls--hidden");
-    }, 3000);
+      // if (!delay) setHideControlsClass("play-controls--hidden transition-0");
+    }, delay);
   };
 
   const showControls = () => {
     setHideControlsClass("");
-    hideControls();
+    hideControls(3000);
   };
+
+  const handleScroll = () => {
+    const newPercentScrolled = 1 - window.scrollY / window.innerHeight;
+    setPercentScrolled(newPercentScrolled);
+    if (newPercentScrolled < 0.85) hideControls(0);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [window]);
 
   const handleKeyup = (e: KeyboardEvent) => {
     if (e.key === " " || e.key === "Spacebar") {
@@ -49,7 +63,8 @@ export default function PlayControls({ simulationRef, contextRef, canvasSizeRef 
   };
 
   useEffect(() => {
-    hideControls();
+    showControls();
+    return () => clearTimeout(hideControlsTimeout.current);
   }, []);
 
   useEffect(() => {

@@ -18,6 +18,7 @@ export default function createCelestialBodies(
   moonStartAngle: number,
   celestialDiscStartAngle: number
 ) {
+  console.log(moonStartAngle.toFixed(1), sunStartAngle.toFixed(1), celestialDiscStartAngle.toFixed(1));
   const stars: CelestialBody[] = [];
   const center = { x: worldSize.width / 2, y: worldSize.height * 2 };
 
@@ -36,7 +37,7 @@ export default function createCelestialBodies(
     let color = "white";
     if (shouldBeColoredStar) color = STAR_COLORS[Math.round(randBetween(0, STAR_COLORS.length - 1))];
     stars.push(new CelestialBody(position, radius, color));
-    currAngle += angleIncrement;
+    currAngle = currAngle + angleIncrement;
   }
 
   const milkyWayNumber = 500;
@@ -51,7 +52,7 @@ export default function createCelestialBodies(
   const perlins = perlin1D(perlinAttributes);
   const milkyWaySpread = 350;
 
-  currAngle = normalizeRadians(celestialDiscStartAngle - Math.PI - Math.PI / 2 + 0.4);
+  currAngle = celestialDiscStartAngle + Math.PI + Math.PI / 2 + 0.4;
   for (let i = 0; i < milkyWayNumber * 2; i += 1) {
     const radiusOffset = ((i % milkyWayNumber) / milkyWayNumber) * (spread * 1.5) - spread * 0.4;
     const position = getPointInArc(center, currAngle, skyRadius - radiusOffset);
