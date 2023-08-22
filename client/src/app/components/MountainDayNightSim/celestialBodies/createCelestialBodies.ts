@@ -10,9 +10,6 @@ export class CelestialBody {
   constructor(public position: Vector, public radius: number, public color: string) {}
 }
 
-let generated = false;
-const stars: CelestialBody[] = [];
-
 export default function createCelestialBodies(
   worldSize: WidthAndHeight,
   numberOfStars: number,
@@ -21,7 +18,7 @@ export default function createCelestialBodies(
   moonStartAngle: number,
   celestialDiscStartAngle: number
 ) {
-  if (generated) return stars;
+  const stars: CelestialBody[] = [];
   const center = { x: worldSize.width / 2, y: worldSize.height * 2 };
 
   const skyRadius = getRectDiagonal(worldSize.width / 2, worldSize.height * 2);
@@ -87,6 +84,5 @@ export default function createCelestialBodies(
   stars.push(new CelestialBody(sunPosition, 100, rgba(SUN_COLORS.WHITE.red, SUN_COLORS.WHITE.green, SUN_COLORS.WHITE.blue)));
   const moonPosition = getPointInArc(center, moonStartAngle, skyRadius - worldSize.height / 4);
   stars.push(new CelestialBody(moonPosition, 40, "aliceblue"));
-  generated = true;
   return stars;
 }

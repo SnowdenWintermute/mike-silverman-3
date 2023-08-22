@@ -6,6 +6,7 @@ import createSineWaveMountains from "./sineWaveMountains/createSineWaveMountains
 import createCelestialBodies, { CelestialBody } from "./celestialBodies/createCelestialBodies";
 import { ShootingStar } from "./shootingStars/ShootingStar";
 import { defaultRenderRate } from "./consts";
+import { normalizeRadians } from "@/app/utils";
 
 // const celestialDiscStartAngle = 0.55;
 // const celestialDiscStartAngle = -Math.PI / 2 + 0.4;
@@ -21,6 +22,7 @@ export class MountainDayNightSim {
   sunAngle: number = 0;
   moon: CelestialBody;
   moonAngle: number = 0;
+  totalRotation: number = 0;
   skyColor: { h: number; s: number; l: number } = { h: 0, s: 0, l: 0 };
   ridgelines = createRidgelines(baseWorldSize);
   sineMountains = createSineWaveMountains(30);
@@ -50,14 +52,22 @@ export class MountainDayNightSim {
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];
   }
 
-  reRoll() {
-    const sunStartAngle = Math.PI + this.celestialDiscStartAngle;
-    const moonStartAngle = 0 + this.celestialDiscStartAngle;
-    this.celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle, this.celestialDiscStartAngle);
+  reRoll(context: CanvasRenderingContext2D | null, canvasSize: WidthAndHeight | null) {
+    const sunStartAngle = Math.PI + this.celestialDiscStartAngle + this.totalRotation;
+    const moonStartAngle = this.celestialDiscStartAngle + this.totalRotation;
+    this.celestialBodies = createCelestialBodies(
+      baseWorldSize,
+      1000,
+      baseWorldSize.height * 0.75,
+      sunStartAngle,
+      moonStartAngle,
+      this.celestialDiscStartAngle + this.totalRotation
+    );
     this.sun = this.celestialBodies[this.celestialBodies.length - 2];
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];
     this.ridgelines = createRidgelines(baseWorldSize);
     this.sineMountains = createSineWaveMountains(30);
+    if (this.isPaused && context && canvasSize) this.render(context, canvasSize, this);
   }
 
   cleanup() {

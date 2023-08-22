@@ -6,7 +6,6 @@ import React, { useEffect, useRef, useState } from "react";
 function index() {
   return (
     <section className="intro-page">
-      <div className="intro-page__parallax-space-creator" />
       <div className="intro-page__content">
         <h1 className="intro-page__title">Mike Silverman</h1>
         <h4>Full stack from Canvas to Kubernetes</h4>

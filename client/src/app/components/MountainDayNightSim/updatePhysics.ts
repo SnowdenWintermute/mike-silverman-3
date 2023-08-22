@@ -9,7 +9,7 @@ export default function updateMountainDayNightPhysics(sim: MountainDayNightSim) 
   // let elapsedSinceLastRender = timeElapsed;
   const speedModifier = elapsedSinceLastRender / renderRate;
 
-  updateCelestialBodies(sim.rotationSpeed * speedModifier, sim.celestialBodies);
+  updateCelestialBodies(sim, sim.rotationSpeed * speedModifier, sim.celestialBodies);
   updateShootingStars(sim, speedModifier);
   sim.sunAngle = getAngleFromCenter(sim.sun.position, { x: sim.worldSize.width / 2, y: sim.worldSize.height * 2 });
   sim.moonAngle = getAngleFromCenter(sim.moon.position, { x: sim.worldSize.width / 2, y: sim.worldSize.height * 2 });

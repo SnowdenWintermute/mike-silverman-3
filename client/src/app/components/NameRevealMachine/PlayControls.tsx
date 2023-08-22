@@ -1,20 +1,81 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import { MountainDayNightSim } from "../MountainDayNightSim";
 import { baseRotationSpeed, rotationSpeedPlayControlsIncrement } from "../MountainDayNightSim/consts";
+import Rewind from "../../img/ui/play-controls/rewind.svg";
+import Play from "../../img/ui/play-controls/play.svg";
+import Pause from "../../img/ui/play-controls/pause.svg";
+import FastForward from "../../img/ui/play-controls/fast-forward.svg";
+import Die from "../../img/ui/play-controls/die.svg";
+import Reset from "../../img/ui/play-controls/reset.svg";
+import { useAppDispatch } from "@/app/redux/hooks";
+import TooltippedComponent from "../common/TooltippedComponent";
+import { WidthAndHeight } from "@/app/types";
 
 type Props = {
   simulationRef: React.MutableRefObject<MountainDayNightSim>;
+  contextRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
+  canvasSizeRef: React.MutableRefObject<WidthAndHeight | null>;
 };
 
-export default function PlayControls({ simulationRef }: Props) {
+export default function PlayControls({ simulationRef, contextRef, canvasSizeRef }: Props) {
+  const dispatch = useAppDispatch();
+  const [shouldPause, setShouldPause] = useState(false);
+  const [hideControlsClass, setHideControlsClass] = useState("");
+  const hideControlsTimeout = useRef<NodeJS.Timeout>();
+
+  const hideControls = () => {
+    clearTimeout(hideControlsTimeout.current);
+    hideControlsTimeout.current = setTimeout(() => {
+      setHideControlsClass("play-controls--hidden");
+    }, 3000);
+  };
+
+  const showControls = () => {
+    setHideControlsClass("");
+    hideControls();
+  };
+
+  const handleKeyup = (e: KeyboardEvent) => {
+    if (e.key === " " || e.key === "Spacebar") {
+      e.preventDefault();
+      showControls();
+      setShouldPause(!simulationRef.current.isPaused);
+    }
+  };
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === " ") e.preventDefault();
+  };
+
+  useEffect(() => {
+    hideControls();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", showControls);
+    window.addEventListener("keyup", handleKeyup);
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("mousemove", showControls);
+      window.removeEventListener("keyup", handleKeyup);
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (shouldPause) simulationRef.current.isPaused = true;
+    else simulationRef.current.isPaused = false;
+  }, [shouldPause]);
+
   const handleSlower = () => {
     simulationRef.current.rotationSpeed -= rotationSpeedPlayControlsIncrement;
   };
   const handlePause = () => {
-    simulationRef.current.isPaused = true;
+    setShouldPause(true);
   };
   const handlePlay = () => {
-    simulationRef.current.isPaused = false;
+    setShouldPause(false);
   };
   const handleFaster = () => {
     simulationRef.current.rotationSpeed += rotationSpeedPlayControlsIncrement;
@@ -23,27 +84,53 @@ export default function PlayControls({ simulationRef }: Props) {
     simulationRef.current.rotationSpeed = baseRotationSpeed;
   };
   const handleReroll = () => {
-    simulationRef.current.reRoll();
+    simulationRef.current.reRoll(contextRef.current, canvasSizeRef.current);
   };
   return (
-    <ul className="mountain-range-scene-section__play-controls">
+    <ul className={`play-controls ${hideControlsClass}`}>
       <li>
-        <button onClick={handleSlower}>slower</button>
+        <TooltippedComponent tooltipText="reset speed">
+          <button onClick={handleReset}>
+            <Reset className="play-controls__icon" />
+          </button>
+        </TooltippedComponent>
       </li>
       <li>
-        <button onClick={handlePause}>pause</button>
+        <TooltippedComponent tooltipText="slow down">
+          <button onClick={handleSlower}>
+            <Rewind className="play-controls__icon" />
+          </button>
+        </TooltippedComponent>
       </li>
       <li>
-        <button onClick={handlePlay}>play</button>
+        {shouldPause && (
+          <TooltippedComponent tooltipText="play">
+            <button onClick={handlePlay}>
+              <Play className="play-controls__icon" />
+            </button>
+          </TooltippedComponent>
+        )}
+        {!shouldPause && (
+          <TooltippedComponent tooltipText="pause">
+            <button onClick={handlePause}>
+              <Pause className="play-controls__icon" />
+            </button>
+          </TooltippedComponent>
+        )}
       </li>
       <li>
-        <button onClick={handleFaster}>faster</button>
+        <TooltippedComponent tooltipText="speed up">
+          <button onClick={handleFaster}>
+            <FastForward className="play-controls__icon" />
+          </button>
+        </TooltippedComponent>
       </li>
       <li>
-        <button onClick={handleReset}>reset speed</button>
-      </li>
-      <li>
-        <button onClick={handleReroll}>reroll</button>
+        <TooltippedComponent tooltipText="randomize scenery">
+          <button onClick={handleReroll}>
+            <Die className="play-controls__icon" />
+          </button>
+        </TooltippedComponent>
       </li>
     </ul>
   );

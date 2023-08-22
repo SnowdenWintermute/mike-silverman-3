@@ -7,10 +7,12 @@ import { MountainDayNightSim } from "../MountainDayNightSim";
 
 type Props = {
   simulationRef: MutableRefObject<MatterSim | MountainDayNightSim>;
+  contextRef: MutableRefObject<CanvasRenderingContext2D | null>;
+  parentCanvasSizeRef: MutableRefObject<WidthAndHeight | null>;
   styles?: string;
 };
 
-export default function ResponsiveCanvas({ simulationRef, styles }: Props) {
+export default function ResponsiveCanvas({ simulationRef, contextRef, parentCanvasSizeRef, styles }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasSizeRef = useRef<WidthAndHeight | null>(null);
   const windowDimensions = useWindowDimensions();
@@ -22,6 +24,8 @@ export default function ResponsiveCanvas({ simulationRef, styles }: Props) {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    const context = canvasRef.current.getContext("2d");
+    if (context) contextRef.current = context;
     // console.log(canvasRef.current);
     // even though we don't use this value for anything, the fact that we set state forces a react refresh which actually makes the
     // canvas resize, so its needed for now
@@ -30,7 +34,7 @@ export default function ResponsiveCanvas({ simulationRef, styles }: Props) {
       width: canvasRef.current.clientWidth,
     });
 
-    canvasSizeRef.current = {
+    canvasSizeRef.current = parentCanvasSizeRef.current = {
       height: canvasRef.current.clientHeight,
       width: canvasRef.current.clientWidth,
     };
