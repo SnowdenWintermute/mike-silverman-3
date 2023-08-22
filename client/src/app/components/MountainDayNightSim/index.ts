@@ -30,6 +30,8 @@ export class MountainDayNightSim {
   scrollPercent = 0;
   timeRenderStarted = 0;
   timeElapsed = 0;
+  timeOfLastRender: number | null = null;
+  isPaused = false;
   intervals: {
     physics: NodeJS.Timeout | undefined;
     render: NodeJS.Timeout | undefined;
@@ -48,6 +50,16 @@ export class MountainDayNightSim {
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];
   }
 
+  reRoll() {
+    const sunStartAngle = Math.PI + this.celestialDiscStartAngle;
+    const moonStartAngle = 0 + this.celestialDiscStartAngle;
+    this.celestialBodies = createCelestialBodies(baseWorldSize, 1000, baseWorldSize.height * 0.75, sunStartAngle, moonStartAngle, this.celestialDiscStartAngle);
+    this.sun = this.celestialBodies[this.celestialBodies.length - 2];
+    this.moon = this.celestialBodies[this.celestialBodies.length - 1];
+    this.ridgelines = createRidgelines(baseWorldSize);
+    this.sineMountains = createSineWaveMountains(30);
+  }
+
   cleanup() {
     clearTimeout(this.intervals.physics);
     this.intervals.physics = undefined;
@@ -55,7 +67,7 @@ export class MountainDayNightSim {
 
   stepSimulation(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
     this.intervals.physics = setTimeout(() => {
-      if (this.scrollPercent > 0.1) {
+      if (this.scrollPercent > 0.1 && !this.isPaused) {
         this.timeRenderStarted = +Date.now();
         this.updatePhysics(this);
         this.render(context, canvasSize, this);
@@ -64,5 +76,6 @@ export class MountainDayNightSim {
 
       this.stepSimulation(context, canvasSize);
     }, this.renderRate);
+    // requestAnimationFrame(() => this.render(context, canvasSize, this));
   }
 }

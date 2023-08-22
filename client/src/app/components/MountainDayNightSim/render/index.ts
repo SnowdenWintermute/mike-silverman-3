@@ -11,6 +11,7 @@ import drawSineWaveMountain from "../sineWaveMountains/drawSineWaveMountain";
 import { MOUNTAIN_MATERIAL } from "../consts";
 
 export default function renderMountainDayNightScene(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, sim: MountainDayNightSim) {
+  // requestAnimationFrame(() => {
   const drawFractions = {
     x: canvasSize.width / sim.worldSize.width,
     y: canvasSize.height / sim.worldSize.height,
@@ -32,4 +33,5 @@ export default function renderMountainDayNightScene(context: CanvasRenderingCont
   // context.fillText(`${sim.scrollPercent}`, 9, 9);
   // context.fillStyle = "white";
   // context.fillText(`${sim.scrollPercent}`, 10, 10);
+  // });
 }

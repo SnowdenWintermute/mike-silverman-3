@@ -6,6 +6,7 @@ import { baseWorldSize } from "../MatterSim/consts";
 import updateMountainDayNightPhysics from "../MountainDayNightSim/updatePhysics";
 import renderMountainDayNightScene from "../MountainDayNightSim/render";
 import { baseRotationSpeed, defaultRenderRate } from "../MountainDayNightSim/consts";
+import PlayControls from "./PlayControls";
 
 export default function NameRevealMachine() {
   const simulationRef = useRef<MountainDayNightSim>(
@@ -14,6 +15,8 @@ export default function NameRevealMachine() {
   const [scrollY, setScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const percentScrolled = (scrollY / windowHeight) * windowHeight;
+  const [welcomeOpacityClass, setWelcomeOpacityClass] = useState("opacity-0");
+  const welcomeOpacityClassTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const percentScrolled = 1 - window.scrollY / window.innerHeight;
@@ -40,9 +43,23 @@ export default function NameRevealMachine() {
     };
   }, [window]);
 
+  useEffect(() => {
+    setWelcomeOpacityClass("opacity-1");
+    setTimeout(() => {
+      setWelcomeOpacityClass("opacity-0");
+    }, 7000);
+  }, []);
+
   return (
-    <section className="mountain-range-scene" style={{ top: `${percentScrolled}px` }}>
-      <ResponsiveCanvas simulationRef={simulationRef} styles="mountain-range-scene-canvas" />
+    <section className="mountain-range-scene-section">
+      <div className={`mountain-range-scene-section__text ${welcomeOpacityClass}`}>
+        <h1>Welcome</h1>
+        <p>Stay for the meteor shower or scroll to view portfolio</p>
+      </div>
+      <PlayControls simulationRef={simulationRef} />
+      <div className="mountain-range-scene" style={{ top: `${percentScrolled}px` }}>
+        <ResponsiveCanvas simulationRef={simulationRef} styles="mountain-range-scene-canvas" />
+      </div>
     </section>
   );
 }

@@ -6,6 +6,7 @@ import updateShootingStars from "./shootingStars/updateShootingStars";
 export default function updateMountainDayNightPhysics(sim: MountainDayNightSim) {
   const { renderRate, timeElapsed } = sim;
   let elapsedSinceLastRender = timeElapsed + renderRate;
+  // let elapsedSinceLastRender = timeElapsed;
   const speedModifier = elapsedSinceLastRender / renderRate;
 
   updateCelestialBodies(sim.rotationSpeed * speedModifier, sim.celestialBodies);
