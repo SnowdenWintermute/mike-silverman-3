@@ -8,7 +8,7 @@ function index() {
     <section className="intro-page">
       <div className="intro-page__content">
         <h1 className="intro-page__title">Mike Silverman</h1>
-        <h4>Full stack from Canvas to Kubernetes</h4>
+        <h4>Full stack, from Canvas to Kubernetes</h4>
         <span className="intro-page__sub-title">michael.p.silverman@gmail.com</span>
         <span className="intro-page__links">
           <Link href="/projects">Projects</Link>

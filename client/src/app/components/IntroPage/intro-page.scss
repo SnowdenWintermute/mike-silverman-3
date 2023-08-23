@@ -13,6 +13,9 @@
   flex-direction: column;
   align-items: center;
   padding-top: 10rem;
+  h4 {
+    margin-bottom: goldenRem(1);
+  }
 }
 
 .intro-page__title {
