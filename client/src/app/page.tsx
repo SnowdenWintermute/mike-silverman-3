@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 const IntroPage = dynamic(() => import("./components/IntroPage"));
-const NameRevealMachine = dynamic(() => import("./components/NameRevealMachine"), {
+const MountainDayNightScene = dynamic(() => import("./components/MountainDayNightScene"), {
   ssr: false,
   loading: () => <div className="mountain-range-scene-section" />,
 });
@@ -9,7 +9,7 @@ const NameRevealMachine = dynamic(() => import("./components/NameRevealMachine")
 export default function Home() {
   return (
     <main className="main-element">
-      <NameRevealMachine />
+      <MountainDayNightScene />
       <IntroPage />
     </main>
   );

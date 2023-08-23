@@ -9,7 +9,7 @@ import { baseRotationSpeed, defaultRenderRate } from "../MountainDayNightSim/con
 import PlayControls from "./PlayControls";
 import { WidthAndHeight } from "@/app/types";
 
-export default function NameRevealMachine() {
+export default function MountainDayNightScene() {
   const simulationRef = useRef<MountainDayNightSim>(
     new MountainDayNightSim(updateMountainDayNightPhysics, renderMountainDayNightScene, true, baseWorldSize, baseRotationSpeed)
   );
@@ -20,6 +20,11 @@ export default function NameRevealMachine() {
   const welcomeOpacityClassTimeoutRef = useRef<NodeJS.Timeout>();
   const contextRef = useRef<CanvasRenderingContext2D>(null);
   const canvasSizeRef = useRef<WidthAndHeight>(null);
+  const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
+    width: 1,
+    height: 1,
+  });
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const percentScrolled = 1 - window.scrollY / window.innerHeight;
@@ -56,6 +61,18 @@ export default function NameRevealMachine() {
     return () => clearTimeout(welcomeOpacityClassTimeoutRef.current);
   }, []);
 
+  useEffect(() => {
+    simulationRef.current.intervals.physics = setTimeout(() => {
+      const context = canvasRef.current?.getContext("2d");
+      if (!context || !canvasSizeRef.current) return;
+      simulationRef.current.stepSimulation(context, canvasSizeRef.current);
+    });
+
+    return () => {
+      simulationRef.current.cleanup();
+    };
+  }, [canvasRef, canvasSizeRef.current]);
+
   return (
     <section className="mountain-range-scene-section">
       <div className={`mountain-range-scene-section__text ${welcomeOpacityClass}`}>
@@ -64,7 +81,7 @@ export default function NameRevealMachine() {
       </div>
       <PlayControls simulationRef={simulationRef} contextRef={contextRef} canvasSizeRef={canvasSizeRef} />
       <div className="mountain-range-scene" style={{ top: `${percentScrolled}px` }}>
-        <ResponsiveCanvas simulationRef={simulationRef} contextRef={contextRef} parentCanvasSizeRef={canvasSizeRef} styles="mountain-range-scene-canvas" />
+        <ResponsiveCanvas canvasRef={canvasRef} parentCanvasSizeRef={canvasSizeRef} setCanvasSize={setCanvasSize} styles="mountain-range-scene-canvas" />
       </div>
     </section>
   );

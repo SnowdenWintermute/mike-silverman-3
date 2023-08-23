@@ -1,63 +1,46 @@
-import React, { useRef, useEffect } from "react";
-import draw from "./draw";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
+import React, { useRef, useEffect, useState } from "react";
 import createSnowInterval from "./snowInterval/createSnowInterval";
-import Snowflake from "./Snowflake";
-import QuadTree from "./Quadtree/Quadtree";
+import { WidthAndHeight } from "@/app/types";
+import SnowQuadtreeSim from "./SnowQuadtreeSim";
+import ResponsiveCanvas from "../ResposiveCanvas";
 
-type Props = {
-  numFlakes: number;
-  parentHeight: number;
-  parentWidth: number;
-};
-
-export default function Snow({ numFlakes, parentHeight, parentWidth }: Props) {
+export default function Snow() {
+  const canvasSizeRef = useRef<WidthAndHeight>(null);
+  const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
+    width: 1,
+    height: 1,
+  });
+  const snowSimRef = useRef<SnowQuadtreeSim>(new SnowQuadtreeSim(canvasSize));
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const drawRef = useRef<() => void>();
-  const snowInterval = useRef<NodeJS.Timeout>();
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
-  const snowflakes = useRef<Snowflake[]>([]);
-  const qtRef = useRef<QuadTree>();
-  const mouseData = useRef<{ x: number | null; y: number | null; radius: number }>({
-    x: null,
-    y: null,
-    radius: 50,
-  });
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-    snowflakes.current = [];
-    for (let i = numFlakes; i > 0; i--)
-      snowflakes.current.push(new Snowflake(Math.random() * canvasRef.current.clientWidth, Math.random() * canvasRef.current.clientHeight));
-  }, [windowWidth, windowHeight, parentHeight, parentWidth, numFlakes, canvasRef.current]);
+    if (!canvasRef || !canvasRef.current) return;
+    const numFlakes = canvasSize.width / 8;
+    snowSimRef.current.spawnInitialSnowflakes(numFlakes, canvasRef);
+  }, [canvasSize, canvasRef.current]);
+
+  // useEffect(() => {
+  //   drawRef.current = function () {
+  //     if (!canvasRef.current) return;
+  //     const context = canvasRef.current.getContext("2d");
+  //     draw(
+  //       context,
+  //       canvasRef.current.clientWidth,
+  //       canvasRef.current.clientHeight,
+  //        snowflakes.current,
+  //       qtRef,
+  //     });
+  //   };
+  // });
 
   useEffect(() => {
-    drawRef.current = function () {
-      if (!canvasRef.current) return;
-      const context = canvasRef.current.getContext("2d");
-      draw(
-        context,
-        canvasRef.current.clientWidth,
-        canvasRef.current.clientHeight,
-         snowflakes.current,
-        qtRef,
-      });
-    };
-  });
-
-  useEffect(() => {
-    function currentDrawFunction() {
-      drawRef.current();
-    }
-
     snowInterval.current = createSnowInterval(currentDrawFunction, canvasRef.current.clientWidth, canvasRef.current.clientHeight, snowflakes, qtRef);
     return () => clearInterval(snowInterval.current);
   });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    mouseData.current.x = e.nativeEvent.offsetX;
-    mouseData.current.y = e.nativeEvent.offsetY;
-  };
-
-  return <canvas className="snow-canvas" height={parentHeight || 400} width={parentWidth || 400} ref={canvasRef} onMouseMove={handleMouseMove} />;
+  return (
+    <div>
+      <ResponsiveCanvas canvasRef={canvasRef} setCanvasSize={setCanvasSize} parentCanvasSizeRef={canvasSizeRef} />
+    </div>
+  );
 }
