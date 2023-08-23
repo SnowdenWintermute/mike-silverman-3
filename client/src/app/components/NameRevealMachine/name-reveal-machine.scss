@@ -9,6 +9,10 @@
 }
 
 .mountain-range-scene-section__text {
+  // position: fixed;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   text-align: center;
   border: 1px solid var(--color-primary);
   background: var(--color-bg);
@@ -36,7 +40,7 @@
 }
 
 .play-controls {
-  position: absolute;
+  position: fixed;
   bottom: goldenRem(5);
   list-style: none;
   display: flex;

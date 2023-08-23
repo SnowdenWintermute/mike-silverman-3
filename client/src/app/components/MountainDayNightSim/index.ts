@@ -16,8 +16,8 @@ import { normalizeRadians } from "@/app/utils";
 // let rotationSpeed = 0.0045;
 // let rotationSpeed = 0.0125;
 export class MountainDayNightSim {
-  // celestialDiscStartAngle = 0.8;
-  celestialDiscStartAngle = Math.PI + Math.PI / 2;
+  celestialDiscStartAngle = 0.8;
+  // celestialDiscStartAngle = Math.PI + Math.PI / 2;
   celestialBodies: CelestialBody[];
   sun: CelestialBody;
   sunAngle: number = 0;

@@ -32,6 +32,7 @@ export default function NameRevealMachine() {
 
   const handleScroll = () => {
     const percentScrolled = 1 - window.scrollY / window.innerHeight;
+    if (percentScrolled < 0.9) setWelcomeOpacityClass("opacity-0");
     setScrollY(window.scrollY);
     setWindowHeight(window.innerHeight);
     const rotationSpeedBasedOnPercentScrolled = baseRotationSpeed * percentScrolled;

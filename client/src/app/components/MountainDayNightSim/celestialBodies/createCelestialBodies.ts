@@ -18,7 +18,6 @@ export default function createCelestialBodies(
   moonStartAngle: number,
   celestialDiscStartAngle: number
 ) {
-  console.log(moonStartAngle.toFixed(1), sunStartAngle.toFixed(1), celestialDiscStartAngle.toFixed(1));
   const stars: CelestialBody[] = [];
   const center = { x: worldSize.width / 2, y: worldSize.height * 2 };
 
