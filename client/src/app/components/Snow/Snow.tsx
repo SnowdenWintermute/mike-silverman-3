@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import createSnowInterval from "./snowInterval/createSnowInterval";
 import { WidthAndHeight } from "@/app/types";
 import SnowQuadtreeSim from "./SnowQuadtreeSim";
 import ResponsiveCanvas from "../ResposiveCanvas";
@@ -17,29 +16,16 @@ export default function Snow() {
     if (!canvasRef || !canvasRef.current) return;
     const numFlakes = canvasSize.width / 8;
     snowSimRef.current.spawnInitialSnowflakes(numFlakes, canvasRef);
+    const context = canvasRef.current.getContext("2d");
+    if (!context) return;
+    snowSimRef.current.canvasSize = canvasSize;
+    snowSimRef.current.stepSimulation(context);
+
+    return () => snowSimRef.current.cleanup();
   }, [canvasSize, canvasRef.current]);
 
-  // useEffect(() => {
-  //   drawRef.current = function () {
-  //     if (!canvasRef.current) return;
-  //     const context = canvasRef.current.getContext("2d");
-  //     draw(
-  //       context,
-  //       canvasRef.current.clientWidth,
-  //       canvasRef.current.clientHeight,
-  //        snowflakes.current,
-  //       qtRef,
-  //     });
-  //   };
-  // });
-
-  useEffect(() => {
-    snowInterval.current = createSnowInterval(currentDrawFunction, canvasRef.current.clientWidth, canvasRef.current.clientHeight, snowflakes, qtRef);
-    return () => clearInterval(snowInterval.current);
-  });
-
   return (
-    <div>
+    <div className="snow-canvas-container">
       <ResponsiveCanvas canvasRef={canvasRef} setCanvasSize={setCanvasSize} parentCanvasSizeRef={canvasSizeRef} />
     </div>
   );

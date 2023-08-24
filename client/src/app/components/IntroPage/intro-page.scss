@@ -2,20 +2,22 @@
 
 .intro-page {
   width: 100%;
-}
-
-.intro-page__parallax-space-creator {
-}
-
-.intro-page__content {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10rem;
+  position: relative;
   h4 {
     margin-bottom: goldenRem(1);
   }
+}
+
+.intro-page__content {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: goldenRem(8);
+  border: 1px solid var(--color-primary);
+  background: var(--color-accent);
+  padding: goldenRem(6);
+  text-align: center;
 }
 
 .intro-page__title {

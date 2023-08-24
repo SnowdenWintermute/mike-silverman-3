@@ -5,6 +5,7 @@ import Rectangle from "./Quadtree/Rectangle";
 import { defaultRenderRate } from "../MountainDayNightSim/consts";
 import Quadtree from "./Quadtree/Quadtree";
 import QTPoint from "./Quadtree/QTPoint";
+import { drawQt } from "./render";
 
 export default class SnowQuadtreeSim {
   spawnAboveScreenOffset = 20;
@@ -23,6 +24,7 @@ export default class SnowQuadtreeSim {
 
   spawnInitialSnowflakes(numFlakes: number, canvasRef: React.RefObject<HTMLCanvasElement>) {
     if (!canvasRef.current) return;
+    this.snowflakes = [];
     for (let i = numFlakes; i > 0; i--)
       this.snowflakes.push(new Snowflake(Math.random() * canvasRef.current.clientWidth, Math.random() * canvasRef.current.clientHeight));
   }
@@ -41,33 +43,25 @@ export default class SnowQuadtreeSim {
   }
 
   render(context: CanvasRenderingContext2D) {
-    // const drawQt = (qt: QuadTree, context: CanvasRenderingContext2D) => {
-    //   context.strokeStyle = `rgba(100,100,100, 1)`;
-    //   context.lineWidth = 1;
-    //   context.strokeRect(qt.boundary.left, qt.boundary.top, qt.boundary.w, qt.boundary.h);
-    //   if (qt.divided) {
-    //     drawQt(qt.northwest!, context);
-    //     drawQt(qt.northeast!, context);
-    //     drawQt(qt.southwest!, context);
-    //     drawQt(qt.southeast!, context);
-    //   }
-    // };
     context.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
     context.beginPath();
     this.snowflakes.forEach((flake) => {
       context.fillStyle = flake.color;
       context.fillRect(flake.x, flake.y, flake.height, flake.width);
     });
-    // const qt = qtRef.current;
-    // drawQt(qt, context);
+    drawQt(context, this.qt);
   }
 
-  stepSimulation() {
+  stepSimulation(context: CanvasRenderingContext2D) {
     clearInterval(this.intervals.physics);
     this.intervals.physics = setTimeout(() => {
       this.tickPhysics();
-      this.render();
-      this.stepSimulation();
-    }, defaultRenderRate);
+      this.render(context);
+      this.stepSimulation(context);
+    }, 33);
+  }
+
+  cleanup() {
+    clearInterval(this.intervals.physics);
   }
 }

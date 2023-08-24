@@ -1,11 +1,11 @@
-import WebTechnologyIcon, { WebTechNames } from "@/app/projects/WebTechnologyIcon";
-import { randIntBetween } from "@/app/utils";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import Snow from "../Snow/Snow";
 
 function index() {
   return (
     <section className="intro-page">
+      <Snow />
       <div className="intro-page__content">
         <h1 className="intro-page__title">Mike Silverman</h1>
         <h4>Full stack, from Canvas to Kubernetes</h4>
