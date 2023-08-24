@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WebTechNames } from "./WebTechnologyIcon";
+import { WebTechNames } from "../components/WebTechnologyIcon";
 
 export type Project = {
   title: string;
@@ -9,7 +9,7 @@ export type Project = {
   logo: string;
   image: string;
   technologies: WebTechNames[];
-  description: string | JSX.Element[] | JSX.Element;
+  description: JSX.Element[];
   dateStarted: number;
   dateRetired: number;
   linesOfCode: number;

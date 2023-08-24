@@ -1,0 +1,30 @@
+.projects-page-right-box {
+  width: calc(100% - calc(100% * $goldenRatioFraction));
+  padding-left: goldenRem(5);
+  padding-right: goldenRem(5);
+  padding-bottom: goldenRem(5);
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: goldenRem(12)) {
+    display: none;
+  }
+}
+
+.projects-page-right-box__title-bar {
+  width: 100%;
+  height: goldenRem(6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--color-primary);
+}
+
+.projects-page-right-box__project-details-container {
+  border-right: 1px solid var(--color-primary);
+  border-left: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
+  padding: goldenRem(4);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+}

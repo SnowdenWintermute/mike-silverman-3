@@ -1,0 +1,39 @@
+.web-tech-icon__container {
+  position: relative;
+  margin-bottom: goldenRem(1);
+  padding-left: goldenRem(0);
+  padding-right: goldenRem(0);
+  &:first-child {
+    padding-left: 0px;
+  }
+  &:last-child {
+    padding-right: none;
+  }
+}
+
+.web-tech-icon {
+  height: goldenRem(5);
+  transition: 0.3s;
+}
+
+.web-tech-icon--monochrome {
+  fill: var(--color-primary);
+}
+
+.web-tech-icon--color {
+  position: absolute;
+  opacity: 0;
+}
+
+.web-tech-icon__name {
+  position: absolute;
+  z-index: 2;
+  padding: goldenRem(1);
+  min-width: goldenRem(7);
+  text-align: center;
+  left: 50%;
+  top: calc(-100% - goldenRem(1));
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  border: 1px solid var(--color-primary);
+}

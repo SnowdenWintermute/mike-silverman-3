@@ -5,12 +5,13 @@ import { Project, nullProject, projects } from "./projects";
 import ProjectDetails from "./ProjectDetails";
 import useElementIsOverflowing from "@/app/hooks/useElementIsOverflowing";
 import NavbarLayout from "../layouts/Navbar";
+import Link from "next/link";
 
 function ProjectsPage() {
   const projectListRef = useRef<HTMLUListElement>(null);
   const selectedProjectLiRef = useRef<HTMLLIElement | null>(null);
   const isOverflowingAfterResize = useElementIsOverflowing(projectListRef.current);
-  const [activeProject, setActiveProject] = useState<Project | null>(nullProject);
+  const [activeProject, setActiveProject] = useState<Project>(nullProject);
   const [isOverflowing, setIsOverflowing] = useState(isOverflowingAfterResize);
 
   useEffect(() => {
@@ -22,18 +23,18 @@ function ProjectsPage() {
   let projectDetails = <ProjectDetails project={nullProject} />;
   if (activeProject) projectDetails = <ProjectDetails project={activeProject} />;
 
-  const handleSelectProject = (project: Project | null, liRef: React.MutableRefObject<HTMLLIElement | null>) => {
+  const handleSelectProject = (project: Project, liRef: React.MutableRefObject<HTMLLIElement | null>) => {
     selectedProjectLiRef.current = liRef.current;
     setActiveProject(project);
   };
 
   useEffect(() => {
-    if (!selectedProjectLiRef.current || !projectListRef.current) return;
-    const projectListRect = projectListRef.current.getBoundingClientRect();
-    const liRect = selectedProjectLiRef.current.getBoundingClientRect();
-    const newScrollTop = projectListRef.current.scrollTop + liRect.top - projectListRect.top;
-    projectListRef.current.scrollTop = newScrollTop;
-    selectedProjectLiRef.current.scrollIntoView();
+    // if (!selectedProjectLiRef.current || !projectListRef.current) return;
+    // const projectListRect = projectListRef.current.getBoundingClientRect();
+    // const liRect = selectedProjectLiRef.current.getBoundingClientRect();
+    // const newScrollTop = projectListRef.current.scrollTop + liRect.top - projectListRect.top;
+    // projectListRef.current.scrollTop = newScrollTop;
+    // selectedProjectLiRef.current.scrollIntoView();
   }, [activeProject]);
 
   return (
@@ -54,7 +55,20 @@ function ProjectsPage() {
             ))}
           </ul>
         </div>
-        <div className="projects-page__right-box">{projectDetails}</div>
+        {/*-----------------------------------*/}
+        {/*-----------------------------------*/}
+        <div className="projects-page-right-box">
+          <div className="projects-page-right-box__title-bar">
+            <h2 className="page-title">
+              <Link href={activeProject.url} className="page-title__url">
+                {activeProject.title}
+              </Link>
+            </h2>
+          </div>
+          <div className="projects-page-right-box__project-details-container">
+            <ProjectDetails project={activeProject} />
+          </div>
+        </div>
       </section>
     </NavbarLayout>
   );

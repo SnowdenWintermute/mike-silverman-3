@@ -1,21 +1,23 @@
 .project-list-li {
   position: relative;
-  height: goldenRem(6);
   margin-bottom: goldenRem(4);
   transition: 0.3s;
   border: 1px solid var(--color-primary);
+  border-bottom: 0px;
   @media only screen and (min-width: goldenRem(12)) {
     overflow: hidden;
   }
 }
 
-.project-list-li--collapsed {
+.project-list-li__details-container {
+  height: 0px;
   overflow: hidden;
+  transition: 0.3s;
 }
 
-.project-list-li--expanded {
+.project-list-li__details-container--expanded {
   @media only screen and (max-width: goldenRem(12)) {
-    height: fit-content;
+    border-bottom: 1px solid var(--color-primary);
   }
 }
 
@@ -27,8 +29,30 @@
   height: goldenRem(6);
   cursor: pointer;
   position: relative;
+  border-bottom: 1px solid var(--color-primary);
   &:hover {
     background: var(--color-accent);
+  }
+}
+
+.project-list-li__title {
+  font-size: goldenRem(4);
+  margin-right: goldenRem(4);
+  min-width: goldenRem(9);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @media only screen and (max-width: calc(goldenRem(10) + 1.6rem)) {
+    min-width: 0px;
+    font-size: fontSize(3);
+    margin-right: goldenRem(5);
+  }
+}
+
+.project-list-li__tagline {
+  margin-right: goldenRem(5);
+  @media only screen and (max-width: goldenRem(11)) {
+    display: none;
   }
 }
 
@@ -77,36 +101,5 @@
   @media only screen and (max-width: calc(goldenRem(10) + 1.6rem)) {
     height: goldenRem(4);
     margin-right: goldenRem(4);
-  }
-}
-
-.project-list-li__expanded-details {
-  padding: goldenRem(2);
-}
-
-.project-list-li__expanded-details--expanded {
-  @media only screen and (max-width: goldenRem(12)) {
-    border-top: 1px solid var(--color-primary);
-  }
-}
-
-.project-list-li__title {
-  font-size: goldenRem(4);
-  margin-right: goldenRem(4);
-  min-width: goldenRem(9);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  @media only screen and (max-width: calc(goldenRem(10) + 1.6rem)) {
-    min-width: 0px;
-    font-size: fontSize(3);
-    margin-right: goldenRem(5);
-  }
-}
-
-.project-list-li__tagline {
-  margin-right: goldenRem(5);
-  @media only screen and (max-width: goldenRem(11)) {
-    display: none;
   }
 }
