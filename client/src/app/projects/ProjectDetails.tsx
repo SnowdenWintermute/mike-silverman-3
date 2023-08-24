@@ -29,10 +29,10 @@ export const ProjectDetailsContent = ({ project }: { project: Project }) => {
       </div>
       {project.image && (
         <div className="project-details__image-container" key="project-image">
-          <HoverOffsetZoomViewer image={project.image} handleClick={() => setViewingFullscreenImage(true)} />
           {
-            // <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
+            // <HoverOffsetZoomViewer image={project.image} handleClick={() => setViewingFullscreenImage(true)} />
           }
+          {<img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />}
         </div>
       )}
       <h3 className="project-details__technologies-name">Built with</h3>

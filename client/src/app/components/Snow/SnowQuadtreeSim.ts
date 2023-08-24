@@ -2,7 +2,6 @@ import { WidthAndHeight } from "@/app/types";
 import QuadTree from "./Quadtree/Quadtree";
 import Snowflake from "./Snowflake";
 import Rectangle from "./Quadtree/Rectangle";
-import { defaultRenderRate } from "../MountainDayNightSim/consts";
 import Quadtree from "./Quadtree/Quadtree";
 import QTPoint from "./Quadtree/QTPoint";
 import { drawQt } from "./render";
@@ -36,9 +35,9 @@ export default class SnowQuadtreeSim {
 
   tickPhysics() {
     this.snowflakes.forEach((snowflake) => {
-      snowflake.fall(this.canvasSize.height - 10, this.canvasSize.height);
+      snowflake.fall(this.canvasSize.height - 10, this.canvasSize.width);
     });
-    this.qt = new Quadtree(new Rectangle(this.canvasSize.width / 2, this.canvasSize.height / 2, this.canvasSize.width, this.canvasSize.height), 4);
+    this.qt = new Quadtree(new Rectangle(this.canvasSize.width / 2, this.canvasSize.height / 2, this.canvasSize.width, this.canvasSize.height), 5);
     if (this.snowflakes) this.snowflakes.forEach((snowflake) => this.qt.insert(new QTPoint(snowflake.x, snowflake.y, snowflake)));
   }
 
@@ -58,7 +57,7 @@ export default class SnowQuadtreeSim {
       this.tickPhysics();
       this.render(context);
       this.stepSimulation(context);
-    }, 33);
+    }, 50);
   }
 
   cleanup() {

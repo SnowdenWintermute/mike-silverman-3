@@ -19,6 +19,6 @@ export default class Snowflake {
     if (this.y >= groundLevel) {
       this.y = Math.random() * -30;
       this.x = Math.random() * areaWidth;
-    } else this.y += this.area / 2;
+    } else this.y += this.area / 3;
   }
 }

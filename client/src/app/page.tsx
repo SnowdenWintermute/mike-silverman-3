@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-const IntroPage = dynamic(() => import("./components/IntroPage"));
+const IntroPage = dynamic(() => import("./components/IntroPage"), { ssr: false });
 const MountainDayNightScene = dynamic(() => import("./components/MountainDayNightScene"), {
   ssr: false,
   loading: () => <div className="mountain-range-scene-section" />,

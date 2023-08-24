@@ -18,7 +18,7 @@ export default function MountainDayNightScene() {
   const percentScrolled = (scrollY / windowHeight) * windowHeight;
   const [welcomeOpacityClass, setWelcomeOpacityClass] = useState("opacity-0");
   const welcomeOpacityClassTimeoutRef = useRef<NodeJS.Timeout>();
-  const contextRef = useRef<CanvasRenderingContext2D>(null);
+  const contextRef = useRef<CanvasRenderingContext2D>();
   const canvasSizeRef = useRef<WidthAndHeight>(null);
   const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
     width: 1,
@@ -65,6 +65,7 @@ export default function MountainDayNightScene() {
     simulationRef.current.intervals.physics = setTimeout(() => {
       const context = canvasRef.current?.getContext("2d");
       if (!context || !canvasSizeRef.current) return;
+      contextRef.current = context;
       simulationRef.current.stepSimulation(context, canvasSizeRef.current);
     });
 

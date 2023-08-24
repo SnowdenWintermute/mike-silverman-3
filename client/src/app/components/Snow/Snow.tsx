@@ -12,7 +12,7 @@ export default function Snow() {
   const snowSimRef = useRef<SnowQuadtreeSim>(new SnowQuadtreeSim(canvasSize));
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
+  const startSimulation = () => {
     if (!canvasRef || !canvasRef.current) return;
     const numFlakes = canvasSize.width / 8;
     snowSimRef.current.spawnInitialSnowflakes(numFlakes, canvasRef);
@@ -20,7 +20,10 @@ export default function Snow() {
     if (!context) return;
     snowSimRef.current.canvasSize = canvasSize;
     snowSimRef.current.stepSimulation(context);
+  };
 
+  useEffect(() => {
+    startSimulation();
     return () => snowSimRef.current.cleanup();
   }, [canvasSize, canvasRef.current]);
 

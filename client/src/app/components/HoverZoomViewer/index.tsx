@@ -12,12 +12,13 @@ const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
   const [hoveringImg, setHoveringImg] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const [offset, setOffset] = useState<{ x: number | null; y: number | null }>({ x: null, y: null });
+
   useEffect(() => {
     if (!imgRef.current || typeof offset.x !== "number" || typeof offset.y !== "number") return;
     const imgHeight = imgRef.current.clientHeight;
     const imgWidth = imgRef.current.clientWidth;
     const newStyle = {
-      transform: `scale(${hoveringImg ? "1.8" : "1"}) translateX(${-(offset.x - imgWidth / 2) / 3}px) translateY(${-(offset.y - imgHeight / 2) / 1.5}px`,
+      transform: `scale(${hoveringImg ? "1.8" : "1"}) translateX(${-(offset.x - imgWidth / 2) / 4}px) translateY(${-(offset.y - imgHeight / 2) / 1.5}px`,
     };
     setStyle(newStyle);
   }, [hoveringImg, offset]);
@@ -38,9 +39,12 @@ const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
       });
   }, [hoveringImg]);
 
-  const handleMouseEnter = () => setHoveringImg(true);
+  const handleMouseEnter = () => {
+    setHoveringImg(true);
+  };
   const handleMouseLeave = () => setHoveringImg(false);
-  const handleTouchStart = () => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    e.preventDefault();
     setHoveringImg(true);
   };
   const handleTouchEnd = () => setHoveringImg(false);
@@ -59,7 +63,7 @@ const HoverOffsetZoomViewer = ({ image, alt, handleClick }: Props) => {
     <div
       className="offset-zoomer"
       aria-hidden={true}
-      onMouseEnter={handleMouseEnter}
+      onMouseOver={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
       onTouchStart={handleTouchStart}

@@ -11,6 +11,9 @@
 
 .intro-page__content {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
   left: 50%;
   transform: translateX(-50%);
   top: goldenRem(8);
@@ -18,6 +21,46 @@
   background: var(--color-accent);
   padding: goldenRem(6);
   text-align: center;
+  h1,
+  h4 {
+    white-space: nowrap;
+  }
+  h4 {
+    font-size: fontSize(3);
+  }
+
+  @media only screen and (max-width: goldenRem(11)) {
+    padding: goldenRem(6);
+    h1 {
+      font-size: fontSize(5);
+    }
+    h4 {
+      font-size: fontSize(2);
+    }
+  }
+
+  @media only screen and (max-width: goldenRem(10)) {
+    overflow-wrap: normal;
+    text-overflow: wrap;
+    padding: goldenRem(5);
+    overflow: auto;
+    word-wrap: break-word;
+    text-align: center;
+    h1 {
+      text-align: center;
+      white-space: normal;
+      text-overflow: ellipsis;
+      font-size: fontSize(4);
+    }
+    h4 {
+      white-space: normal;
+      font-size: fontSize(1);
+    }
+    span {
+      font-size: fontSize(1);
+      white-space: normal;
+    }
+  }
 }
 
 .intro-page__title {

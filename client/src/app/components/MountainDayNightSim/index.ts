@@ -53,7 +53,7 @@ export class MountainDayNightSim {
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];
   }
 
-  reRoll(context: CanvasRenderingContext2D | null, canvasSize: WidthAndHeight | null) {
+  reRoll(context: CanvasRenderingContext2D | undefined, canvasSize: WidthAndHeight | null) {
     const sunStartAngle = (Math.PI + this.celestialDiscStartAngle + this.totalRotation) % (Math.PI * 2);
     const moonStartAngle = (this.celestialDiscStartAngle + this.totalRotation) % (Math.PI * 2);
     this.celestialBodies = createCelestialBodies(
@@ -68,6 +68,7 @@ export class MountainDayNightSim {
     this.moon = this.celestialBodies[this.celestialBodies.length - 1];
     this.ridgelines = createRidgelines(baseWorldSize);
     this.sineMountains = createSineWaveMountains(30);
+    console.log(this.isPaused, !!context, !!canvasSize);
     if (this.isPaused && context && canvasSize) this.render(context, canvasSize, this);
   }
 

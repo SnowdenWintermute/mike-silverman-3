@@ -14,7 +14,7 @@ import { WidthAndHeight } from "@/app/types";
 
 type Props = {
   simulationRef: React.MutableRefObject<MountainDayNightSim>;
-  contextRef: React.MutableRefObject<CanvasRenderingContext2D | null>;
+  contextRef: React.MutableRefObject<CanvasRenderingContext2D | undefined>;
   canvasSizeRef: React.MutableRefObject<WidthAndHeight | null>;
 };
 

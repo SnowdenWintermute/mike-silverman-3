@@ -1,47 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import { Project } from "./projects";
 import ArrowShape from "../../app/img/ui/arrow-button-icon.svg";
-import ProjectDetails, { ProjectDetailsContent } from "./ProjectDetails";
-import CornerBrackets from "../components/CornerBrackets";
+import { ProjectDetailsContent } from "./ProjectDetails";
 
 type Props = {
   project: Project;
-  setActiveProject: (project: Project | null) => void;
+  handleSelectProject: (project: Project | null, liRef: React.MutableRefObject<HTMLLIElement | null>) => void;
   isActive: boolean;
 };
 
-const ProjectListItem = ({ project, setActiveProject, isActive }: Props) => {
-  const [hovering, setHovering] = useState(false);
-  const [mouseDown, setMouseDown] = useState(false);
+const ProjectListItem = ({ project, handleSelectProject, isActive }: Props) => {
+  const itemRef = useRef<HTMLLIElement | null>(null);
+
   const handleClick = () => {
-    if (isActive) setActiveProject(null);
-    else setActiveProject(project);
-  };
-  const handleMouseOver = () => {
-    setHovering(true);
-  };
-  const handleMouseOut = () => {
-    setHovering(false);
-  };
-  const handleMouseDown = () => {
-    setMouseDown(true);
-  };
-  const handleMouseUp = () => {
-    setMouseDown(false);
+    if (isActive) handleSelectProject(null, itemRef);
+    else handleSelectProject(project, itemRef);
   };
 
   const { logo, title, tagline, url, github } = project;
 
   return (
-    <li className={`project-list-li ${isActive ? "project-list-li--expanded" : "project-list-li--collapsed"}`}>
-      <div
-        onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        className={`project-list-li__main-bar ${isActive ? "project-list-li__main-bar--active" : ""}`}
-      >
+    <li ref={itemRef} className={`project-list-li ${isActive ? "project-list-li--expanded" : "project-list-li--collapsed"}`}>
+      <div onClick={handleClick} className={`project-list-li__main-bar ${isActive ? "project-list-li__main-bar--active" : ""}`}>
         <span className="project-list-li__image-container">
           <img src={logo} aria-hidden={true} />
         </span>
