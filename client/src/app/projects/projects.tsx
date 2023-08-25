@@ -22,7 +22,10 @@ export const nullProject: Project = {
   github: "",
   logo: "",
   image: "",
-  description: [<p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>],
+  description: [
+    <p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>,
+    <p>Select a project on the left to learn about it.</p>,
+  ],
   technologies: [...Object.values(WebTechNames).map((key) => key)],
   dateStarted: 0,
   dateRetired: 0,

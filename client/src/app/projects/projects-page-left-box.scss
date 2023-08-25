@@ -1,1 +1,52 @@
-//
+.projects-page__left-box {
+  width: calc(100% * $goldenRatioFraction);
+  max-height: calc(100% - goldenRem(5));
+  transition: 0.6s;
+  @media only screen and (max-width: goldenRem(12)) {
+    width: 100%;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+  }
+}
+
+.projects-page__left-box--collapsed {
+  @media only screen and (min-width: goldenRem(12)) {
+    // width: 10%;
+    width: goldenRem(8);
+  }
+}
+
+.project-list {
+  padding-left: goldenRem(4);
+  list-style: none;
+  overflow-y: auto;
+  max-height: calc(100% - goldenRem(6));
+
+  @media only screen and (max-width: goldenRem(12)) {
+    padding-right: goldenRem(4);
+  }
+}
+
+.project-list-overflowing {
+  margin-right: goldenRem(2);
+}
+
+.project-link {
+  margin-right: goldenRem(0);
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.project-link-icon {
+  height: goldenRem(4);
+  width: goldenRem(4);
+  fill: var(--color-primary);
+  cursor: pointer;
+  &:hover {
+    fill: var(--color-alternate-accent);
+  }
+}

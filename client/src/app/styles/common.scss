@@ -34,3 +34,9 @@
 .transition-0 {
   transition: 0s !important;
 }
+
+.hidden-when-large-screen {
+  @media only screen and (min-width: goldenRem(12)) {
+    display: none;
+  }
+}
