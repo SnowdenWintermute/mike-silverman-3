@@ -11,9 +11,9 @@ type Props = {
 
 const ProjectListItem = ({ project, handleSelectProject, isActive }: Props) => {
   const itemRef = useRef<HTMLLIElement | null>(null);
-  const detailsRef = useRef<HTMLDivElement | null>(null);
   const [expandedClass, setExpandedClass] = useState("");
-  const [expandedHeight, setExpandedHeight] = useState(0);
+  const [shouldShowDetails, setShouldShowDetails] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   const handleClick = () => {
     if (isActive) handleSelectProject(nullProject, itemRef);
@@ -23,24 +23,18 @@ const ProjectListItem = ({ project, handleSelectProject, isActive }: Props) => {
   const { logo, title, tagline, url, github } = project;
 
   useEffect(() => {
-    if (!detailsRef.current) {
+    if (isActive) {
+      setExpandedClass("project-list-li__details-container--expanded");
+      setShouldShowDetails(true);
+    } else {
       setExpandedClass("");
-      return;
+      timeoutRef.current = setTimeout(() => {
+        setShouldShowDetails(false);
+        // the 600ms should be the same as the css transition time for the parent class
+        // to prevent the collapse from instantly happening with no animation
+      }, 600);
     }
-    setExpandedClass("project-list-li__details-container--expanded");
-  }, [expandedHeight]);
-
-  useEffect(() => {
-    if (!detailsRef.current) {
-      setExpandedHeight(0);
-      return;
-    }
-    const detailsRect = detailsRef.current.getBoundingClientRect();
-    console.log(detailsRef.current.clientHeight);
-    // setExpandedHeight(detailsRect.height);
-    setExpandedHeight(detailsRef.current.clientHeight);
   }, [isActive]);
-  // const expandedClass = "project-list-li__details-container--expanded";
 
   return (
     <li ref={itemRef} className={`project-list-li ${isActive ? "project-list-li--expanded" : "project-list-li--collapsed"}`}>
@@ -54,9 +48,9 @@ const ProjectListItem = ({ project, handleSelectProject, isActive }: Props) => {
           <ArrowShape className={`project-list-li__expand-button-icon ${isActive && "project-list-li__expand-button-icon--expanded"}`} />
         </button>
       </div>
-      <div className={`project-list-li__details-container ${expandedClass}`} style={{ height: `${expandedHeight}px` }}>
-        {isActive && (
-          <div ref={detailsRef} className={`project-list-li__expanded-details`}>
+      <div className={`project-list-li__details-container ${expandedClass}`}>
+        {shouldShowDetails && (
+          <div className={`project-list-li__expanded-details`}>
             <ProjectDetails project={project} />
           </div>
         )}

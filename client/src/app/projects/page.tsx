@@ -66,7 +66,9 @@ function ProjectsPage() {
             </h2>
           </div>
           <div className="projects-page-right-box__project-details-container">
-            <ProjectDetails project={activeProject} />
+            <div>
+              <ProjectDetails project={activeProject} />
+            </div>
           </div>
         </div>
       </section>
