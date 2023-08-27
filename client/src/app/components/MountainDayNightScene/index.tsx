@@ -8,6 +8,7 @@ import renderMountainDayNightScene from "../MountainDayNightSim/render";
 import { baseRotationSpeed, defaultRenderRate } from "../MountainDayNightSim/consts";
 import PlayControls from "./PlayControls";
 import { WidthAndHeight } from "@/app/types";
+import Snow from "../Snow/Snow";
 
 export default function MountainDayNightScene() {
   const simulationRef = useRef<MountainDayNightSim>(
@@ -74,8 +75,10 @@ export default function MountainDayNightScene() {
     };
   }, [canvasRef, canvasSizeRef.current]);
 
+  console.log(percentScrolled);
   return (
     <section className="mountain-range-scene-section">
+      {percentScrolled > 1 && percentScrolled < windowHeight - 1 && <Snow percentScrolled={percentScrolled} />}
       <div className={`mountain-range-scene-section__text ${welcomeOpacityClass}`}>
         <h1>Welcome</h1>
         <p>Stay for the meteor shower or scroll to view portfolio</p>

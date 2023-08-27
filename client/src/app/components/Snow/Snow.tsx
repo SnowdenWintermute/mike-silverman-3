@@ -3,7 +3,12 @@ import { WidthAndHeight } from "@/app/types";
 import SnowQuadtreeSim from "./SnowQuadtreeSim";
 import ResponsiveCanvas from "../ResposiveCanvas";
 
-export default function Snow() {
+type Props = {
+  percentScrolled?: number;
+  style?: Object;
+};
+
+export default function Snow({ percentScrolled, style }: Props) {
   const canvasSizeRef = useRef<WidthAndHeight>(null);
   const [canvasSize, setCanvasSize] = useState<WidthAndHeight>({
     width: 1,
@@ -28,7 +33,7 @@ export default function Snow() {
   }, [canvasSize, canvasRef.current]);
 
   return (
-    <div className="snow-canvas-container">
+    <div className="snow-canvas-container" style={style}>
       <ResponsiveCanvas canvasRef={canvasRef} setCanvasSize={setCanvasSize} parentCanvasSizeRef={canvasSizeRef} />
     </div>
   );
