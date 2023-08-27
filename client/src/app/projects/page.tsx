@@ -11,15 +11,18 @@ function ProjectsPage() {
   const projectListRef = useRef<HTMLUListElement>(null);
   const selectedProjectLiRef = useRef<HTMLLIElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
-  const [activeProject, setActiveProject] = useState<Project>(nullProject);
+  const [activeProject, setActiveProject] = useState<Project | null>(nullProject);
   // const [projectsPageLeftBoxCollapsedClass, setP]
 
   let projectDetails = <ProjectDetails project={nullProject} />;
   if (activeProject) projectDetails = <ProjectDetails project={activeProject} />;
 
-  const handleSelectProject = (project: Project, liRef: React.MutableRefObject<HTMLLIElement | null>) => {
-    selectedProjectLiRef.current = liRef.current;
-    setActiveProject(project);
+  const handleSelectProject = (project: Project, liRef?: React.MutableRefObject<HTMLLIElement | null>) => {
+    if (liRef) selectedProjectLiRef.current = liRef.current;
+    setActiveProject(null);
+    setTimeout(() => {
+      setActiveProject(project);
+    }, 100);
   };
 
   useEffect(() => {
@@ -32,7 +35,7 @@ function ProjectsPage() {
     }, 650);
   }, [activeProject]);
 
-  const projectSelected = activeProject.title !== nullProject.title;
+  const projectSelected = activeProject?.title !== nullProject.title;
 
   return (
     <NavbarLayout>
@@ -43,7 +46,7 @@ function ProjectsPage() {
               <h2 className={`page-title ${projectSelected && `projects-page-page-title--collapsed`}`}>Projects</h2>
               <button
                 className={`projects-page-unselect-project-button ${projectSelected && "projects-page-unselect-project-button--collapsed"}`}
-                onClick={() => setActiveProject(nullProject)}
+                onClick={() => handleSelectProject(nullProject)}
               >
                 <ArrowShape className="project-page-unselect-project-button__arrow-shape" />
               </button>
@@ -56,25 +59,23 @@ function ProjectsPage() {
                 project={project}
                 handleSelectProject={handleSelectProject}
                 isActive={activeProject?.title === project.title}
-                nullProjectSelected={activeProject.title === nullProject.title}
+                nullProjectSelected={activeProject?.title === nullProject.title}
               />
             ))}
           </ul>
         </div>
         {/*-----------------------------------*/}
         {/*-----------------------------------*/}
-        <div className={`projects-page-right-box ${activeProject.title !== nullProject.title && "projects-page-right-box--expanded-right"}`}>
+        <div className={`projects-page-right-box ${activeProject?.title !== nullProject.title && "projects-page-right-box--expanded-right"}`}>
           <div className="projects-page-right-box__title-bar">
             <h2 className="page-title">
-              <Link href={activeProject.url} className="page-title__url">
-                {activeProject.title}
+              <Link href={activeProject?.url || "/"} className="page-title__url">
+                {activeProject?.title}
               </Link>
             </h2>
           </div>
           <div className="projects-page-right-box__project-details-container">
-            <div>
-              <ProjectDetails project={activeProject} />
-            </div>
+            <div>{activeProject && <ProjectDetails project={activeProject} />}</div>
           </div>
         </div>
       </section>

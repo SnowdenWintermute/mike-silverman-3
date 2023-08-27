@@ -42,6 +42,7 @@
 }
 
 .project-list-li__main-bar {
+  transition: 0.6s;
   width: 100%;
   padding-left: goldenRem(3);
   height: goldenRem(6);
@@ -133,5 +134,7 @@
 }
 
 .project-list-li__image-container--collapsed-left {
-  margin-right: goldenRem(3);
+  @media only screen and (min-width: calc(goldenRem(10) + 1.6rem)) {
+    margin-right: goldenRem(3);
+  }
 }
