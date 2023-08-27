@@ -5,6 +5,7 @@ import { Project, nullProject, projects } from "./projects";
 import ProjectDetails from "./ProjectDetails";
 import NavbarLayout from "../layouts/Navbar";
 import Link from "next/link";
+import ArrowShape from "../img/ui/arrow-button-icon.svg";
 
 function ProjectsPage() {
   const projectListRef = useRef<HTMLUListElement>(null);
@@ -31,14 +32,24 @@ function ProjectsPage() {
     }, 650);
   }, [activeProject]);
 
+  const projectSelected = activeProject.title !== nullProject.title;
+
   return (
     <NavbarLayout>
       <section className="projects-page">
-        <div className={`projects-page__left-box ${activeProject.title !== nullProject.title && "projects-page__left-box--collapsed"}`}>
-          <div className="page-title-bar">
-            <h2 className="page-title">Projects</h2>
+        <div className={`projects-page__left-box ${projectSelected && "projects-page__left-box--collapsed"}`}>
+          <div className={`project-page-title-bar  ${projectSelected && `projects-page-title-bar--collapsed`}`}>
+            <div className={`project-page-title-bar__content  ${projectSelected && `projects-page-title-bar--collapsed`}`}>
+              <h2 className={`page-title ${projectSelected && `projects-page-page-title--collapsed`}`}>Projects</h2>
+              <button
+                className={`projects-page-unselect-project-button ${projectSelected && "projects-page-unselect-project-button--collapsed"}`}
+                onClick={() => setActiveProject(nullProject)}
+              >
+                <ArrowShape className="project-page-unselect-project-button__arrow-shape" />
+              </button>
+            </div>
           </div>
-          <ul className={`project-list`} ref={projectListRef}>
+          <ul className={`project-list ${projectSelected && "project-list--collapsed"}`} ref={projectListRef}>
             {Object.values(projects).map((project) => (
               <ProjectListItem
                 key={project.title}
