@@ -103,13 +103,3 @@
     margin-right: 0px;
   }
 }
-
-.project-link-icon {
-  height: goldenRem(4);
-  width: goldenRem(4);
-  fill: var(--color-primary);
-  cursor: pointer;
-  &:hover {
-    fill: var(--color-alternate-accent);
-  }
-}

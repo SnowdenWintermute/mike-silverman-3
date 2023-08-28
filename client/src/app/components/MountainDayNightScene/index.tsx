@@ -75,7 +75,6 @@ export default function MountainDayNightScene() {
     };
   }, [canvasRef, canvasSizeRef.current]);
 
-  console.log(percentScrolled);
   return (
     <section className="mountain-range-scene-section">
       {percentScrolled > 1 && percentScrolled < windowHeight - 1 && <Snow percentScrolled={percentScrolled} />}

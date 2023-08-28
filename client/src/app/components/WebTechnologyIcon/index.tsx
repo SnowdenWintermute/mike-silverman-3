@@ -14,6 +14,8 @@ import JestIcon from "../../img/web-tech-logos/jest-monochrome.svg";
 import JestIconColor from "../../img/web-tech-logos/jest-color.svg";
 import JavaScriptIcon from "../../img/web-tech-logos/js-monochrome.svg";
 import JavaScriptIconColor from "../../img/web-tech-logos/js-color.svg";
+import KubernetesIcon from "../../img/web-tech-logos/kubernetes-monochrome.svg";
+import KubernetesIconColor from "../../img/web-tech-logos/kubernetes-color.svg";
 import MaterialUIIcon from "../../img/web-tech-logos/material-ui-monochrome.svg";
 import MaterialUIIconColor from "../../img/web-tech-logos/material-ui-color.svg";
 import MatterJsIcon from "../../img/web-tech-logos/matter-js-monochrome.svg";
@@ -42,6 +44,9 @@ import SocketIOIcon from "../../img/web-tech-logos/socket-io-monochrome.svg";
 import SocketIOIconColor from "../../img/web-tech-logos/socket-io-color.svg";
 import TypeScriptIcon from "../../img/web-tech-logos/ts-monochrome.svg";
 import TypeScriptIconColor from "../../img/web-tech-logos/ts-color.svg";
+import WebsocketsIcon from "../../img/web-tech-logos/websockets-monochrome.svg";
+import WebsocketsIconColor from "../../img/web-tech-logos/websockets-color.svg";
+
 import { useAppDispatch } from "@/app/redux/hooks";
 import { setTooltipContents } from "@/app/redux/slices/ui-slice";
 
@@ -53,6 +58,7 @@ export enum WebTechNames {
   html = "HTML 5",
   jest = "Jest",
   javascript = "JavaScript",
+  kubernetes = "Kubernetes",
   materialUi = "Material UI",
   matterJs = "Matter.js",
   mongoDb = "Mongo.DB",
@@ -67,6 +73,7 @@ export enum WebTechNames {
   sass = "SCSS",
   socketIo = "Socket.IO",
   typescript = "TypeScript",
+  websockets = "Websockets",
 }
 
 const WebTechnologyIcon = ({
@@ -105,6 +112,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.html]: <HTMLIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.jest]: <JestIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.javascript]: <JavaScriptIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.kubernetes]: <KubernetesIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.materialUi]: <MaterialUIIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.matterJs]: <MatterJsIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.mongoDb]: <MongoDBIcon className={`${styles}  ${monochromeStyles}`} />,
@@ -119,6 +127,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.sass]: <SCSSIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.socketIo]: <SocketIOIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.typescript]: <TypeScriptIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.websockets]: <WebsocketsIcon className={`${styles}  ${monochromeStyles}`} />,
   };
   const colorIconsByName = {
     [WebTechNames.canvas]: <CanvasIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
@@ -128,6 +137,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.html]: <HTMLIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.jest]: <JestIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.javascript]: <JavaScriptIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.kubernetes]: <KubernetesIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.materialUi]: <MaterialUIIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.matterJs]: <MatterJsIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.mongoDb]: <MongoDBIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
@@ -142,6 +152,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.sass]: <SCSSIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.socketIo]: <SocketIOIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.typescript]: <TypeScriptIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.websockets]: <WebsocketsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
   };
   return (
     <div ref={iconContainerRef} className="web-tech-icon__container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>

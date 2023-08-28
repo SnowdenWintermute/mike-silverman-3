@@ -8,6 +8,7 @@ export type Project = {
   github: string;
   logo: string;
   image: string;
+  video?: string;
   technologies: WebTechNames[];
   description: JSX.Element[];
   dateStarted: number;
@@ -104,7 +105,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/ellen-silverman-v3",
     logo: "/project-logos/mcguffsilverman.png",
     image: "/project-images/mcguffsilverman-pc.png",
-    technologies: [WebTechNames.react, WebTechNames.materialUi, WebTechNames.javascript, WebTechNames.css, WebTechNames.nodeJs, WebTechNames.mongoDb],
+    technologies: [WebTechNames.javascript, WebTechNames.react, WebTechNames.materialUi, WebTechNames.css, WebTechNames.nodeJs, WebTechNames.mongoDb],
     description: [
       <p>
         The third iteration of one of my first ever projects, a website to sell my mom's artwork.{" "}
@@ -134,6 +135,46 @@ export const projects: { [key: string]: Project } = {
         <li>Gallery thumbnails are cached on first load</li>
         <li>
           <Link href="https://ecommerce.mike-silverman.com/the-professor">Animated storybook</Link>
+        </li>
+      </ul>,
+    ],
+    dateStarted: 0,
+    dateRetired: 0,
+    linesOfCode: 0,
+  },
+  mmo: {
+    title: "MMO Architecture",
+    tagline: "Kubernetes adventure",
+    url: "https://www.youtube.com/watch?v=mBAn0_6rcZU",
+    github: "https://github.com/SnowdenWintermute/mmo/tree/crossBorderInteractions",
+    logo: "/project-logos/mmo.png",
+    image: "",
+    video: "https://www.youtube.com/watch?v=mBAn0_6rcZU",
+    technologies: [
+      WebTechNames.kubernetes,
+      WebTechNames.docker,
+      WebTechNames.typescript,
+      WebTechNames.nodeJs,
+      WebTechNames.websockets,
+      WebTechNames.redis,
+      WebTechNames.nextJs,
+      WebTechNames.canvas,
+      WebTechNames.matterJs,
+      WebTechNames.sass,
+    ],
+    description: [
+      <p>
+        An attempt to implement server architecture for a massively multiplayer online game, based on the outline written on the now defunct mmo-blueprint.com.
+        Because of the gargantuan size of this task and my inexperience at the time of working on it, I pivoted to a smaller project,{" "}
+        <Link href="http://battleschool.io/battle-room">Battle School</Link> to improve my skills before I eventually return to this project.
+      </p>,
+      <h4>Features</h4>,
+      <ul>
+        <li>Multiple virtual machines which calculate positions of and interactions between entities</li>
+        <li>VMs transfer ownership of entities when they cross territory borders</li>
+        <li>
+          Ability to share TypeScript code packages between frontend and backend accross different Kubernetes pods while getting live updates to code changes in
+          development. Check out the <Link href="https://www.youtube.com/watch?v=G5e_9zbbSSQ">video tutorial</Link> I made explaining how to do this.
         </li>
       </ul>,
     ],
@@ -176,6 +217,25 @@ export const projects: { [key: string]: Project } = {
     dateStarted: +new Date("Oc1600t 2, 2018"),
     dateRetired: +new Date("Nov 11, 2018"),
     linesOfCode: 342 + 58 + 71 + 30 + 50 + 50,
+  },
+  vertices: {
+    title: "Vertices",
+    tagline: "Artist portfolio",
+    url: "https://snowdenwintermute.github.io/vertices-product-page/index.html",
+    github: "https://github.com/SnowdenWintermute/vertices-product-page",
+    logo: "/project-logos/vertices.png",
+    image: "/project-logos/vertices.png",
+    description: [
+      <p>
+        Pro-bono work for a 3D graphics artist I met online. I worked with them to create the website they were envisioning, taking direction and edits from
+        them daily throughout the process. Created without the use of any frameworks, this site is notable for the responsive front page image slider which I
+        figured out how to make myself using vanilla JS and SCSS.
+      </p>,
+    ],
+    technologies: [WebTechNames.html, WebTechNames.sass, WebTechNames.javascript],
+    dateStarted: 0,
+    dateRetired: 0,
+    linesOfCode: 0,
   },
   rainSim: {
     title: "Rain Simulation",

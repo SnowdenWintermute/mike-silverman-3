@@ -5,6 +5,7 @@ import WebLinkIcon from "../../app/img/ui/internet-icon.svg";
 import FullScreenImageViewer from "../components/FullScreenImageViewer";
 import Link from "next/link";
 import WebTechnologyIcon from "../components/WebTechnologyIcon";
+import TooltippedComponent from "../components/common/TooltippedComponent";
 
 export default function ProjectDetails({ project }: { project: Project }) {
   const [viewingFullscreenImage, setViewingFullscreenImage] = useState(false);
@@ -15,14 +16,24 @@ export default function ProjectDetails({ project }: { project: Project }) {
         <p className="project-details__tagline">{project.tagline}</p>
         <span className="project-links">
           {project.github && (
-            <Link href={project.github} className="project-link" key="git-link">
-              <GitHubIcon className="project-link-icon" />
-            </Link>
+            <>
+              <button className="project-link-button">Visit</button>
+              <Link href={project.github} className="project-link-icon-container">
+                <TooltippedComponent tooltipText="view code">
+                  <GitHubIcon className="project-link-icon" />
+                </TooltippedComponent>
+              </Link>
+            </>
           )}
           {project.url && (
-            <Link href={project.url} className="project-link" key="web-link">
-              <WebLinkIcon className="project-link-icon" />
-            </Link>
+            <>
+              <button className="project-link-button">View Code</button>
+              <Link href={project.url} className="project-link-icon-container">
+                <TooltippedComponent tooltipText="visit">
+                  <WebLinkIcon className="project-link-icon" />
+                </TooltippedComponent>
+              </Link>
+            </>
           )}
         </span>
       </div>
@@ -30,6 +41,17 @@ export default function ProjectDetails({ project }: { project: Project }) {
         <div className="project-details__image-container" key="project-image">
           <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
         </div>
+      )}
+      {project.video && (
+        <iframe
+          // width="560"
+          // height="315"
+          className="project-details__video-iframe"
+          src="https://www.youtube-nocookie.com/embed/mBAn0_6rcZU?si=2h3TUa2Y3qAbLM6X"
+          title="YouTube video player"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen={true}
+        ></iframe>
       )}
       <h3 className="project-details__technologies-name">Built with</h3>
       {project.technologies && (

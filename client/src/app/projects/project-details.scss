@@ -1,7 +1,6 @@
 .project-details__description {
   animation: fade-in-animation 1s;
   animation-delay: 0.6s;
-  // transform:
   opacity: 0;
   animation-fill-mode: forwards;
   p {
@@ -14,9 +13,11 @@
 }
 
 .project-details__tagline-with-project-links {
+  max-width: goldenRem(11);
   animation: fade-in-animation 1s;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: goldenRem(2);
   @media only screen and (max-width: goldenRem(10)) {
     flex-direction: column;
@@ -24,22 +25,49 @@
 }
 
 .project-details__tagline {
-  font-size: fontSize(3);
+  font-size: fontSize(4);
   @media only screen and (max-width: goldenRem(10)) {
     margin-bottom: goldenRem(1);
   }
 }
 
-.project-link {
-  margin-right: goldenRem(1);
+.project-links {
+  display: flex;
+  align-items: center;
+}
+
+.project-link-button {
+  border: 1px solid var(--color-primary);
+  background: none;
+  cursor: pointer;
+  height: goldenRem(5);
+  padding-left: goldenRem(2);
+  padding-right: goldenRem(2);
+  margin-right: goldenRem(2);
+  &:nth-child(3) {
+    margin-right: 0px;
+  }
+  &:hover {
+    background: var(--color-accent);
+  }
+  @media only screen and (max-width: goldenRem(12)) {
+    display: none;
+  }
+}
+
+.project-link-icon-container {
+  margin-right: goldenRem(2);
   &:last-child {
     margin-right: 0px;
+  }
+  @media only screen and (min-width: goldenRem(12)) {
+    display: none;
   }
 }
 
 .project-link-icon {
-  height: goldenRem(4);
-  width: goldenRem(4);
+  height: goldenRem(5);
+  width: goldenRem(5);
   fill: var(--color-primary);
   cursor: pointer;
   &:hover {
@@ -60,6 +88,13 @@
     cursor: pointer;
   }
   border: 1px solid var(--color-primary);
+  margin-bottom: goldenRem(2);
+}
+
+.project-details__video-iframe {
+  width: 100%;
+  max-width: goldenRem(11);
+  height: goldenRem(10);
   margin-bottom: goldenRem(2);
 }
 

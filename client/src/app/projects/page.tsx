@@ -12,7 +12,6 @@ function ProjectsPage() {
   const selectedProjectLiRef = useRef<HTMLLIElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
   const [activeProject, setActiveProject] = useState<Project | null>(nullProject);
-  // const [projectsPageLeftBoxCollapsedClass, setP]
 
   let projectDetails = <ProjectDetails project={nullProject} />;
   if (activeProject) projectDetails = <ProjectDetails project={activeProject} />;
