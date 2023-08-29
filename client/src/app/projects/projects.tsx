@@ -96,8 +96,8 @@ export const projects: { [key: string]: Project } = {
         <li> Ability to run concurrent Jest tests against code that is using the same Postgres hostname and the same Redis database without data collisions</li>
       </ul>,
     ],
-    dateStarted: 0,
-    dateRetired: 0,
+    dateStarted: +new Date("Dec 14, 2019"),
+    dateRetired: +new Date("Jun 10, 2023"),
     linesOfCode: 17000,
   },
   mcguffsilverman: {
@@ -141,8 +141,8 @@ export const projects: { [key: string]: Project } = {
         </li>
       </ul>,
     ],
-    dateStarted: 0,
-    dateRetired: 0,
+    dateStarted: +new Date("Nov 23, 2020"),
+    dateRetired: +new Date("Jul 16, 2022"),
     linesOfCode: 0,
   },
   mmo: {
@@ -185,8 +185,8 @@ export const projects: { [key: string]: Project } = {
         </li>
       </ul>,
     ],
-    dateStarted: 0,
-    dateRetired: 0,
+    dateStarted: +new Date("Jul 22, 2021"),
+    dateRetired: +new Date("Sep 15, 2022"),
     linesOfCode: 0,
   },
   boxswap: {
@@ -213,8 +213,8 @@ export const projects: { [key: string]: Project } = {
         </li>
       </ul>,
     ],
-    dateStarted: 0,
-    dateRetired: 0,
+    dateStarted: +new Date("Feb 1, 2019"),
+    dateRetired: +new Date("Feb 1, 2020"),
     linesOfCode: 0,
   },
   reactRpg: {
@@ -232,8 +232,8 @@ export const projects: { [key: string]: Project } = {
       </p>,
     ],
     technologies: [WebTechNames.react, WebTechNames.css, WebTechNames.javascript],
-    dateStarted: +new Date("Sep 3, 2018"),
-    dateRetired: +new Date("July 17, 2018"),
+    dateStarted: +new Date("July 17, 2018"),
+    dateRetired: +new Date("Sep 3, 2018"),
     linesOfCode: 1873 + 5 + 8 + 1121 + 69 + 16 + 65 + 18 + 35 + 182 + 59 + 91 + 15 + 112 + 126 + 62 + 18 + 170 + 309 + 39 + 38 + 34,
   },
   weatherOfTheFuture: {
@@ -251,7 +251,7 @@ export const projects: { [key: string]: Project } = {
       </p>,
     ],
     technologies: [WebTechNames.html, WebTechNames.css, WebTechNames.javascript],
-    dateStarted: +new Date("Oc1600t 2, 2018"),
+    dateStarted: +new Date("Oct 16, 2018"),
     dateRetired: +new Date("Nov 11, 2018"),
     linesOfCode: 342 + 58 + 71 + 30 + 50 + 50,
   },
@@ -271,8 +271,8 @@ export const projects: { [key: string]: Project } = {
       </p>,
     ],
     technologies: [WebTechNames.html, WebTechNames.sass, WebTechNames.javascript],
-    dateStarted: 0,
-    dateRetired: 0,
+    dateStarted: +new Date("Oct 20, 2018"),
+    dateRetired: +new Date("Nov 27, 2018"),
     linesOfCode: 0,
   },
   rainSim: {

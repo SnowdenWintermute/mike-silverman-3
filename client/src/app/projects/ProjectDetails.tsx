@@ -13,7 +13,15 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
     <>
       {" "}
       <div className="project-details__tagline-with-project-links">
-        <p className="project-details__tagline">{project.tagline}</p>
+        <div className="project-details__tagline">
+          <div>{project.tagline}</div>
+          <div className="project-details__dates">
+            {project.dateStarted ? `${new Date(project.dateStarted).toLocaleString("en-US", { year: "numeric" })}` : ""}
+            {project.dateRetired && new Date(project.dateStarted).getFullYear() !== new Date(project.dateRetired).getFullYear()
+              ? ` to ${new Date(project.dateRetired).toLocaleString("en-US", { year: "numeric" })}`
+              : ""}
+          </div>
+        </div>
         <span className="project-links">
           {project.github && (
             <>
@@ -49,7 +57,7 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
         )}
         {project.mobileImage && includeMobileImage && (
           <div className="project-details__image-container">
-            <img src={project.mobileImage} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.mobileImage)} />
+            <img src={project.mobileImage} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.mobileImage || "")} />
           </div>
         )}
       </div>
@@ -78,6 +86,7 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
           ))}
         </div>
       )}
+      {project.linesOfCode ? <p>{project.linesOfCode} lines of code</p> : ""}
       <div className="project-details__description">
         {project.description && project.description.map((item, idx) => React.cloneElement(item, { key: idx }))}
       </div>
