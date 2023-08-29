@@ -29,7 +29,9 @@ function ProjectsPage() {
     if (!projectListRef.current || !selectedProjectLiRef.current) return;
     timeoutRef.current = setTimeout(() => {
       if (!projectListRef.current || !selectedProjectLiRef.current) return;
-      selectedProjectLiRef.current.scrollIntoView({ behavior: "smooth" });
+      // 1188 is the breakpoint, we won't scroll into view on full screen view because it is broken in chrome and doesn't include
+      // the border as part of the element
+      if (window.innerWidth < 1188) selectedProjectLiRef.current.scrollIntoView({ behavior: "smooth" });
       // this timeout is based on the animation of expanding the tab
     }, 650);
   }, [activeProject]);
@@ -74,7 +76,7 @@ function ProjectsPage() {
             </h2>
           </div>
           <div className="projects-page-right-box__project-details-container">
-            <div>{activeProject && <ProjectDetails project={activeProject} />}</div>
+            <div>{activeProject && <ProjectDetails project={activeProject} includeMobileImage />}</div>
           </div>
         </div>
       </section>

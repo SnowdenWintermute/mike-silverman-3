@@ -8,6 +8,7 @@ export type Project = {
   github: string;
   logo: string;
   image: string;
+  mobileImage?: string;
   video?: string;
   technologies: WebTechNames[];
   description: JSX.Element[];
@@ -25,7 +26,7 @@ export const nullProject: Project = {
   image: "",
   description: [
     <p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>,
-    <p>Select a project on the left to learn about it.</p>,
+    <p>Hover a technology icon to see the name, or select a project on the left to learn about it.</p>,
   ],
   technologies: [...Object.values(WebTechNames).map((key) => key)],
   dateStarted: 0,
@@ -41,6 +42,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/snowdenwintermute/lucella",
     logo: "/project-logos/battle-school.png",
     image: "/project-images/battle-school-pc.png",
+    mobileImage: "/project-images/battle-school-mobile.png",
     technologies: [
       WebTechNames.typescript,
       WebTechNames.nextJs,
@@ -105,6 +107,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/ellen-silverman-v3",
     logo: "/project-logos/mcguffsilverman.png",
     image: "/project-images/mcguffsilverman-pc.png",
+    mobileImage: "/project-images/mcguffsilverman-mobile.png",
     technologies: [WebTechNames.javascript, WebTechNames.react, WebTechNames.materialUi, WebTechNames.css, WebTechNames.nodeJs, WebTechNames.mongoDb],
     description: [
       <p>
@@ -176,6 +179,38 @@ export const projects: { [key: string]: Project } = {
           Ability to share TypeScript code packages between frontend and backend accross different Kubernetes pods while getting live updates to code changes in
           development. Check out the <Link href="https://www.youtube.com/watch?v=G5e_9zbbSSQ">video tutorial</Link> I made explaining how to do this.
         </li>
+        <li>
+          Kubernetes pods can send direct messages to each other. Check out the <Link href="https://www.youtube.com/watch?v=wpGTNwtVOKU">video tutorial</Link> I
+          made which has over 1.8k views and 32 likes.
+        </li>
+      </ul>,
+    ],
+    dateStarted: 0,
+    dateRetired: 0,
+    linesOfCode: 0,
+  },
+  boxswap: {
+    title: "boxswap",
+    tagline: "NFT internship",
+    url: "https://boxswap.io",
+    github: "https://github.com/boxswap",
+    logo: "/project-logos/boxswap.png",
+    image: "/project-images/boxswap-pc.png",
+    mobileImage: "/project-images/boxswap-mobile.png",
+    technologies: [WebTechNames.typescript, WebTechNames.react, WebTechNames.css],
+    description: [
+      <p>
+        An internship with a startup based in Thailand where I worked on the front end of an application which facilitates NFT swaps. During my time there I met
+        the founders of Axie Inifinity and the Co-Founder of CoinGecko.
+      </p>,
+      <h4>Features Worked On</h4>,
+      <ul>
+        <li>Landing page which is still in use today</li>
+        <li>Table displaying the tokens in users' NFT wallets</li>
+        <li>NFT search results infinite scroll component</li>
+        <li>
+          Testing a new implementation of a smart contract on the Ethereum network which would award users with NFT "badges" based on gamified use of the app
+        </li>
       </ul>,
     ],
     dateStarted: 0,
@@ -189,6 +224,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/React-RPG",
     logo: "/project-logos/react-rpg.png",
     image: "/project-images/react-rpg-pc.png",
+    mobileImage: "/project-images/react-rpg-mobile.png",
     description: [
       <p>
         One of my earliest projects - a game where players try to reach the bottom floor of the dungeon while fighting deadly monsters, learning powerful
@@ -207,6 +243,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/customWeatherApp",
     logo: "/project-logos/weather-of-the-future.png",
     image: "/project-images/weather-of-the-future-pc.png",
+    mobileImage: "/project-images/weather-of-the-future-mobile.png",
     description: [
       <p>
         Notable for the fact that it uses no frameworks or libraries, this single page app fetches and displays data from the OpenWeatherMap API. It is by
@@ -224,12 +261,13 @@ export const projects: { [key: string]: Project } = {
     url: "https://snowdenwintermute.github.io/vertices-product-page/index.html",
     github: "https://github.com/SnowdenWintermute/vertices-product-page",
     logo: "/project-logos/vertices.png",
-    image: "/project-logos/vertices.png",
+    image: "/project-images/vertices-pc.png",
+    mobileImage: "/project-images/vertices-mobile.png",
     description: [
       <p>
         Pro-bono work for a 3D graphics artist I met online. I worked with them to create the website they were envisioning, taking direction and edits from
-        them daily throughout the process. Created without the use of any frameworks, this site is notable for the responsive front page image slider which I
-        figured out how to make myself using vanilla JS and SCSS.
+        them daily throughout the process. Created without the use of any frameworks, this site is notable for the responsive carroussel component I figured out
+        how to make myself using vanilla JS and SCSS.
       </p>,
     ],
     technologies: [WebTechNames.html, WebTechNames.sass, WebTechNames.javascript],
@@ -244,6 +282,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/rainSim",
     logo: "/project-logos/rain-sim.png",
     image: "/project-images/rain-sim-pc.png",
+    mobileImage: "/project-images/rain-sim-mobile.png",
     description: [
       <p>The start of my love of the Canvas API. I wanted to make a rain simulation but ended up spending most of the time on creating the slider input.</p>,
     ],

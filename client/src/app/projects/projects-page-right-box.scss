@@ -1,9 +1,8 @@
 .projects-page-right-box {
   width: calc(100% - calc(100% * $goldenRatioFraction));
   transition: width 0.9s ease;
-  padding-left: calc(goldenRem(3) - goldenRem(2));
-  padding-right: goldenRem(3);
-  padding-bottom: goldenRem(3);
+  padding-left: 0px;
+  padding-bottom: goldenRem(2);
   display: flex;
   flex-direction: column;
   @media only screen and (max-width: goldenRem(12)) {

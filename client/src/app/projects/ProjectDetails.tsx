@@ -7,8 +7,8 @@ import Link from "next/link";
 import WebTechnologyIcon from "../components/WebTechnologyIcon";
 import TooltippedComponent from "../components/common/TooltippedComponent";
 
-export default function ProjectDetails({ project }: { project: Project }) {
-  const [viewingFullscreenImage, setViewingFullscreenImage] = useState(false);
+export default function ProjectDetails({ project, includeMobileImage }: { project: Project; includeMobileImage?: boolean }) {
+  const [fullScreenImageURI, setFullScreenImageURI] = useState("");
   return (
     <>
       {" "}
@@ -17,7 +17,9 @@ export default function ProjectDetails({ project }: { project: Project }) {
         <span className="project-links">
           {project.github && (
             <>
-              <button className="project-link-button">Visit</button>
+              <Link href={project.github} className="project-link-button">
+                View Code
+              </Link>
               <Link href={project.github} className="project-link-icon-container">
                 <TooltippedComponent tooltipText="view code">
                   <GitHubIcon className="project-link-icon" />
@@ -27,7 +29,9 @@ export default function ProjectDetails({ project }: { project: Project }) {
           )}
           {project.url && (
             <>
-              <button className="project-link-button">View Code</button>
+              <Link href={project.url} className="project-link-button project-link-button--accent">
+                Visit
+              </Link>
               <Link href={project.url} className="project-link-icon-container">
                 <TooltippedComponent tooltipText="visit">
                   <WebLinkIcon className="project-link-icon" />
@@ -37,11 +41,18 @@ export default function ProjectDetails({ project }: { project: Project }) {
           )}
         </span>
       </div>
-      {project.image && (
-        <div className="project-details__image-container" key="project-image">
-          <img src={project.image} alt="" aria-hidden={true} onClick={() => setViewingFullscreenImage(true)} />
-        </div>
-      )}
+      <div className="project-details__images">
+        {project.image && (
+          <div className="project-details__image-container">
+            <img src={project.image} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.image)} />
+          </div>
+        )}
+        {project.mobileImage && includeMobileImage && (
+          <div className="project-details__image-container">
+            <img src={project.mobileImage} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.mobileImage)} />
+          </div>
+        )}
+      </div>
       {project.video && (
         <iframe
           // width="560"
@@ -70,8 +81,8 @@ export default function ProjectDetails({ project }: { project: Project }) {
       <div className="project-details__description">
         {project.description && project.description.map((item, idx) => React.cloneElement(item, { key: idx }))}
       </div>
-      {viewingFullscreenImage && (
-        <FullScreenImageViewer key={"full screen image viewer"} image={project.image} closeViewer={() => setViewingFullscreenImage(false)} />
+      {fullScreenImageURI && (
+        <FullScreenImageViewer key={"full screen image viewer"} image={fullScreenImageURI} closeViewer={() => setFullScreenImageURI("")} />
       )}
     </>
   );
