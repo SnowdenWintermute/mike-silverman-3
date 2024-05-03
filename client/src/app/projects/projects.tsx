@@ -7,9 +7,10 @@ export type Project = {
   url: string;
   github: string;
   logo: string;
-  image: string;
+  image?: string;
   mobileImage?: string;
-  video?: string;
+  youtube_video?: string;
+  embeded_video?: string;
   technologies: WebTechNames[];
   description: JSX.Element[];
   dateStarted: number;
@@ -25,8 +26,7 @@ export const nullProject: Project = {
   logo: "",
   image: "",
   description: [
-    <p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>,
-    <p>Hover a technology icon to see the name, or select a project on the left to learn about it.</p>,
+    // <p>I have built projects using the technologies listed above, and I'm always looking for new tools to add to the toolbox.</p>,
   ],
   technologies: [...Object.values(WebTechNames).map((key) => key)],
   dateStarted: 0,
@@ -35,14 +35,45 @@ export const nullProject: Project = {
 };
 
 export const projects: { [key: string]: Project } = {
+  speedDungeon: {
+    title: "Speed Dungeon",
+    tagline: "3D Cooperative RPG",
+    url: "https://roguelikeracing.com",
+    github: "https://github.com/snowdenwintermute/roguelike-racing",
+    logo: "/project-logos/speed-dungeon.png",
+    embeded_video: "/videos/speed-dungeon.mp4",
+    technologies: [
+      WebTechNames.rust,
+      WebTechNames.yew,
+      WebTechNames.bevy,
+      WebTechNames.tailwind,
+    ],
+    description: [
+      <p>
+          A multiplayer cooperative dungeon crawler
+      </p>,
+      <h4>Features</h4>,
+      <ul>
+        <li>Robust UI of the web coupled with fast 3D graphics powered by Rust and WebAssembly</li>
+        <li>Play with friends or race against your opponents</li>
+        <li>Procedurally generated items and monsters</li>
+        <li>Control the game with the keyboard for faster dungeoneering</li>
+        <li>Trade items with your party members</li>
+      </ul>,
+    ],
+    dateStarted: +new Date("Sept 15, 2023"),
+    dateRetired: +new Date("May 2, 2024"),
+    linesOfCode: 29431,
+  },
   battleSchool: {
     title: "battleschool.io",
     tagline: "Real-time multiplayer game",
     url: "https://battleschool.io/battle-room",
     github: "https://github.com/snowdenwintermute/lucella",
     logo: "/project-logos/battle-school.png",
-    image: "/project-images/battle-school-pc.png",
-    mobileImage: "/project-images/battle-school-mobile.png",
+    // image: "/project-images/battle-school-pc.png",
+    // mobileImage: "/project-images/battle-school-mobile.png",
+    embeded_video: "/videos/battle-school.mp4",
     technologies: [
       WebTechNames.typescript,
       WebTechNames.nextJs,
@@ -61,7 +92,7 @@ export const projects: { [key: string]: Project } = {
     ],
     description: [
       <p>
-        A real time strategy game with a chat lobby and ranked matchmaking, this is the project that I have spent the most time on by far. It has been through
+        A real time strategy game with a chat lobby and ranked matchmaking. It has been through
         two full rewrites, the most recent of which included changing the database from MongoDB to Postgres.
       </p>,
       <h4>Front End Features</h4>,
@@ -152,7 +183,7 @@ export const projects: { [key: string]: Project } = {
     github: "https://github.com/SnowdenWintermute/mmo/tree/crossBorderInteractions",
     logo: "/project-logos/mmo.png",
     image: "",
-    video: "https://www.youtube.com/watch?v=mBAn0_6rcZU",
+    youtube_video: "https://www.youtube.com/watch?v=mBAn0_6rcZU",
     technologies: [
       WebTechNames.kubernetes,
       WebTechNames.docker,

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Project } from "./projects";
+import { Project, nullProject } from "./projects";
 import GitHubIcon from "../../app/img/ui/github-icon.svg";
 import WebLinkIcon from "../../app/img/ui/internet-icon.svg";
 import FullScreenImageViewer from "../components/FullScreenImageViewer";
 import Link from "next/link";
-import WebTechnologyIcon from "../components/WebTechnologyIcon";
+import WebTechnologyIcon, { WebTechCategories, getTechnologiesInCategory } from "../components/WebTechnologyIcon";
 import TooltippedComponent from "../components/common/TooltippedComponent";
 
 export default function ProjectDetails({ project, includeMobileImage }: { project: Project; includeMobileImage?: boolean }) {
@@ -49,10 +49,18 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
           )}
         </span>
       </div>
+      {project.embeded_video && (
+          <div>
+            <video controls style={{maxWidth:"750px", width:"100%"}}>
+            <source src={project.embeded_video} type="video/mp4" />
+              <a href={project.embeded_video}>MP4</a>
+            </video>
+          </div>
+      )}
       <div className="project-details__images">
         {project.image && (
           <div className="project-details__image-container">
-            <img src={project.image} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.image)} />
+            <img src={project.image} alt="" aria-hidden={true} onClick={() => setFullScreenImageURI(project.image!)} />
           </div>
         )}
         {project.mobileImage && includeMobileImage && (
@@ -61,7 +69,7 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
           </div>
         )}
       </div>
-      {project.video && (
+      {project.youtube_video && (
         <iframe
           // width="560"
           // height="315"
@@ -72,8 +80,35 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
           allowFullScreen={true}
         ></iframe>
       )}
-      <h3 className="project-details__technologies-name">Built with</h3>
-      {project.technologies && (
+      {project.title == nullProject.title && 
+        <p style={{marginBottom:".25rem"}}>🛈 Hover a technology icon to see the name</p>}
+      {project.title !== nullProject.title &&
+        <h3 className="project-details__technologies-name">Built with</h3>
+      }
+      {project.title == nullProject.title && (
+        <ul key="technology icons" style={{listStyle: "none"}}>
+           {Object.entries(WebTechCategories).map(( [ key, value ] ) => 
+           <li>
+             <p style={{fontSize: "1.25rem", marginBottom: ".25rem"}}>
+               {value}
+             </p>
+             <ul style={{display: "flex", listStyle: "none"}}>
+             {Object.entries(getTechnologiesInCategory(value)).map(([ key, value ]) => 
+              <li style={{marginRight: ".25rem"}}>
+                <WebTechnologyIcon
+                  key={value}
+                  name={value}
+                  styles="web-tech-icon"
+                  monochromeStyles="web-tech-icon--monochrome"
+                  colorStyles="web-tech-icon--color"
+                />
+              </li>
+               )}
+              </ul>
+           </li>)}
+        </ul>
+      )}
+      {project.title != nullProject.title && project.technologies && (
         <div className="project-details__technology-icons-container" key="technology icons">
           {project.technologies.map((technology) => (
             <WebTechnologyIcon
