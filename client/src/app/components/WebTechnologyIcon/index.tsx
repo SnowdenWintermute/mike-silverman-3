@@ -50,24 +50,28 @@ import TailwindIcon from "../../img/web-tech-logos/tailwind-monochrome.svg";
 import TailwindIconColor from "../../img/web-tech-logos/tailwind-color.svg";
 import TypeScriptIcon from "../../img/web-tech-logos/ts-monochrome.svg";
 import TypeScriptIconColor from "../../img/web-tech-logos/ts-color.svg";
+import ValkeyIcon from "../../img//web-tech-logos/valkey-monochrome.svg";
+import ValkeyIconColor from "../../img//web-tech-logos/valkey-color.svg";
 import WebsocketsIcon from "../../img/web-tech-logos/websockets-monochrome.svg";
 import WebsocketsIconColor from "../../img/web-tech-logos/websockets-color.svg";
 import YewIcon from "../../img/web-tech-logos/yew-monochrome.svg";
 import YewIconColor from "../../img/web-tech-logos/yew-color.svg";
+import ZustandIcon from "../../img//web-tech-logos/zustand-monochrome.svg";
+import ZustandIconColor from "../../img//web-tech-logos/zustand-color.svg";
 
 import { useAppDispatch } from "@/app/redux/hooks";
 import { setTooltipContents } from "@/app/redux/slices/ui-slice";
 
 export enum WebTechCategories {
-    programmingLanguages = "Programming Languages",
-    frontEndFrameworks = "Front End Frameworks",
-    stylingSolutions = "Styling Solutions",
-    graphics = "Graphics",
-    databases = "Databases",
-    backend = "Backend",
-    testing = "Testing",
-    deploymentInfrastructure = "Deployment Infrastructure",
-  }
+  programmingLanguages = "Programming Languages",
+  frontEndFrameworks = "Front End Frameworks",
+  stylingSolutions = "Styling Solutions",
+  graphics = "Graphics",
+  databases = "Databases",
+  backend = "Backend",
+  testing = "Testing",
+  deploymentInfrastructure = "Deployment Infrastructure",
+}
 
 export enum WebTechNames {
   bevy = "Bevy",
@@ -95,31 +99,32 @@ export enum WebTechNames {
   socketIo = "Socket.IO",
   tailwind = "Tailwind CSS",
   typescript = "TypeScript",
+  valkey = "Valkey",
   websockets = "Websockets",
   yew = "Yew",
+  zustand = "Zustand",
 }
 
 export function getTechnologiesInCategory(category: WebTechCategories) {
-    switch ( category ) {
-        case  WebTechCategories.programmingLanguages:
-        return [ WebTechNames.javascript , WebTechNames.typescript , WebTechNames.rust ];
-        case WebTechCategories.frontEndFrameworks:
-        return [ WebTechNames.yew , WebTechNames.react , WebTechNames.nextJs , WebTechNames.redux ];
-        case WebTechCategories.stylingSolutions:
-        return [ WebTechNames.css , WebTechNames.sass , WebTechNames.materialUi , WebTechNames.tailwind ];
-       case WebTechCategories.databases:
-        return [ WebTechNames.postgres , WebTechNames.redis , WebTechNames.mongoDb ];
-        case WebTechCategories.deploymentInfrastructure:
-        return [ WebTechNames.docker , WebTechNames.nginx , WebTechNames.kubernetes ];
-        case WebTechCategories.testing:
-        return [ WebTechNames.jest , WebTechNames.cypress ];
-        case WebTechCategories.graphics:
-        return [ WebTechNames.canvas , WebTechNames.bevy , WebTechNames.matterJs ];
-        default:
-          return [WebTechNames.nodeJs, WebTechNames.websockets, WebTechNames.socketIo, WebTechNames.protobuf];
-
-      };
+  switch (category) {
+    case WebTechCategories.programmingLanguages:
+      return [WebTechNames.javascript, WebTechNames.typescript, WebTechNames.rust];
+    case WebTechCategories.frontEndFrameworks:
+      return [WebTechNames.yew, WebTechNames.react, WebTechNames.nextJs, WebTechNames.redux, WebTechNames.zustand];
+    case WebTechCategories.stylingSolutions:
+      return [WebTechNames.css, WebTechNames.sass, WebTechNames.materialUi, WebTechNames.tailwind];
+    case WebTechCategories.databases:
+      return [WebTechNames.postgres, WebTechNames.redis, WebTechNames.valkey, WebTechNames.mongoDb];
+    case WebTechCategories.deploymentInfrastructure:
+      return [WebTechNames.docker, WebTechNames.nginx, WebTechNames.kubernetes];
+    case WebTechCategories.testing:
+      return [WebTechNames.jest, WebTechNames.cypress];
+    case WebTechCategories.graphics:
+      return [WebTechNames.canvas, WebTechNames.bevy, WebTechNames.matterJs];
+    default:
+      return [WebTechNames.nodeJs, WebTechNames.websockets, WebTechNames.socketIo, WebTechNames.protobuf];
   }
+}
 
 const WebTechnologyIcon = ({
   name,
@@ -176,8 +181,10 @@ const WebTechnologyIcon = ({
     [WebTechNames.socketIo]: <SocketIOIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.tailwind]: <TailwindIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.typescript]: <TypeScriptIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.valkey]: <ValkeyIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.websockets]: <WebsocketsIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.yew]: <YewIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.zustand]: <ZustandIcon className={`${styles}  ${monochromeStyles}`} />,
   };
   const colorIconsByName = {
     [WebTechNames.bevy]: <BevyIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
@@ -205,8 +212,10 @@ const WebTechnologyIcon = ({
     [WebTechNames.socketIo]: <SocketIOIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.tailwind]: <TailwindIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.typescript]: <TypeScriptIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.valkey]: <ValkeyIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.websockets]: <WebsocketsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.yew]: <YewIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.zustand]: <ZustandIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
   };
   return (
     <div ref={iconContainerRef} className="web-tech-icon__container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>

@@ -39,19 +39,26 @@ export const projects: { [key: string]: Project } = {
     title: "Speed Dungeon",
     tagline: "3D Cooperative RPG",
     url: "https://roguelikeracing.com",
-    github: "https://github.com/snowdenwintermute/roguelike-racing",
+    github: "https://github.com/snowdenwintermute/speed-dungeon",
     logo: "/project-logos/speed-dungeon.png",
     embeded_video: "/videos/speed-dungeon.mp4",
     technologies: [
-      WebTechNames.rust,
-      WebTechNames.yew,
-      WebTechNames.bevy,
+      WebTechNames.typescript,
+      WebTechNames.nextJs,
+      WebTechNames.zustand,
+      WebTechNames.nodeJs,
+      WebTechNames.socketIo,
       WebTechNames.tailwind,
+      WebTechNames.jest,
+      WebTechNames.canvas,
+      WebTechNames.redis,
+      WebTechNames.valkey,
+      WebTechNames.postgres,
+      WebTechNames.docker,
+      WebTechNames.nginx,
     ],
     description: [
-      <p>
-          A multiplayer cooperative dungeon crawler
-      </p>,
+      <p>A multiplayer cooperative dungeon crawler</p>,
       <h4>Features</h4>,
       <ul>
         <li>Robust UI of the web coupled with fast 3D graphics powered by Rust and WebAssembly</li>
@@ -92,8 +99,8 @@ export const projects: { [key: string]: Project } = {
     ],
     description: [
       <p>
-        A real time strategy game with a chat lobby and ranked matchmaking. It has been through
-        two full rewrites, the most recent of which included changing the database from MongoDB to Postgres.
+        A real time strategy game with a chat lobby and ranked matchmaking. It has been through two full rewrites, the most recent of which included changing
+        the database from MongoDB to Postgres.
       </p>,
       <h4>Front End Features</h4>,
       <ul>
