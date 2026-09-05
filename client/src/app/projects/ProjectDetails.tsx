@@ -19,7 +19,7 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
             {project.dateStarted ? `${new Date(project.dateStarted).toLocaleString("en-US", { year: "numeric" })}` : ""}
             {project.dateRetired && new Date(project.dateStarted).getFullYear() !== new Date(project.dateRetired).getFullYear()
               ? ` to ${new Date(project.dateRetired).toLocaleString("en-US", { year: "numeric" })}`
-              : ""}
+              : " to current"}
           </div>
         </div>
         <span className="project-links">
@@ -74,7 +74,7 @@ export default function ProjectDetails({ project, includeMobileImage }: { projec
           // width="560"
           // height="315"
           className="project-details__video-iframe"
-          src="https://www.youtube-nocookie.com/embed/mBAn0_6rcZU?si=2h3TUa2Y3qAbLM6X"
+          src={ `https://www.youtube-nocookie.com/embed/${project.youtube_video}` }
           title="YouTube video player"
           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen={true}

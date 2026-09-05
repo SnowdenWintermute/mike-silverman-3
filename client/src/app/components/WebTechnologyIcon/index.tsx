@@ -56,8 +56,10 @@ import WebsocketsIcon from "../../img/web-tech-logos/websockets-monochrome.svg";
 import WebsocketsIconColor from "../../img/web-tech-logos/websockets-color.svg";
 import YewIcon from "../../img/web-tech-logos/yew-monochrome.svg";
 import YewIconColor from "../../img/web-tech-logos/yew-color.svg";
-import ZustandIcon from "../../img//web-tech-logos/zustand-monochrome.svg";
+import ZustandIcon from "../../img/web-tech-logos/zustand-monochrome.svg";
 import ZustandIconColor from "../../img//web-tech-logos/zustand-color.svg";
+import BabylonjsIcon from "../../img/web-tech-logos/babylonjs-monochrome.svg";
+import BabylonjsIconColor from "../../img//web-tech-logos/babylonjs-color.svg";
 
 import { useAppDispatch } from "@/app/redux/hooks";
 import { setTooltipContents } from "@/app/redux/slices/ui-slice";
@@ -103,6 +105,7 @@ export enum WebTechNames {
   websockets = "Websockets",
   yew = "Yew",
   zustand = "Zustand",
+  babylonjs = "Babylon.js",
 }
 
 export function getTechnologiesInCategory(category: WebTechCategories) {
@@ -120,7 +123,7 @@ export function getTechnologiesInCategory(category: WebTechCategories) {
     case WebTechCategories.testing:
       return [WebTechNames.jest, WebTechNames.cypress];
     case WebTechCategories.graphics:
-      return [WebTechNames.canvas, WebTechNames.bevy, WebTechNames.matterJs];
+      return [WebTechNames.canvas, WebTechNames.bevy, WebTechNames.matterJs, WebTechNames.babylonjs];
     default:
       return [WebTechNames.nodeJs, WebTechNames.websockets, WebTechNames.socketIo, WebTechNames.protobuf];
   }
@@ -185,6 +188,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.websockets]: <WebsocketsIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.yew]: <YewIcon className={`${styles}  ${monochromeStyles}`} />,
     [WebTechNames.zustand]: <ZustandIcon className={`${styles}  ${monochromeStyles}`} />,
+    [WebTechNames.babylonjs]: <BabylonjsIcon className={`${styles}  ${monochromeStyles}`} />,
   };
   const colorIconsByName = {
     [WebTechNames.bevy]: <BevyIconColor className={`${styles}  ${colorIconStyle} ${hovering && "opacity-1"}`} />,
@@ -216,6 +220,7 @@ const WebTechnologyIcon = ({
     [WebTechNames.websockets]: <WebsocketsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.yew]: <YewIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
     [WebTechNames.zustand]: <ZustandIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
+    [WebTechNames.babylonjs]: <BabylonjsIconColor className={`${styles} ${colorIconStyle} ${hovering && "opacity-1"}`} />,
   };
   return (
     <div ref={iconContainerRef} className="web-tech-icon__container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
