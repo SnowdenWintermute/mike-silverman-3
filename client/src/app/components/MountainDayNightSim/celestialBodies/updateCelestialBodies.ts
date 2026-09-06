@@ -1,14 +1,20 @@
-import { Vector } from "matter-js";
 import { baseWorldSize } from "../../MatterSim/consts";
 import { CelestialBody } from "./createCelestialBodies";
 import { MountainDayNightSim } from "..";
-import { normalizeRadians } from "@/app/utils";
 
 export default function updateCelestialBodies(sim: MountainDayNightSim, rotation: number, bodies: CelestialBody[]) {
   sim.totalRotation = (sim.totalRotation + rotation) % (Math.PI * 2);
   rotation = rotation % (Math.PI * 2);
-  bodies.forEach((body, i) => {
-    const rotatedPosition = Vector.rotateAbout(body.position, rotation, { x: baseWorldSize.width / 2, y: baseWorldSize.height * 2 });
-    bodies[i].position = rotatedPosition;
-  });
+
+  const centerX = baseWorldSize.width / 2;
+  const centerY = baseWorldSize.height * 2;
+  const cos = Math.cos(rotation);
+  const sin = Math.sin(rotation);
+
+  for (const body of bodies) {
+    const offsetX = body.position.x - centerX;
+    const offsetY = body.position.y - centerY;
+    body.position.x = centerX + (offsetX * cos - offsetY * sin);
+    body.position.y = centerY + (offsetX * sin + offsetY * cos);
+  }
 }

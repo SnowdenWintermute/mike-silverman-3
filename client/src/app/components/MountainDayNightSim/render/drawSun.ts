@@ -15,4 +15,5 @@ export default function drawSun(context: CanvasRenderingContext2D, drawFractions
   context.shadowBlur = 200;
   context.fill();
   context.closePath();
+  context.shadowBlur = 0;
 }

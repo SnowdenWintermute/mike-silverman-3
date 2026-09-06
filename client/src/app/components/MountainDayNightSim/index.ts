@@ -5,7 +5,7 @@ import createRidgelines from "./ridgelines/createRidgelines";
 import createSineWaveMountains from "./sineWaveMountains/createSineWaveMountains";
 import createCelestialBodies, { CelestialBody } from "./celestialBodies/createCelestialBodies";
 import { ShootingStar } from "./shootingStars/ShootingStar";
-import { defaultRenderRate } from "./consts";
+import { defaultRenderRate, maxFrameDeltaMs } from "./consts";
 import { normalizeRadians } from "@/app/utils";
 
 // const celestialDiscStartAngle = 0.55;
@@ -31,14 +31,10 @@ export class MountainDayNightSim {
   deadShootingStars: { [key: string]: ShootingStar } = {};
   renderRate = defaultRenderRate;
   scrollPercent = 0;
-  timeRenderStarted = 0;
-  timeElapsed = 0;
+  deltaMs = defaultRenderRate;
   timeOfLastRender: number | null = null;
   isPaused = false;
-  intervals: {
-    physics: NodeJS.Timeout | undefined;
-    render: NodeJS.Timeout | undefined;
-  } = { physics: undefined, render: undefined };
+  animationFrameId: number | null = null;
   constructor(
     public updatePhysics: (simulation: MountainDayNightSim) => void,
     public render: (context: CanvasRenderingContext2D, canvasSize: WidthAndHeight, simulation: MountainDayNightSim) => void,
@@ -73,21 +69,31 @@ export class MountainDayNightSim {
   }
 
   cleanup() {
-    clearTimeout(this.intervals.physics);
-    this.intervals.physics = undefined;
+    if (this.animationFrameId !== null) cancelAnimationFrame(this.animationFrameId);
+    this.animationFrameId = null;
+    this.timeOfLastRender = null;
   }
 
   stepSimulation(context: CanvasRenderingContext2D, canvasSize: WidthAndHeight) {
-    this.intervals.physics = setTimeout(() => {
-      if (this.scrollPercent > 0.1 && !this.isPaused) {
-        this.timeRenderStarted = +Date.now();
-        this.updatePhysics(this);
-        this.render(context, canvasSize, this);
-        this.timeElapsed = +Date.now() - this.timeRenderStarted;
+    // cancelling a handle that already fired is a no-op, so this only bites when an outside caller
+    // starts a second loop
+    if (this.animationFrameId !== null) cancelAnimationFrame(this.animationFrameId);
+    this.animationFrameId = requestAnimationFrame((timestamp) => {
+      this.stepSimulation(context, canvasSize);
+
+      if (this.scrollPercent <= 0.1 || this.isPaused) {
+        // dropping the timestamp means the frame that resumes measures against itself rather than
+        // against however long the scene sat idle
+        this.timeOfLastRender = null;
+        return;
       }
 
-      this.stepSimulation(context, canvasSize);
-    }, this.renderRate);
-    // requestAnimationFrame(() => this.render(context, canvasSize, this));
+      const previousRenderTime = this.timeOfLastRender;
+      this.timeOfLastRender = timestamp;
+      this.deltaMs = previousRenderTime === null ? this.renderRate : Math.min(timestamp - previousRenderTime, maxFrameDeltaMs);
+
+      this.updatePhysics(this);
+      this.render(context, canvasSize, this);
+    });
   }
 }

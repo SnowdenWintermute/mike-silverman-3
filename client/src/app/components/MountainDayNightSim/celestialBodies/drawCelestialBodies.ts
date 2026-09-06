@@ -3,11 +3,12 @@ import drawCircle from "../../ResposiveCanvas/drawCircle";
 import { CelestialBody } from "./createCelestialBodies";
 import { CELESTIAL_ANGLES } from "../consts";
 import { percentBetweenTwoNumbers } from "@/app/utils";
+import { WidthAndHeight } from "@/app/types";
 
 export default function drawCelestialBodies(
   context: CanvasRenderingContext2D,
   drawFractions: Vector,
-  rotation: number,
+  canvasSize: WidthAndHeight,
   bodies: CelestialBody[],
   sunAngle: number
 ) {
@@ -24,10 +25,17 @@ export default function drawCelestialBodies(
 
   if (opacity < 0) opacity = 0;
   context.globalAlpha = opacity;
-  rotation = rotation % (Math.PI * 2);
   bodies.forEach((body, i) => {
+    // the sun is drawn separately, with its own gradient
     if (i === bodies.length - 2) return;
-    else drawCircle(context, drawFractions, body.position, body.radius, body.color, true);
+    // the celestial sphere is centred well below the horizon, so most of it is off-canvas at any
+    // given moment
+    const x = body.position.x * drawFractions.x;
+    const y = body.position.y * drawFractions.y;
+    const radiusX = body.radius * drawFractions.x;
+    const radiusY = body.radius * drawFractions.y;
+    if (x + radiusX < 0 || x - radiusX > canvasSize.width || y + radiusY < 0 || y - radiusY > canvasSize.height) return;
+    drawCircle(context, drawFractions, body.position, body.radius, body.color, true);
   });
   context.globalAlpha = 1;
 }

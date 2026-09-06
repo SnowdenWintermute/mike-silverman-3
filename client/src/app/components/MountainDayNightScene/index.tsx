@@ -63,12 +63,10 @@ export default function MountainDayNightScene() {
   }, []);
 
   useEffect(() => {
-    simulationRef.current.intervals.physics = setTimeout(() => {
-      const context = canvasRef.current?.getContext("2d");
-      if (!context || !canvasSizeRef.current) return;
-      contextRef.current = context;
-      simulationRef.current.stepSimulation(context, canvasSizeRef.current);
-    });
+    const context = canvasRef.current?.getContext("2d");
+    if (!context || !canvasSizeRef.current) return;
+    contextRef.current = context;
+    simulationRef.current.stepSimulation(context, canvasSizeRef.current);
 
     return () => {
       simulationRef.current.cleanup();

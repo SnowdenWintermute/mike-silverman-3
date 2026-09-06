@@ -1,7 +1,12 @@
 import { HSLColor, rgba } from "@/app/utils/colors";
 export const baseRotationSpeed = 0.0015;
 export const rotationSpeedPlayControlsIncrement = 0.0005;
+// the reference tick all motion constants are tuned against, in ms. Frames are paced by
+// requestAnimationFrame, so a real frame delta is divided by this to get the speed modifier.
 export const defaultRenderRate = 20;
+// a backgrounded tab stops firing rAF, so the first frame back can carry an arbitrarily large
+// delta. Clamping keeps that from teleporting the sky forward.
+export const maxFrameDeltaMs = 100;
 // export const baseRotationSpeed = 0.0125;
 
 export const CELESTIAL_ANGLES = {

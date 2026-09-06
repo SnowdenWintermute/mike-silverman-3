@@ -1,4 +1,3 @@
-import pathAlongPoints from "@/app/components/ResposiveCanvas/pathAlongPoints";
 import { getAngleFromCenter, percentBetweenTwoNumbers } from "@/app/utils";
 import { Vector } from "matter-js";
 import { SineWaveMountain } from "./createSineWaveMountain";
@@ -21,14 +20,13 @@ export default function drawSineWaveMountain(
   const { SUNRISE, MORNING_HORIZON, EARLY_MORNING, LATE_MORNING, SUNSET, EVENING_HORIZON, EARLY_EVENING, LATE_EVENING } = CELESTIAL_ANGLES;
   const baseColoredLightTransparency = 0.06;
 
-  const { peak, ridgeline } = sineWaveMountain;
+  const { litPath, shadowPath } = sineWaveMountain;
   const sunAngleToMountainCenter = getAngleFromCenter(sineWaveMountain.center, sun.position);
   let sunIsUp = false;
   if (sunAngleToMountainCenter > -Math.PI && sunAngleToMountainCenter < 0) sunIsUp = true;
   let moonIsUp = false;
   const moonAngleToMountainCenter = getAngleFromCenter(sineWaveMountain.center, moon.position);
   if (moonAngleToMountainCenter > -Math.PI && moonAngleToMountainCenter < 0) moonIsUp = true;
-  pathAlongPoints(context, drawFractions, sineWaveMountain.ridgeline);
   const minLightness = 4;
   const percentTowardForeground = percentBetweenTwoNumbers(sineWaveMountain.yOffset, 0, baseWorldSize.height);
   const sunMaxLightness = 50 * percentTowardForeground * 1.2;
@@ -44,27 +42,16 @@ export default function drawSineWaveMountain(
     rightSideLightness = right;
     leftSideLightness = left;
   }
+  context.save();
+  context.scale(drawFractions.x, drawFractions.y);
+
   context.fillStyle = hsl(materialColor.hue, materialColor.saturation, rightSideLightness);
-  context.fill();
+  context.fill(litPath);
 
-  context.moveTo(sineWaveMountain.shadowDelimitingPath[0].x * drawFractions.x, sineWaveMountain.shadowDelimitingPath[0].y * drawFractions.y);
-  context.beginPath();
-  sineWaveMountain.shadowDelimitingPath.forEach((point) => {
-    context.lineTo(point.x * drawFractions.x, point.y * drawFractions.y);
-  });
-
-  context.lineTo(ridgeline[0].x * drawFractions.x, ridgeline[0].y * drawFractions.y);
-  let peakReached = false;
-  ridgeline.forEach((point) => {
-    if (point.x === peak.x && point.y === peak.y) return (peakReached = true);
-    if (peakReached) return;
-    context.lineTo(point.x * drawFractions.x, point.y * drawFractions.y);
-  });
   context.fillStyle = hsl(materialColor.hue, materialColor.saturation, leftSideLightness);
-  context.fill();
+  context.fill(shadowPath);
 
   // colored light
-  pathAlongPoints(context, drawFractions, sineWaveMountain.ridgeline);
   if (sunAngle >= SUNRISE && sunAngle < EARLY_MORNING) {
     const percentAngle = percentBetweenTwoNumbers(sunAngle, SUNRISE, EARLY_MORNING);
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency * percentAngle);
@@ -77,5 +64,7 @@ export default function drawSineWaveMountain(
     const percentAngle = percentBetweenTwoNumbers(sunAngle, LATE_EVENING, SUNSET);
     context.fillStyle = rgba(sunColor.red, sunColor.green, sunColor.blue, baseColoredLightTransparency * (1 - percentAngle));
   } else if (sunAngle >= SUNSET * -1 && sunAngle < SUNRISE) context.fillStyle = rgba(255, 255, 255, 0);
-  context.fill();
+  context.fill(litPath);
+
+  context.restore();
 }

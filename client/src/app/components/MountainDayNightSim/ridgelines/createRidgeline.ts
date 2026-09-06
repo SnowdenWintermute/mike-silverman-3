@@ -1,3 +1,4 @@
+import { baseWorldSize } from "@/app/components/MatterSim/consts";
 import { perlin1D } from "@/app/utils/perlin";
 import { PerlinAttributes } from "@/app/utils/perlin/types";
 import { Vector } from "matter-js";
@@ -12,7 +13,16 @@ export class PeakWithRelativePoints {
 }
 
 export class Ridgeline {
-  constructor(public ridgelinePoints: Vector[], public peaksWithRelativePoints: PeakWithRelativePoints[], public ridgelinePerlins: number[]) {}
+  // in world coordinates — the draw scales it with a transform rather than rebuilding per frame
+  path: Path2D;
+  constructor(public ridgelinePoints: Vector[], public peaksWithRelativePoints: PeakWithRelativePoints[], public ridgelinePerlins: number[]) {
+    this.path = new Path2D();
+    this.path.moveTo(ridgelinePoints[0].x, ridgelinePoints[0].y);
+    ridgelinePoints.forEach((point) => this.path.lineTo(point.x, point.y));
+    this.path.lineTo(baseWorldSize.width, baseWorldSize.height);
+    this.path.lineTo(0, baseWorldSize.height);
+    this.path.closePath();
+  }
 }
 
 export default function createRidgeline(ridgelinePerlinAttributes: PerlinAttributes, baselineY: number, width: number) {

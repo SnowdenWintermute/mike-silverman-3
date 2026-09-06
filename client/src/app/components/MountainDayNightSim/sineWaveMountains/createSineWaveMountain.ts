@@ -11,7 +11,31 @@ export type SineWaveMountain = {
   pathLowestPoint: Vector;
   bottomMid: Vector;
   yOffset: number;
+  // in world coordinates — the draw scales them with a transform rather than rebuilding per frame
+  litPath: Path2D;
+  shadowPath: Path2D;
 };
+
+function createLitPath(ridgeline: Vector[]) {
+  const path = new Path2D();
+  path.moveTo(ridgeline[0].x, ridgeline[0].y);
+  ridgeline.forEach((point) => path.lineTo(point.x, point.y));
+  path.closePath();
+  return path;
+}
+
+function createShadowPath(ridgeline: Vector[], shadowDelimitingPath: Vector[], peak: Vector) {
+  const path = new Path2D();
+  path.moveTo(shadowDelimitingPath[0].x, shadowDelimitingPath[0].y);
+  shadowDelimitingPath.forEach((point) => path.lineTo(point.x, point.y));
+  path.lineTo(ridgeline[0].x, ridgeline[0].y);
+  for (const point of ridgeline) {
+    if (point.x === peak.x && point.y === peak.y) break;
+    path.lineTo(point.x, point.y);
+  }
+  path.closePath();
+  return path;
+}
 
 export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffset: number, yOffset: number, jaggedness = 50, resolution = 100) {
   const points: Vector[] = [];
@@ -72,5 +96,15 @@ export default function createSineWaveMountain(dimensions: WidthAndHeight, xOffs
   shadowDelimitingPath[shadowDelimitingPath.length - 1].y = dimensions.height + yOffset;
   shadowDelimitingPath[shadowDelimitingPath.length - 1].x = shadowDelimitingPath[shadowDelimitingPath.length - 2].x;
 
-  return { ridgeline: points, peak, center, shadowDelimitingPath, pathLowestPoint, bottomMid: { x: peak.x, y: peak.y + distancePeakToFloor }, yOffset };
+  return {
+    ridgeline: points,
+    peak,
+    center,
+    shadowDelimitingPath,
+    pathLowestPoint,
+    bottomMid: { x: peak.x, y: peak.y + distancePeakToFloor },
+    yOffset,
+    litPath: createLitPath(points),
+    shadowPath: createShadowPath(points, shadowDelimitingPath, peak),
+  };
 }
